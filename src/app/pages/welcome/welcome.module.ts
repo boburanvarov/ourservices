@@ -10,6 +10,8 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzFormModule} from "ng-zorro-antd/form";
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzSelectModule,
     NzFormModule,
     NzButtonModule,
-    NzIconModule
+    NzIconModule,
+    NzInputModule,
+    NzDatePickerModule
   ],
   declarations: [WelcomeComponent, OurComponent],
   exports: [WelcomeComponent]

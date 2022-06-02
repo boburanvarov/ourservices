@@ -8,6 +8,10 @@ import {FormBuilder} from "@angular/forms";
 })
 export class WelcomeComponent implements OnInit {
 
+  showLogin = false;
+  passwordVisible = false;
+  passwordVisible2 = false;
+
   constructor(
     private fb: FormBuilder
   ) { }
@@ -27,7 +31,18 @@ export class WelcomeComponent implements OnInit {
   vacanciesForm= this.fb.group({
     vacancies: []
   })
+
+  passportForm= this.fb.group({
+    series: [],
+    number: [],
+    birthDate: []
+  })
+
   ngOnInit() {
+  }
+
+  onChange(result: Date): void {
+    console.log('onChange: ', result);
   }
 
 }
