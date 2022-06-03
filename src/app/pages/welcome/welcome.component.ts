@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../shared/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-welcome',
@@ -8,12 +10,12 @@ import {FormBuilder} from "@angular/forms";
 })
 export class WelcomeComponent implements OnInit {
 
-  showLogin = false;
-  passwordVisible = false;
-  passwordVisible2 = false;
+
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService$: AuthService,
+    private router: Router
   ) { }
 
   vacanciesBlock=[
@@ -28,9 +30,9 @@ export class WelcomeComponent implements OnInit {
     },
   ]
 
-  vacanciesForm= this.fb.group({
-    vacancies: []
-  })
+  // vacanciesForm= this.fb.group({
+  //   vacancies: []
+  // })
 
   passportForm= this.fb.group({
     series: [],
@@ -39,10 +41,21 @@ export class WelcomeComponent implements OnInit {
   })
 
   ngOnInit() {
+    const body = {
+      username: 'DavrVacancy',
+      password: 'davr2001'
+    }
+    this.authService$.login(body).subscribe((res)=>{
+
+      console.log(res)
+      sessionStorage.setItem('login' ,JSON.stringify(res))
+    })
   }
 
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
+
+
 
 }

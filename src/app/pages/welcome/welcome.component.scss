@@ -2,7 +2,7 @@
 
 
 .main {
-  background: linear-gradient(90deg, rgba(55, 255, 42, 0.9), #2507f8);
+  //background: linear-gradient(90deg, rgba(55, 255, 42, 0.9), #2507f8);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
 .login {
   width: 320px;
   padding: 30px;
-  padding-top: 130px;
+  padding-top: 110px;
 }
 
 .logo {
@@ -107,9 +107,15 @@
 }
 
 .login__field {
-  padding: 18px 0px;
+  //padding: 10px 0px;
   position: relative;
 }
+
+.login__field button{
+  display: flex;
+  justify-content: center;
+}
+
 
 //.login__icon {
 //  position: absolute;
@@ -212,59 +218,3 @@
 }
 
 
-
-//box
-.box{
-  padding: 15px;
-  height: auto;
-  width: 360px;
-  border: none;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0px 0px 24px #121010;
-  margin-top: -120px;
-  position: relative;
-}
-.box form .group-item{
-  margin: 15px 0;
-}
-
-i {
-  cursor: pointer;
-}
-.box form .group-item label{
-  display: block;
-  color: #4C489D;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.box form .group-item.series .ant-input-affix-wrapper{
-  width: 150px;
-  padding: 6px;
-}
-
-::ng-deep .ant-input-affix-wrapper,
-::ng-deep  .ant-picker {
-  //width: 150px;
-  //padding: 6px;
-  border: 1px solid #0fa50f !important;
-}
-.search{
-  background:  #162be4;
-  float: right;
-  width: 100px;
-  height: 35px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  transition: 0.5s;
-}
-
-.search:hover{
-  transition: .8s;
-  border: 1px solid  #162be4;
-  background: none;
-  color:  #162be4;
-}

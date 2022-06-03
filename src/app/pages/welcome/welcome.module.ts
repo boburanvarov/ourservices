@@ -12,6 +12,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import {VacanciesComponent} from "../../shared/components/vacancies/vacancies.component";
+import {NzCollapseModule} from "ng-zorro-antd/collapse";
 
 @NgModule({
   imports: [
@@ -24,9 +26,14 @@ import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
     NzButtonModule,
     NzIconModule,
     NzInputModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzCollapseModule
   ],
-  declarations: [WelcomeComponent, OurComponent],
+  declarations: [
+    WelcomeComponent,
+    OurComponent,
+    VacanciesComponent,
+  ],
   exports: [WelcomeComponent]
 })
 export class WelcomeModule { }
