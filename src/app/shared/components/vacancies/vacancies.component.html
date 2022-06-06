@@ -1,0 +1,42 @@
+
+<div class="main">
+<div class="header">
+  <h1 class="header-title">
+    Vakansiyalar
+  </h1>
+  <div class="logo">
+    <img src="../../../../assets/img.png" alt="#">
+    <!--    <img src="../../../../assets/logo2.png" alt="#">-->
+  </div>
+</div>
+
+
+
+  <div class="accardion-block">
+      <p-accordion >
+          <p-accordionTab  *ngFor="let panel of vacancies">
+              <ng-template pTemplate="header">
+                  <div class="panel-header">
+                      <h5 class="headerText">{{panel?.position?.name}}</h5>
+                      <span class="headerSubtitle">{{panel?.position?.createdAt}}</span>
+                  </div>
+              </ng-template>
+              <ng-template pTemplate="content">
+                  <div class="accardionBody">
+                                  <h6 class="accardionText">
+                                    {{panel?.position?.description}}
+                                  </h6>
+                                  <button class="resume" (click)="resume()">
+                                    Resume yuborish
+                                  </button>
+                                </div>
+              </ng-template>
+          </p-accordionTab>
+
+
+      </p-accordion>
+
+  </div>
+
+</div>
+

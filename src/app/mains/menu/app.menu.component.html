@@ -1,0 +1,15 @@
+<ul class="layout-menu">
+    <li class="menu-item"
+    routerLink="/" routerLinkActive="active current"
+    [routerLinkActiveOptions]='{exact:true}'>
+        <i class="pi pi-fw pi-home"></i>
+        Favorites
+    </li>
+
+    <li class="menu-item"
+    *ngIf="userInfo  && userInfo  === 'ROLE_ADMIN' "
+    routerLink="list" routerLinkActive="active current">
+        <i class="pi pi-fw pi-align-left"></i>
+        Список операци
+    </li>
+</ul>

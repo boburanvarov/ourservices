@@ -1,0 +1,15 @@
+.layout-menu{
+    display: flex;
+    align-items: center;
+    gap: 0 30px;
+    color: #f1f1f1;
+    .menu-item{
+        display: flex;
+        align-items: center;
+        gap: 0 5px;
+        cursor: pointer;
+    }
+    .menu-item.active{
+        color: rgb(10, 219, 247);
+    }
+}
