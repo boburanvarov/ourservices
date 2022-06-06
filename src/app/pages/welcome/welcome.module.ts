@@ -3,37 +3,35 @@ import { CommonModule } from '@angular/common';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 
 import { WelcomeComponent } from './welcome.component';
-import {NzLayoutModule} from "ng-zorro-antd/layout";
-import { OurComponent } from '../../shared/components/our/our.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {NzSelectModule} from "ng-zorro-antd/select";
-import {NzFormModule} from "ng-zorro-antd/form";
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
-import {VacanciesComponent} from "../../shared/components/vacancies/vacancies.component";
-import {NzCollapseModule} from "ng-zorro-antd/collapse";
+import {ReactiveFormsModule} from '@angular/forms';
+import {OurComponent} from '../../shared/components/our/our.component';
+import {VacanciesComponent} from '../../shared/components/vacancies/vacancies.component';
+import {AccordionModule} from 'primeng/accordion';
+import {CalendarModule} from 'primeng/calendar';
+import {InputTextModule} from 'primeng/inputtext';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
+import {MessageService} from 'primeng/api';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    WelcomeRoutingModule,
-    ReactiveFormsModule,
-    NzLayoutModule,
-    NzSelectModule,
-    NzFormModule,
-    NzButtonModule,
-    NzIconModule,
-    NzInputModule,
-    NzDatePickerModule,
-    NzCollapseModule
-  ],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        WelcomeRoutingModule,
+        ReactiveFormsModule,
+        AccordionModule,
+        InputTextModule,
+        CalendarModule,
+        FileUploadModule,
+    ],
   declarations: [
     WelcomeComponent,
     OurComponent,
     VacanciesComponent,
   ],
-  exports: [WelcomeComponent]
+  exports: [WelcomeComponent],
+    providers: [
+        MessageService
+    ]
 })
 export class WelcomeModule { }
