@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
 import {VacanciesService} from '../../services/vacancies.service';
 import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
@@ -14,6 +14,7 @@ export class OurComponent implements OnInit {
     showLogin = false;
     passwordVisible = false;
     passwordVisible2 = false;
+    languages: any[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -52,7 +53,7 @@ export class OurComponent implements OnInit {
             Validators.minLength(4)
         ]
         ],
-        lName:  ['', [
+        lName: ['', [
             Validators.required,
             Validators.maxLength(100),
             Validators.minLength(5)
@@ -74,9 +75,121 @@ export class OurComponent implements OnInit {
         email: ['', Validators.required],
     });
 
-    uploadedFiles: any[] = [];
-    ngOnInit() {
+    workExperience = this.fb.group({
+        workExprienceElements: this.fb.array([])
+    });
+
+    educationInfo = this.fb.group({
+        educationInfoElements: this.fb.array([])
+    });
+
+
+    relativeInfo = this.fb.group({
+        relativeInfoElements: this.fb.array([])
+    });
+
+    languagesForm = this.fb.group({
+        languages: ['', Validators.required]
+    })
+
+    get workExprienceElements() {
+        return this.workExperience.get('workExprienceElements') as FormArray;
     }
+
+    get educationInfoElements() {
+        return this.educationInfo.get('educationInfoElements') as FormArray;
+    }
+
+    get relativeInfoElements() {
+        return this.relativeInfo.get('relativeInfoElements') as FormArray;
+    }
+
+    newWorkExperience() {
+        return this.fb.group({
+            start_date: ['', Validators.required],
+            end_date: ['', Validators.required],
+            company: ['', Validators.required],
+            position: ['', Validators.required],
+        });
+    }
+
+    newEducationInfo() {
+        return this.fb.group({
+            start_date: ['', Validators.required],
+            end_date: ['', Validators.required],
+            name: ['', Validators.required],
+            faculty: ['', Validators.required],
+        });
+    }
+
+    newRelativeInfo() {
+        return this.fb.group({
+            kinship: ['', Validators.required],
+            first_name: ['', Validators.required],
+            last_name: ['', Validators.required],
+            middle_name: ['', Validators.required],
+            birth_date: ['', Validators.required],
+            birth_place: ['', Validators.required],
+            position: ['', Validators.required],
+            living_place: ['', Validators.required],
+        });
+    }
+
+    uploadedFiles: any[] = [];
+
+    ngOnInit() {
+        this.workExprienceElements.push(this.newWorkExperience());
+        this.educationInfoElements.push(this.newEducationInfo());
+        this.relativeInfoElements.push(this.newRelativeInfo());
+        this.getLanguages();
+    }
+
+
+    //addWork
+    add(elementName: any) {
+        if(elementName === this.workExprienceElements) {
+            console.log(elementName, 'elem');
+            elementName.push(this.newWorkExperience());
+        }
+
+        if(elementName === this.educationInfoElements){
+            elementName.push(this.newEducationInfo());
+        }
+
+        if(elementName === this.relativeInfoElements){
+            elementName.push(this.newRelativeInfo());
+        }
+
+    }
+
+    //deleteWork
+    deleteItem(index: number, elementName: any) {
+        if(elementName === this.workExprienceElements) {
+            this.workExprienceElements.removeAt(index);
+        }
+
+        if(elementName === this.educationInfoElements){
+            this.educationInfoElements.removeAt(index);
+        }
+
+        if(elementName === this.relativeInfoElements){
+            this.relativeInfoElements.removeAt(index);
+        }
+
+    }
+
+
+    // //addEduction
+    // addEducation() {
+    //     console.log(this.languagesForm.get('languages').value, 'lang');
+    //     this.educationInfoElements.push(this.newEducationInfo());
+    // }
+
+    // //deleteEduction
+    // deleteEducation(index: number) {
+    //     this.educationInfoElements.removeAt(index);
+    // }
+
 
 
     dateFormater(date: any) {
@@ -84,11 +197,18 @@ export class OurComponent implements OnInit {
     }
 
     onBasicUploadAuto(event) {
-        for(let file of event.files) {
+        for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
 
         this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    }
+
+    getLanguages() {
+        this.vacanciesService.getAllLanguages().subscribe((res) => {
+            this.languages = res;
+
+        });
     }
 
     // onChange(result: Date): void {

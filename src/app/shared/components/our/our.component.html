@@ -12,7 +12,7 @@
 
     <div class="content">
 
-        <div class="box"  *ngIf="showLogin">
+        <div class="box" *ngIf="showLogin">
 
             <form [formGroup]="passportForm" (submit)="passportSubmit()" class="box-form">
                 <div class="group-item series">
@@ -71,156 +71,159 @@
 
         </div>
 
-        <div class="box2" *ngIf="!showLogin">
+        <div class="block" *ngIf="!showLogin">
             <h3 class="box-title">Основная информация</h3>
-            <div class="block">
+            <div class="box2">
                 <form [formGroup]="basicInfor">
 
-                  <div class="p-grid p-formgrid ">
-                      <div class="p-field p-col-6 ">
-                          <div class="group-item">
-                              <label for="fName">Фамилия</label>
-                              <input id="fName" type="text" pInputText formControlName="fName">
+                    <div class="p-grid p-formgrid ">
+                        <div class="p-field p-col-6 ">
+                            <div class="group-item">
+                                <label for="fName">Фамилия</label>
+                                <input id="fName" type="text" pInputText formControlName="fName">
 
-                              <div *ngIf="passportForm.get('fName')?.invalid && passportForm.get('fName').touched"
-                                   class="p-invalid">
-                                  <small *ngIf="passportForm.get('fName').errors.required">Поле обязателен</small>
-                                  <small *ngIf="passportForm.get('fName').errors.maxlength">
-                                      Пасспорт Серия должна состоять не более чем из
-                                      {{passportForm.get('fName').errors.maxlength.requiredLength}} букв
-                                  </small>
-                                  <small *ngIf="passportForm.get('fName').errors.minlength">
-                                      Серия паспорта должна состоять не менее чем из
-                                      {{passportForm.get('fName').errors.minlength.requiredLength}} букв
-                                  </small>
-                              </div>
-
-
-                          </div>
-
-                          <div class="group-item">
-                              <label for="name">Имя</label>
-                              <input id="name" type="text" pInputText formControlName="name">
-
-                              <div *ngIf="passportForm.get('name')?.invalid && passportForm.get('name').touched"
-                                   class="p-invalid">
-                                  <small *ngIf="passportForm.get('name').errors.required">Поле обязателен</small>
-                                  <small *ngIf="passportForm.get('name').errors.maxlength">
-                                      Пасспорт Серия должна состоять не более чем из
-                                      {{passportForm.get('name').errors.maxlength.requiredLength}} букв
-                                  </small>
-                                  <small *ngIf="passportForm.get('name').errors.minlength">
-                                      Серия паспорта должна состоять не менее чем из
-                                      {{passportForm.get('name').errors.minlength.requiredLength}} букв
-                                  </small>
-                              </div>
+                                <div *ngIf="passportForm.get('fName')?.invalid && passportForm.get('fName').touched"
+                                     class="p-invalid">
+                                    <small *ngIf="passportForm.get('fName').errors.required">Поле обязателен</small>
+                                    <small *ngIf="passportForm.get('fName').errors.maxlength">
+                                        Пасспорт Серия должна состоять не более чем из
+                                        {{passportForm.get('fName').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="passportForm.get('fName').errors.minlength">
+                                        Серия паспорта должна состоять не менее чем из
+                                        {{passportForm.get('fName').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
 
 
+                            </div>
 
-                          </div>
+                            <div class="group-item">
+                                <label for="name">Имя</label>
+                                <input id="name" type="text" pInputText formControlName="name">
 
-                          <div class="group-item">
-                              <label for="lName">Отчество</label>
-                              <input id="lName" type="text" pInputText formControlName="lName">
-
-                              <div *ngIf="passportForm.get('lName')?.invalid && passportForm.get('lName').touched"
-                                   class="p-invalid">
-                                  <small *ngIf="passportForm.get('lName').errors.required">Поле обязателен</small>
-                                  <small *ngIf="passportForm.get('lName').errors.maxlength">
-                                      Пасспорт Серия должна состоять не более чем из
-                                      {{passportForm.get('lName').errors.maxlength.requiredLength}} букв
-                                  </small>
-                                  <small *ngIf="passportForm.get('lName').errors.minlength">
-                                      Серия паспорта должна состоять не менее чем из
-                                      {{passportForm.get('lName').errors.minlength.requiredLength}} букв
-                                  </small>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="img-block p-field p-col-6 ">
-                          <p-fileUpload  mode="basic" name="demo[]"  accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)"  chooseIcon="pi-camera" chooseLabel="Прикрепить фотографию"></p-fileUpload>
-                      </div>
-                  </div>
-
-                    <div class="p-grid p-formgrid" >
-
-                          <div class="group-item  p-field p-col-6">
-                              <label for="birth_date">Дата рождения</label>
-                              <input id="birth_date" type="text" pInputText formControlName="birth_date">
-
-                              <div *ngIf="passportForm.get('birth_date')?.invalid && passportForm.get('birth_date').touched"
-                                   class="p-invalid">
-                                  <small *ngIf="passportForm.get('birth_date').errors.required">Поле обязателен</small>
-                                  <small *ngIf="passportForm.get('birth_date').errors.maxlength">
-                                      Пасспорт Серия должна состоять не более чем из
-                                      {{passportForm.get('birth_date').errors.maxlength.requiredLength}} букв
-                                  </small>
-                                  <small *ngIf="passportForm.get('birth_date').errors.minlength">
-                                      Серия паспорта должна состоять не менее чем из
-                                      {{passportForm.get('birth_date').errors.minlength.requiredLength}} букв
-                                  </small>
-                              </div>
+                                <div *ngIf="passportForm.get('name')?.invalid && passportForm.get('name').touched"
+                                     class="p-invalid">
+                                    <small *ngIf="passportForm.get('name').errors.required">Поле обязателен</small>
+                                    <small *ngIf="passportForm.get('name').errors.maxlength">
+                                        Пасспорт Серия должна состоять не более чем из
+                                        {{passportForm.get('name').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="passportForm.get('name').errors.minlength">
+                                        Серия паспорта должна состоять не менее чем из
+                                        {{passportForm.get('name').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
 
 
-                          </div>
+                            </div>
 
-                          <div class="group-item  p-field p-col-6">
-                              <label for="birth_place">Город проживания</label>
-                              <input id="birth_place" type="text" pInputText formControlName="birth_place">
+                            <div class="group-item">
+                                <label for="lName">Отчество</label>
+                                <input id="lName" type="text" pInputText formControlName="lName">
 
-                              <div *ngIf="passportForm.get('birth_place')?.invalid && passportForm.get('birth_place').touched"
-                                   class="p-invalid">
-                                  <small *ngIf="passportForm.get('birth_place').errors.required">Поле обязателен</small>
-                                  <small *ngIf="passportForm.get('birth_place').errors.maxlength">
-                                      Пасспорт Серия должна состоять не более чем из
-                                      {{passportForm.get('birth_place').errors.maxlength.requiredLength}} букв
-                                  </small>
-                                  <small *ngIf="passportForm.get('birth_place').errors.minlength">
-                                      Серия паспорта должна состоять не менее чем из
-                                      {{passportForm.get('birth_place').errors.minlength.requiredLength}} букв
-                                  </small>
-                              </div>
+                                <div *ngIf="passportForm.get('lName')?.invalid && passportForm.get('lName').touched"
+                                     class="p-invalid">
+                                    <small *ngIf="passportForm.get('lName').errors.required">Поле обязателен</small>
+                                    <small *ngIf="passportForm.get('lName').errors.maxlength">
+                                        Пасспорт Серия должна состоять не более чем из
+                                        {{passportForm.get('lName').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="passportForm.get('lName').errors.minlength">
+                                        Серия паспорта должна состоять не менее чем из
+                                        {{passportForm.get('lName').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="img-block p-field p-col-6 ">
+                            <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
+                                          (onUpload)="onBasicUploadAuto($event)" chooseIcon="pi-camera"
+                                          chooseLabel="Прикрепить фотографию"></p-fileUpload>
+                        </div>
+                    </div>
+
+                    <div class="p-grid p-formgrid">
+
+                        <div class="group-item  p-field p-col-6">
+                            <label for="birth_date">Дата рождения</label>
+                            <input id="birth_date" type="text" pInputText formControlName="birth_date">
+
+                            <div
+                                *ngIf="passportForm.get('birth_date')?.invalid && passportForm.get('birth_date').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('birth_date').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('birth_date').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('birth_date').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('birth_date').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('birth_date').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
 
 
+                        </div>
 
-                          </div>
+                        <div class="group-item  p-field p-col-6">
+                            <label for="birth_place">Город проживания</label>
+                            <input id="birth_place" type="text" pInputText formControlName="birth_place">
 
-                           <div class="group-item  p-field p-col-6">
-                               <label for="nationality">Национальность</label>
-                               <input id="nationality" type="text" pInputText formControlName="nationality">
+                            <div
+                                *ngIf="passportForm.get('birth_place')?.invalid && passportForm.get('birth_place').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('birth_place').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('birth_place').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('birth_place').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('birth_place').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('birth_place').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
 
-                               <div *ngIf="passportForm.get('nationality')?.invalid && passportForm.get('nationality').touched"
-                                    class="p-invalid">
-                                   <small *ngIf="passportForm.get('nationality').errors.required">Поле обязателен</small>
-                                   <small *ngIf="passportForm.get('nationality').errors.maxlength">
-                                       Пасспорт Серия должна состоять не более чем из
-                                       {{passportForm.get('nationality').errors.maxlength.requiredLength}} букв
-                                   </small>
-                                   <small *ngIf="passportForm.get('nationality').errors.minlength">
-                                       Серия паспорта должна состоять не менее чем из
-                                       {{passportForm.get('nationality').errors.minlength.requiredLength}} букв
-                                   </small>
-                               </div>
-                           </div>
 
-                           <div class="group-item  p-field p-col-6">
-                               <label for="phone">Телефон</label>
-                               <input id="phone" type="text" pInputText formControlName="phone">
+                        </div>
 
-                               <div *ngIf="passportForm.get('phone')?.invalid && passportForm.get('phone').touched"
-                                    class="p-invalid">
-                                   <small *ngIf="passportForm.get('phone').errors.required">Поле обязателен</small>
-                                   <small *ngIf="passportForm.get('phone').errors.maxlength">
-                                       Пасспорт Серия должна состоять не более чем из
-                                       {{passportForm.get('phone').errors.maxlength.requiredLength}} букв
-                                   </small>
-                                   <small *ngIf="passportForm.get('phone').errors.minlength">
-                                       Серия паспорта должна состоять не менее чем из
-                                       {{passportForm.get('phone').errors.minlength.requiredLength}} букв
-                                   </small>
-                               </div>
-                           </div>
+                        <div class="group-item  p-field p-col-6">
+                            <label for="nationality">Национальность</label>
+                            <input id="nationality" type="text" pInputText formControlName="nationality">
+
+                            <div
+                                *ngIf="passportForm.get('nationality')?.invalid && passportForm.get('nationality').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('nationality').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('nationality').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('nationality').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('nationality').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('nationality').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item  p-field p-col-6">
+                            <label for="phone">Телефон</label>
+                            <input id="phone" type="text" pInputText formControlName="phone">
+
+                            <div *ngIf="passportForm.get('phone')?.invalid && passportForm.get('phone').touched"
+                                 class="p-invalid">
+                                <small *ngIf="passportForm.get('phone').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('phone').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('phone').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('phone').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('phone').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -231,156 +234,154 @@
         </div>
 
 
-
-
-        <div class="box2 " *ngIf="!showLogin">
+        <div class="block " *ngIf="!showLogin">
             <h3 class="box-title">Личная информация</h3>
-            <div class="block">
+            <div class="box2">
                 <form [formGroup]="personalInfor">
 
                     <div class="p-grid p-fluid p-formgrid  ">
 
-                            <div class="group-item p-field p-col-12 p-md-12">
-                                <label for="partisanship">Партийность</label>
-                                <input id="partisanship" type="text" pInputText formControlName="partisanship">
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="partisanship">Партийность</label>
+                            <input id="partisanship" type="text" pInputText formControlName="partisanship">
 
-                                <div
-                                    *ngIf="passportForm.get('partisanship')?.invalid && passportForm.get('partisanship').touched"
-                                    class="p-invalid">
-                                    <small *ngIf="passportForm.get('partisanship').errors.required">Поле
-                                        обязателен</small>
-                                    <small *ngIf="passportForm.get('partisanship').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('partisanship').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('partisanship').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('partisanship').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
+                            <div
+                                *ngIf="passportForm.get('partisanship')?.invalid && passportForm.get('partisanship').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('partisanship').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('partisanship').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('partisanship').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('partisanship').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('partisanship').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="education_degree">Степень образования</label>
+                            <input id="education_degree" type="text" pInputText formControlName="education_degree">
+
+                            <div
+                                *ngIf="passportForm.get('education_degree')?.invalid && passportForm.get('education_degree').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('education_degree').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('education_degree').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('education_degree').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('education_degree').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('education_degree').errors.minlength.requiredLength}} букв
+                                </small>
                             </div>
 
-                            <div class="group-item p-field p-col-12 p-md-12">
-                                <label for="education_degree">Степень образования</label>
-                                <input id="education_degree" type="text" pInputText formControlName="education_degree">
 
-                                <div
-                                    *ngIf="passportForm.get('education_degree')?.invalid && passportForm.get('education_degree').touched"
-                                    class="p-invalid">
-                                    <small *ngIf="passportForm.get('education_degree').errors.required">Поле
-                                        обязателен</small>
-                                    <small *ngIf="passportForm.get('education_degree').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('education_degree').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('education_degree').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('education_degree').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
+                        </div>
 
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="specialty">Специальность</label>
+                            <input id="specialty" type="text" pInputText formControlName="specialty">
 
+                            <div
+                                *ngIf="passportForm.get('specialty')?.invalid && passportForm.get('nationality').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('specialty').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('specialty').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('specialty').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('specialty').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('specialty').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="academic_degree">Ученая степень</label>
+                            <input id="academic_degree" type="text" pInputText formControlName="academic_degree">
+
+                            <div
+                                *ngIf="passportForm.get('academic_degree')?.invalid && passportForm.get('academic_degree').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('academic_degree').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('academic_degree').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('academic_degree').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('academic_degree').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('academic_degree').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="awards">Награды</label>
+                            <input id="awards" type="text" pInputText formControlName="partisanship">
+
+                            <div *ngIf="passportForm.get('awards')?.invalid && passportForm.get('awards').touched"
+                                 class="p-invalid">
+                                <small *ngIf="passportForm.get('awards').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('awards').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('awards').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('awards').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('awards').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="government_agencies">Государственные учреждения</label>
+                            <input id="government_agencies" type="text" pInputText
+                                   formControlName="government_agencies">
+
+                            <div
+                                *ngIf="passportForm.get('government_agencies')?.invalid && passportForm.get('government_agencies').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('government_agencies').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('government_agencies').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('government_agencies').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('government_agencies').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('government_agencies').errors.minlength.requiredLength}} букв
+                                </small>
                             </div>
 
-                            <div class="group-item p-field p-col-12 p-sm-12">
-                                <label for="specialty">Специальность</label>
-                                <input id="specialty" type="text" pInputText formControlName="specialty">
 
-                                <div
-                                    *ngIf="passportForm.get('specialty')?.invalid && passportForm.get('nationality').touched"
-                                    class="p-invalid">
-                                    <small *ngIf="passportForm.get('specialty').errors.required">Поле обязателен</small>
-                                    <small *ngIf="passportForm.get('specialty').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('specialty').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('specialty').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('specialty').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="email">Государственные учреждения</label>
+                            <input id="email" type="text" pInputText formControlName="email">
+
+                            <div *ngIf="passportForm.get('email')?.invalid && passportForm.get('email').touched"
+                                 class="p-invalid">
+                                <small *ngIf="passportForm.get('email').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('email').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('email').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('email').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('email').errors.minlength.requiredLength}} букв
+                                </small>
                             </div>
 
-                            <div class="group-item p-field p-col-12 p-sm-12">
-                                <label for="academic_degree">Ученая степень</label>
-                                <input id="academic_degree" type="text" pInputText formControlName="academic_degree">
 
-                                <div
-                                    *ngIf="passportForm.get('academic_degree')?.invalid && passportForm.get('academic_degree').touched"
-                                    class="p-invalid">
-                                    <small *ngIf="passportForm.get('academic_degree').errors.required">Поле
-                                        обязателен</small>
-                                    <small *ngIf="passportForm.get('academic_degree').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('academic_degree').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('academic_degree').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('academic_degree').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
-                            </div>
-
-                            <div class="group-item p-field p-col-12 p-sm-12">
-                                <label for="awards">Награды</label>
-                                <input id="awards" type="text" pInputText formControlName="partisanship">
-
-                                <div *ngIf="passportForm.get('awards')?.invalid && passportForm.get('awards').touched"
-                                     class="p-invalid">
-                                    <small *ngIf="passportForm.get('awards').errors.required">Поле обязателен</small>
-                                    <small *ngIf="passportForm.get('awards').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('awards').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('awards').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('awards').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
-                            </div>
-
-                            <div class="group-item p-field p-col-12 p-sm-12">
-                                <label for="government_agencies">Государственные учреждения</label>
-                                <input id="government_agencies" type="text" pInputText
-                                       formControlName="government_agencies">
-
-                                <div
-                                    *ngIf="passportForm.get('government_agencies')?.invalid && passportForm.get('government_agencies').touched"
-                                    class="p-invalid">
-                                    <small *ngIf="passportForm.get('government_agencies').errors.required">Поле
-                                        обязателен</small>
-                                    <small *ngIf="passportForm.get('government_agencies').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('government_agencies').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('government_agencies').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('government_agencies').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
-
-
-                            </div>
-
-                            <div class="group-item p-field p-col-12 p-sm-12">
-                                <label for="email">Государственные учреждения</label>
-                                <input id="email" type="text" pInputText formControlName="email">
-
-                                <div *ngIf="passportForm.get('email')?.invalid && passportForm.get('email').touched"
-                                     class="p-invalid">
-                                    <small *ngIf="passportForm.get('email').errors.required">Поле обязателен</small>
-                                    <small *ngIf="passportForm.get('email').errors.maxlength">
-                                        Пасспорт Серия должна состоять не более чем из
-                                        {{passportForm.get('email').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="passportForm.get('email').errors.minlength">
-                                        Серия паспорта должна состоять не менее чем из
-                                        {{passportForm.get('email').errors.minlength.requiredLength}} букв
-                                    </small>
-                                </div>
-
-
-                            </div>
+                        </div>
 
 
                     </div>
@@ -388,6 +389,405 @@
                 </form>
 
             </div>
+        </div>
+
+<!--dinamics block-->
+        <div class="block " *ngIf="!showLogin">
+            <h3 class="box-title">Опыт работы</h3>
+            <p class="box-subtitle">Укажите ваши предыдущие места работы - большинство работодателей предпочитают
+                опытных сотрудников</p>
+
+                <form [formGroup]="workExperience">
+                    <div  formArrayName="workExprienceElements">
+                        <div class="p-grid p-fluid p-formgrid box2"
+                             *ngFor="let items of workExprienceElements.controls; let index = index"
+                             [formGroupName]="index">
+                            <div class="delete-block p-col-12">
+                                <button pButton pRipple type="button" icon="pi pi-times"
+                                        class="p-button-rounded p-button-danger" (click)="deleteItem(index, workExprienceElements)"></button>
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="start_date">Устроился</label>
+                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                            inputId="icon"
+                                            id="start_date"></p-calendar>
+
+                                <small class="p-invalid"
+                                       *ngIf="
+                      passportForm.get('start_date')?.errors &&
+                      passportForm.get('start_date')?.touched"
+                                >Поле обязателен</small>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="end_date">Уволился</label>
+                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                            inputId="icon"
+                                            id="end_date"></p-calendar>
+
+                                <small class="p-invalid"
+                                       *ngIf="
+                      passportForm.get('end_date')?.errors &&
+                      passportForm.get('end_date')?.touched"
+                                >Поле обязателен</small>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="company">Организация</label>
+                                <input id="company" type="text" pInputText formControlName="company">
+
+                                <div
+                                    *ngIf="passportForm.get('company')?.invalid && passportForm.get('company').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="passportForm.get('company').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="passportForm.get('company').errors.maxlength">
+                                        Пасспорт Серия должна состоять не более чем из
+                                        {{passportForm.get('company').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="passportForm.get('company').errors.minlength">
+                                        Серия паспорта должна состоять не менее чем из
+                                        {{passportForm.get('company').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="position">Должность</label>
+                                <input id="position" type="text" pInputText formControlName="position">
+
+                                <div
+                                    *ngIf="passportForm.get('position')?.invalid && passportForm.get('position').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="passportForm.get('position').errors.required">Поле обязателен</small>
+                                    <small *ngIf="passportForm.get('position').errors.maxlength">
+                                        Пасспорт Серия должна состоять не более чем из
+                                        {{passportForm.get('position').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="passportForm.get('position').errors.minlength">
+                                        Серия паспорта должна состоять не менее чем из
+                                        {{passportForm.get('position').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="add-block p-col-12">
+                        <button pButton pRipple type="button" icon="pi pi-plus" (click)="add(workExprienceElements)"></button>
+                    </div>
+
+                </form>
+
+
+        </div>
+
+        <div class="block " *ngIf="!showLogin">
+            <h3 class="box-title">Образование</h3>
+            <p class="box-subtitle">Расскажите где вы получали образование - это увеличит ваши шансы на трудоустройство</p>
+
+            <form [formGroup]="educationInfo">
+                <div  formArrayName="educationInfoElements">
+                    <div class="p-grid p-fluid p-formgrid box2"
+                         *ngFor="let item of educationInfoElements.controls; let index = index"
+                         [formGroupName]="index">
+                        <div class="delete-block p-col-12" *ngIf="this.educationInfoElements.length > 1">
+                            <button pButton pRipple type="button" icon="pi pi-times"
+                                    class="p-button-rounded p-button-danger" (click)="deleteItem(index, educationInfoElements)"></button>
+
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="start_date2">Устроился</label>
+                            <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                        inputId="icon"
+                                        id="start_date2"></p-calendar>
+
+                            <small class="p-invalid"
+                                   *ngIf="
+                      passportForm.get('start_date')?.errors &&
+                      passportForm.get('start_date')?.touched"
+                            >Поле обязателен</small>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="end_date2">Уволился</label>
+                            <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                        inputId="icon"
+                                        id="end_date2"></p-calendar>
+
+                            <small class="p-invalid"
+                                   *ngIf="
+                      passportForm.get('end_date')?.errors &&
+                      passportForm.get('end_date')?.touched"
+                            >Поле обязателен</small>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="name2">Учебный завадения</label>
+                            <input id="name2" type="text" pInputText formControlName="name">
+
+                            <div
+                                *ngIf="passportForm.get('name')?.invalid && passportForm.get('name').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('name').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('name').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('name').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('name').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('name').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="faculty">Факультет</label>
+                            <input id="faculty" type="text" pInputText formControlName="faculty">
+
+                            <div
+                                *ngIf="passportForm.get('faculty')?.invalid && passportForm.get('faculty').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('faculty').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('faculty').errors.maxlength">
+                                    Пасспорт Серия должна состоять не более чем из
+                                    {{passportForm.get('faculty').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('faculty').errors.minlength">
+                                    Серия паспорта должна состоять не менее чем из
+                                    {{passportForm.get('faculty').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="add-block p-col-12">
+                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="add(educationInfoElements)"></button>
+                </div>
+
+            </form>
+
+
+        </div>
+
+<!--  multi-select-->
+        <div class="block " *ngIf="!showLogin">
+            <h3 class="box-title">Иностранные языки </h3>
+            <div class="box2">
+                <form [formGroup]="languagesForm">
+                    <div class="p-grid p-fluid p-formgrid  ">
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="partisanship">Языки</label>
+                            <p-multiSelect [options]="languages"  defaultLabel="выберите язык" optionLabel="name"
+                                           selectedItemsLabel="{0} items selected" formControlName="languages"></p-multiSelect>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!--dinamics block-->
+        <div class="block " *ngIf="!showLogin">
+            <h3 class="box-title">Дополнительная информация</h3>
+            <p class="box-subtitle">Близкие родственники</p>
+
+            <form [formGroup]="relativeInfo">
+                <div  formArrayName="relativeInfoElements">
+                    <div class="p-grid p-fluid p-formgrid box2"
+                         *ngFor="let items of relativeInfoElements.controls; let index = index"
+                         [formGroupName]="index">
+                        <div class="delete-block p-col-12">
+                            <button pButton pRipple type="button" icon="pi pi-times"
+                                    class="p-button-rounded p-button-danger" (click)="deleteItem(index, relativeInfoElements)"></button>
+
+                        </div>
+
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="kinship">Родство</label>
+                            <input id="kinship" type="text" pInputText formControlName="kinship">
+
+                            <div
+                                *ngIf="passportForm.get('kinship')?.invalid && passportForm.get('kinship').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('kinship').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('kinship').errors.maxlength">
+                                    Родство должна состоять не более чем из
+                                    {{passportForm.get('kinship').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('kinship').errors.minlength">
+                                    Родство должна состоять не менее чем из
+                                    {{passportForm.get('kinship').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+
+
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="first_name">Имя</label>
+                            <input id="first_name" type="text" pInputText formControlName="first_name">
+
+                            <div
+                                *ngIf="passportForm.get('first_name')?.invalid && passportForm.get('first_name').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('first_name').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('first_name').errors.maxlength">
+                                    Имя должна состоять не более чем из
+                                    {{passportForm.get('first_name').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('first_name').errors.minlength">
+                                    Имя должна состоять не менее чем из
+                                    {{passportForm.get('first_name').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="last_name">Фамилия</label>
+                            <input id="last_name" type="text" pInputText formControlName="last_name">
+
+                            <div
+                                *ngIf="passportForm.get('last_name')?.invalid && passportForm.get('last_name').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('last_name').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('last_name').errors.maxlength">
+                                    Фамилия должна состоять не более чем из
+                                    {{passportForm.get('last_name').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('last_name').errors.minlength">
+                                    Фамилия должна состоять не менее чем из
+                                    {{passportForm.get('last_name').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+
+
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="middle_name">Отчество</label>
+                            <input id="middle_name" type="text" pInputText formControlName="middle_name">
+
+                            <div
+                                *ngIf="passportForm.get('middle_name')?.invalid && passportForm.get('middle_name').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('middle_name').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('middle_name').errors.maxlength">
+                                    Отчество должна состоять не более чем из
+                                    {{passportForm.get('middle_name').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('middle_name').errors.minlength">
+                                    Отчество должна состоять не менее чем из
+                                    {{passportForm.get('middle_name').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="birth_date2">Дата рождения</label>
+                            <p-calendar formControlName="birth_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                        inputId="icon"
+                                        id="birth_date2"></p-calendar>
+
+                            <small class="p-invalid"
+                                   *ngIf="
+                      passportForm.get('start_date')?.errors &&
+                      passportForm.get('start_date')?.touched"
+                            >Поле обязателен</small>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="birth_place2">
+                                Место рождения
+                            </label>
+                            <input id="birth_place2" type="text" pInputText formControlName="birth_place">
+
+                            <div
+                                *ngIf="passportForm.get('birth_place')?.invalid && passportForm.get('birth_place').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('birth_place').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('birth_place').errors.maxlength">
+                                    Место рождения  должна состоять не более чем из
+                                    {{passportForm.get('birth_place').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('birth_place').errors.minlength">
+                                    Место рождения  должна состоять не менее чем из
+                                    {{passportForm.get('birth_place').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                            <label for="position2">Должность</label>
+                            <input id="position2" type="text" pInputText formControlName="position">
+
+                            <div
+                                *ngIf="passportForm.get('position')?.invalid && passportForm.get('position').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('position').errors.required">Поле
+                                    обязателен</small>
+                                <small *ngIf="passportForm.get('position').errors.maxlength">
+                                    Должность должна состоять не более чем из
+                                    {{passportForm.get('position').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('position').errors.minlength">
+                                    Должность должна состоять не менее чем из
+                                    {{passportForm.get('position').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+
+
+                        </div>
+
+                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                            <label for="living_place">Места жительства</label>
+                            <input id="living_place" type="text" pInputText formControlName="middle_name">
+
+                            <div
+                                *ngIf="passportForm.get('living_place')?.invalid && passportForm.get('living_place').touched"
+                                class="p-invalid">
+                                <small *ngIf="passportForm.get('living_place').errors.required">Поле обязателен</small>
+                                <small *ngIf="passportForm.get('living_place').errors.maxlength">
+                                    Места жительства должна состоять не более чем из
+                                    {{passportForm.get('living_place').errors.maxlength.requiredLength}} букв
+                                </small>
+                                <small *ngIf="passportForm.get('living_place').errors.minlength">
+                                    Места жительства должна состоять не менее чем из
+                                    {{passportForm.get('living_place').errors.minlength.requiredLength}} букв
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="add-block p-col-12">
+                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="add(relativeInfoElements)"></button>
+                </div>
+
+            </form>
+
+
         </div>
 
 

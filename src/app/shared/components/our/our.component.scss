@@ -47,6 +47,10 @@
 }
 
 //box
+.block{
+    margin: 20px 0;
+    width: 680px;
+}
 .box {
     margin: 10px 0;
     padding: 15px;
@@ -67,11 +71,11 @@
     margin: 10px 0;
     padding: 15px;
     height: auto;
-    width: 680px;
+    width: 100%;
     border: none;
     border-radius: 5px;
     background: #fff;
-    box-shadow: 0px 0px 24px #877979;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 1px 3px 0 rgb(0 0 0 / 10%);
     position: relative;
 }
 
@@ -101,17 +105,19 @@ i {
     cursor: pointer;
 }
 //
-.box form .group-item label,
-.box2 form .group-item label {
+.box .group-item label,
+.box2  .group-item label {
     display: block;
     color: #4C489D;
     font-weight: 600;
     margin-bottom: 5px;
 }
-
-.box form .group-item input,
-.box2 form .group-item input {
-    width: 300px;
+.box2  .group-item{
+    height: 80px;
+}
+.box  .group-item input,
+.box2  .group-item input {
+    width: 100%;
 }
 
 
@@ -183,3 +189,21 @@ i {
     font-size: 40px;
 }
 
+
+.add-block .p-button{
+    width: 80px !important;
+    float: right;
+    background: #30A059;
+}
+
+
+.delete-block {
+
+    height: 50px;
+   button{
+       float: right;
+       background: #fff;
+       color: red;
+       border: 1px solid red;
+   }
+}
