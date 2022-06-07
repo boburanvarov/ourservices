@@ -12,11 +12,11 @@
 
     <div class="content">
 
-        <div class="box" *ngIf="showLogin">
+        <div class="box" *ngIf="!showLogin">
 
             <form [formGroup]="passportForm" (submit)="passportSubmit()" class="box-form">
                 <div class="group-item series">
-                    <label for="float-input">Passport Series</label>
+                    <label for="float-input">Пасспорт Серия</label>
                     <input id="float-input" formControlName="series" type="text" pInputText>
 
                     <div *ngIf="passportForm.get('series').invalid && passportForm.get('series').touched"
@@ -36,7 +36,7 @@
 
 
                 <div class="group-item">
-                    <label for="number">Passport Number</label>
+                    <label for="number">Пасспорт Номер</label>
                     <input id="number" type="text" pInputText formControlName="number">
 
                     <div *ngIf="passportForm.get('number')?.invalid && passportForm.get('number')?.touched"
@@ -56,9 +56,9 @@
                 </div>
 
                 <div class="group-item">
-                    <label for="date">birthDate</label>
-                    <p-calendar formControlName="birthDate" [showIcon]="true" dateFormat="mm-dd-yy" inputId="icon"
-                                id="date"></p-calendar>
+                    <label for="date">День Рождения</label>
+                    <p-calendar [showIcon]="true"  inputId="icon" formControlName="birthDate" dateFormat="dd.mm.yy"
+                             id="date"  ></p-calendar>
 
                     <small class="p-invalid"
                            *ngIf="
@@ -80,7 +80,7 @@
                         <div class="p-field p-col-6 ">
                             <div class="group-item">
                                 <label for="fName">Фамилия</label>
-                                <input id="fName" type="text" pInputText formControlName="fName">
+                                <input id="fName" type="text" pInputText formControlName="fName" readonly>
 
                                 <div *ngIf="passportForm.get('fName')?.invalid && passportForm.get('fName').touched"
                                      class="p-invalid">
@@ -100,7 +100,7 @@
 
                             <div class="group-item">
                                 <label for="name">Имя</label>
-                                <input id="name" type="text" pInputText formControlName="name">
+                                <input id="name" type="text" pInputText formControlName="name" readonly>
 
                                 <div *ngIf="passportForm.get('name')?.invalid && passportForm.get('name').touched"
                                      class="p-invalid">
@@ -120,7 +120,7 @@
 
                             <div class="group-item">
                                 <label for="lName">Отчество</label>
-                                <input id="lName" type="text" pInputText formControlName="lName">
+                                <input id="lName" type="text" pInputText formControlName="lName" readonly>
 
                                 <div *ngIf="passportForm.get('lName')?.invalid && passportForm.get('lName').touched"
                                      class="p-invalid">
@@ -138,9 +138,20 @@
                         </div>
 
                         <div class="img-block p-field p-col-6 ">
-                            <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
-                                          (onUpload)="onBasicUploadAuto($event)" chooseIcon="pi-camera"
-                                          chooseLabel="Прикрепить фотографию"></p-fileUpload>
+
+<!--                          <div class="upload-block">-->
+<!--                              <input class="file_upload" type="file" maxFileSize="1000000"-->
+<!--                                     (change)="onBasicUploadAuto($event)"-->
+<!--                                     formControlName="image"-->
+<!--                                     chooseLabel="Прикрепить фотографию">-->
+<!--                              <i class="pi pi-camera"></i>-->
+<!--                          </div>-->
+
+                            <div class="inputWrapper">
+                            <input class="fileInput"  (change)="onBasicUploadAuto($event)" type="file" name="file1" formControlName="images" />
+                                <i class="pi pi-camera"></i>
+
+                        </div>
                         </div>
                     </div>
 
@@ -148,7 +159,7 @@
 
                         <div class="group-item  p-field p-col-6">
                             <label for="birth_date">Дата рождения</label>
-                            <input id="birth_date" type="text" pInputText formControlName="birth_date">
+                            <input id="birth_date" type="text" pInputText formControlName="birth_date" readonly>
 
                             <div
                                 *ngIf="passportForm.get('birth_date')?.invalid && passportForm.get('birth_date').touched"
@@ -169,7 +180,7 @@
 
                         <div class="group-item  p-field p-col-6">
                             <label for="birth_place">Город проживания</label>
-                            <input id="birth_place" type="text" pInputText formControlName="birth_place">
+                            <input id="birth_place" type="text" pInputText formControlName="birth_place" readonly>
 
                             <div
                                 *ngIf="passportForm.get('birth_place')?.invalid && passportForm.get('birth_place').touched"
@@ -190,7 +201,7 @@
 
                         <div class="group-item  p-field p-col-6">
                             <label for="nationality">Национальность</label>
-                            <input id="nationality" type="text" pInputText formControlName="nationality">
+                            <input id="nationality" type="text" pInputText formControlName="nationality" readonly>
 
                             <div
                                 *ngIf="passportForm.get('nationality')?.invalid && passportForm.get('nationality').touched"
@@ -227,7 +238,9 @@
 
                     </div>
 
-
+<!--                    <div class="add-block p-col-12">-->
+<!--                        <button class="send" pButton pRipple type="button" label="Сохранять" (click)="saveMain()"></button>-->
+<!--                    </div>-->
                 </form>
 
             </div>
@@ -364,7 +377,7 @@
                         </div>
 
                         <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="email">Государственные учреждения</label>
+                            <label for="email">E-mail</label>
                             <input id="email" type="text" pInputText formControlName="email">
 
                             <div *ngIf="passportForm.get('email')?.invalid && passportForm.get('email').touched"
@@ -397,7 +410,7 @@
             <p class="box-subtitle">Укажите ваши предыдущие места работы - большинство работодателей предпочитают
                 опытных сотрудников</p>
 
-                <form [formGroup]="workExperience">
+                <form [formGroup]="workExperience" >
                     <div  formArrayName="workExprienceElements">
                         <div class="p-grid p-fluid p-formgrid box2"
                              *ngFor="let items of workExprienceElements.controls; let index = index"
@@ -410,7 +423,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="start_date">Устроился</label>
-                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="start_date"></p-calendar>
 
@@ -423,7 +436,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="end_date">Уволился</label>
-                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="end_date"></p-calendar>
 
@@ -478,7 +491,9 @@
 
                     </div>
 
+
                     <div class="add-block p-col-12">
+                        <button class="send" pButton pRipple type="button" label="Сохранять" *ngIf="workExprienceElements.length > 0" (click)="saveWork()"></button>
                         <button pButton pRipple type="button" icon="pi pi-plus" (click)="add(workExprienceElements)"></button>
                     </div>
 
@@ -504,7 +519,7 @@
 
                         <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                             <label for="start_date2">Устроился</label>
-                            <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                            <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                         inputId="icon"
                                         id="start_date2"></p-calendar>
 
@@ -517,7 +532,7 @@
 
                         <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                             <label for="end_date2">Уволился</label>
-                            <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                            <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                         inputId="icon"
                                         id="end_date2"></p-calendar>
 
@@ -575,6 +590,8 @@
                 </div>
 
                 <div class="add-block p-col-12">
+
+                    <button class="send" pButton pRipple type="button" label="Сохранять" *ngIf="educationInfoElements.length > 0"  (click)="saveEdu()"></button>
                     <button pButton pRipple type="button" icon="pi pi-plus" (click)="add(educationInfoElements)"></button>
                 </div>
 
@@ -704,7 +721,7 @@
 
                         <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                             <label for="birth_date2">Дата рождения</label>
-                            <p-calendar formControlName="birth_date" [showIcon]="true" dateFormat="mm-dd-yy"
+                            <p-calendar formControlName="birth_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                         inputId="icon"
                                         id="birth_date2"></p-calendar>
 
@@ -782,6 +799,8 @@
                 </div>
 
                 <div class="add-block p-col-12">
+
+                    <button class="send" pButton pRipple type="button" label="Сохранять" *ngIf="relativeInfoElements.length > 0"  (click)="saveRelative()"></button>
                     <button pButton pRipple type="button" icon="pi pi-plus" (click)="add(relativeInfoElements)"></button>
                 </div>
 
@@ -790,6 +809,10 @@
 
         </div>
 
+        <div class="send-block " *ngIf="showLogin">
+
+            <button pButton pRipple type="button" label="Отправить" class="p-button-raised  p-button-text" ></button>
+        </div>
 
     </div>
 </div>

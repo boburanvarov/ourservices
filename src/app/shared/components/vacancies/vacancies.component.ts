@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Vacancies} from "../../interfaces/vacancies.interfaces";
 import {VacanciesService} from "../../services/vacancies.service";
 import {Router} from "@angular/router";
+import {TokenService} from '../../services/token.service';
 
 @Component({
   selector: 'app-vacancies',
@@ -11,10 +12,13 @@ import {Router} from "@angular/router";
 export class VacanciesComponent implements OnInit {
 
   constructor(private vacanciesService: VacanciesService,
-              private router: Router) { }
+              private router: Router,
+              private tokenService: TokenService) { }
 
   ngOnInit(): void {
-    this.allVacancies()
+    this.allVacancies();
+    sessionStorage.removeItem('vacancy')
+    // this.tokenService.clearSessionStorage();
   }
 
   // vacancies=[
@@ -44,8 +48,10 @@ export class VacanciesComponent implements OnInit {
     })
   }
 
-  resume(){
+  resume(vacancy: any){
+      sessionStorage.setItem('vacancy',JSON.stringify(vacancy));
     this.router.navigate(['our'])
+      console.log(vacancy);
   }
 
 }

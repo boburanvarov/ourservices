@@ -34,7 +34,23 @@
   background: rgba(242, 242, 242, 0.6);
 }
 
+::ng-deep .panel-header.ng-star-inserted {
+    position: relative !important;
+    order: -1 !important;
+}
 
+::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
+    position: relative !important;
+    order: 2 !important;
+
+}
+
+::ng-deep  .p-accordion p-accordiontab .p-accordion-header .p-accordion-header-link {
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    display: flex !important;
+    justify-content: space-between !important;
+}
 
 .accardion-block{
 

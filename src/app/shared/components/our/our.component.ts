@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, Validators} from '@angular/forms';
 import {VacanciesService} from '../../services/vacancies.service';
 import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
+import {error} from 'protractor';
 
 @Component({
     selector: 'app-our',
@@ -15,6 +16,7 @@ export class OurComponent implements OnInit {
     passwordVisible = false;
     passwordVisible2 = false;
     languages: any[] = [];
+    personInfo: any;
 
     constructor(
         private fb: FormBuilder,
@@ -63,6 +65,7 @@ export class OurComponent implements OnInit {
         birth_place: ['', Validators.required],
         nationality: ['', Validators.required],
         phone: ['', Validators.required],
+        images: ['', Validators.required],
     });
 
     personalInfor = this.fb.group({
@@ -83,14 +86,13 @@ export class OurComponent implements OnInit {
         educationInfoElements: this.fb.array([])
     });
 
-
     relativeInfo = this.fb.group({
         relativeInfoElements: this.fb.array([])
     });
 
     languagesForm = this.fb.group({
         languages: ['', Validators.required]
-    })
+    });
 
     get workExprienceElements() {
         return this.workExperience.get('workExprienceElements') as FormArray;
@@ -135,7 +137,6 @@ export class OurComponent implements OnInit {
         });
     }
 
-    uploadedFiles: any[] = [];
 
     ngOnInit() {
         this.workExprienceElements.push(this.newWorkExperience());
@@ -147,16 +148,16 @@ export class OurComponent implements OnInit {
 
     //addWork
     add(elementName: any) {
-        if(elementName === this.workExprienceElements) {
+        if (elementName === this.workExprienceElements) {
             console.log(elementName, 'elem');
             elementName.push(this.newWorkExperience());
         }
 
-        if(elementName === this.educationInfoElements){
+        if (elementName === this.educationInfoElements) {
             elementName.push(this.newEducationInfo());
         }
 
-        if(elementName === this.relativeInfoElements){
+        if (elementName === this.relativeInfoElements) {
             elementName.push(this.newRelativeInfo());
         }
 
@@ -164,15 +165,15 @@ export class OurComponent implements OnInit {
 
     //deleteWork
     deleteItem(index: number, elementName: any) {
-        if(elementName === this.workExprienceElements) {
+        if (elementName === this.workExprienceElements) {
             this.workExprienceElements.removeAt(index);
         }
 
-        if(elementName === this.educationInfoElements){
+        if (elementName === this.educationInfoElements) {
             this.educationInfoElements.removeAt(index);
         }
 
-        if(elementName === this.relativeInfoElements){
+        if (elementName === this.relativeInfoElements) {
             this.relativeInfoElements.removeAt(index);
         }
 
@@ -191,17 +192,39 @@ export class OurComponent implements OnInit {
     // }
 
 
-
     dateFormater(date: any) {
         return formatDate(new Date(Date.parse(date)), 'dd.MM.yyyy', 'en');
     }
 
-    onBasicUploadAuto(event) {
-        for (let file of event.files) {
-            this.uploadedFiles.push(file);
-        }
+    saveMain() {
 
-        this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    }
+
+    base64textString: string = '';
+    imageType: string = '';
+    isImageSaved: boolean = false;
+
+    onBasicUploadAuto(fileInput: any) {
+
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                const image = new Image();
+                image.src = e.target.result;
+                image.onload = rs => {
+                    const imgBase64Path = e.target.result;
+                    this.base64textString = imgBase64Path;
+                    this.isImageSaved = true;
+                    console.log(imgBase64Path);
+                };
+            };
+            reader.readAsDataURL(fileInput.target.files[0]);
+        }
+    }
+
+    _handleReaderLoaded(readerEvt: any) {
+        let binaryString = readerEvt.target.result;
+        this.base64textString = btoa(binaryString);
     }
 
     getLanguages() {
@@ -211,9 +234,78 @@ export class OurComponent implements OnInit {
         });
     }
 
+    saveWork() {
+        this.workExprienceElements.controls.forEach(el => {
+            console.log(el.value, 'el');
+            const body = {
+                start_date: this.dateFormater(el.value.start_date),
+                end_date: this.dateFormater(el.value.end_date),
+                company: el.value.company,
+                position: el.value.position
+            };
+            console.log(body);
+            this.vacanciesService.postWork(body).subscribe((res) => {
+                console.log(res);
+            });
+        });
+
+    }
+
+    saveEdu() {
+
+        this.educationInfoElements.controls.forEach(el => {
+            console.log(el.value, 'el');
+            const edu = {
+                start_date: this.dateFormater(el.value.start_date),
+                end_date: this.dateFormater(el.value.end_date),
+                name: el.value.name,
+                faculty: el.value.faculty
+            };
+            console.log(edu, 'edu');
+            this.vacanciesService.postEdu(edu).subscribe((res) => {
+                console.log(res);
+            });
+        });
+
+    }
+
+    saveRelative() {
+
+        this.relativeInfoElements.controls.forEach(el => {
+            console.log(el.value, 'el');
+            const rel = {
+                kinship: el.value.kinship,
+                first_name: el.value.first_name,
+                last_name: el.value.last_name,
+                middle_name: el.value.middle_name,
+                birth_date: this.dateFormater(el.value.birth_date),
+                birth_place: el.value.birth_place,
+                position: el.value.position,
+                living_place: el.value.living_place,
+            };
+            console.log(rel, 'rel');
+            this.vacanciesService.postRelative(rel).subscribe((res) => {
+                console.log(res);
+            });
+        });
+
+    }
+
+
     // onChange(result: Date): void {
     //     console.log('onChange: ', result);
     // }
+
+    patchValues(data:any){
+        this.basicInfor.patchValue({
+            fName: data.surname,
+            name: data.givenname,
+            lName: data.patronym,
+            birth_date: data.birth_date,
+            birth_place: data.birth_place,
+            nationality: data.nationality_desc,
+        })
+    }
 
     passportSubmit() {
         if (!this.passportForm.valid) {
@@ -223,21 +315,69 @@ export class OurComponent implements OnInit {
         // @ts-ignore
         console.log(this.passportForm.get('number').value);
         const body = {
-            passportNumber: this.passportForm.get('number').value,
-            series: this.passportForm.get('series').value,
-            birthDate: this.dateFormater(this.passportForm.get('birthDate').value)
+            p_number: this.passportForm.get('number').value,
+            p_series: this.passportForm.get('series').value,
+            birth_date: this.dateFormater(this.passportForm.get('birthDate').value)
         };
         console.log(body);
-        if (body.passportNumber == '1234567' && body.series == 'AB' && body.birthDate == '04.06.2022') {
-            this.showLogin = true;
-            console.log(this.showLogin);
-        } else {
-            this.showLogin = false;
+        // if (body.passportNumber == '1234567' && body.series == 'AB' && body.birthDate == '04.06.2022') {
+        //     this.showLogin = true;
+        //     console.log(this.showLogin);
+        // } else {
+        //     this.showLogin = false;
+        // }
+        this.vacanciesService.postPassport(body).subscribe((res) => {
+                if (res) {
+                    console.log(res);
+                    this.personInfo = res;
+                    this.patchValues(this.personInfo);
+                    // this.showLogin = true;
+                    console.log(this.showLogin);
+                }
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+
+    }
+
+    sendResume(){
+        // fName:
+        //     name:
+        //     lName:
+        //     birth_date:
+        //     birth_place:
+        //     nationality:
+        //     phone:
+        //     images:
+        // partisanship:
+        //     education_degree:
+        //     specialty:
+        //     academic_degree:
+        //     awards:
+        //     government_agencies:
+        //     email:
+        const body = {
+            first_name: this.basicInfor.get('name').value,
+            last_name: this.basicInfor.get('fName').value,
+            middle_name: this.basicInfor.get('lName').value,
+            image: this.basicInfor.get('images').value,
+            birth_date: this.basicInfor.get('birth_date').value,
+            birth_place: this.basicInfor.get('birth_place').value,
+            nationality: this.basicInfor.get('nationality').value,
+            phone: this.basicInfor.get('phone').value,
+            partisanship:  this.personalInfor.get('partisanship').value,
+            education_degree: this.personalInfor.get('education_degree').value,
+            specialty: this.personalInfor.get('specialty').value,
+            academic_degree: this.personalInfor.get('academic_degree').value,
+            awards: this.personalInfor.get('awards').value,
+            government_agencies: this.personalInfor.get('government_agencies').value,
+            email: this.personalInfor.get('email').value
         }
-        // this.vacanciesService.postPassport(body).subscribe((res)=>{
+        // this.vacanciesService.postRelative(body).subscribe((res)=>{
         //
         // })
-
     }
 
 }

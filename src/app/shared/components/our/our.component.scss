@@ -79,15 +79,7 @@
     position: relative;
 }
 
-::ng-deep .panel-header.ng-star-inserted {
-    position: relative !important;
-    order: -1 !important;
-}
 
-::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
-    position: relative !important;
-    order: 2 !important;
-}
 
 //.box form .group-item,
 //.box2 form .group-item {
@@ -112,7 +104,8 @@ i {
     font-weight: 600;
     margin-bottom: 5px;
 }
-.box2  .group-item{
+.box2  .group-item,
+.box  .group-item{
     height: 80px;
 }
 .box  .group-item input,
@@ -132,6 +125,7 @@ i {
 }
 
 .search {
+    margin-top: 10px;
     background: #162be4;
     float: right;
     width: 100px;
@@ -150,26 +144,49 @@ i {
     color: #162be4;
 }
 
-
-
-
-
-
-
-
-
-::ng-deep .p-button.p-fileupload-choose {
-    display: flex;
-
-    flex-direction: column;
+.inputWrapper {
     height: 220px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
     background: none;
+
     color: black;
     border: 1px solid #ccc;
     box-shadow: inset 0 1px 3px #ddd;
 }
 
-::ng-deep .p-button.p-fileupload-choose:hover {
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    font-size:50px;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+
+
+//::ng-deep input::-webkit-file-upload-button{
+//    display: none;
+//}
+
+
+
+
+::ng-deep .inputWrapper  i.pi-camera{
+    position: absolute;
+    font-size: 68px !important;
+    margin-top: 70px;
+    margin-left: 120px;
+}
+
+::ng-deep .inputWrapper:hover {
     background: none;
     border: 1px solid blue;
     color: blue;
@@ -190,10 +207,20 @@ i {
 }
 
 
-.add-block .p-button{
-    width: 80px !important;
-    float: right;
-    background: #30A059;
+.add-block {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0 10px;
+
+    .p-button{
+        width: 80px !important;
+        float: right;
+        background: #30A059;
+    }
+
+    .send{
+        width: 150px !important;
+    }
 }
 
 
@@ -207,3 +234,5 @@ i {
        border: 1px solid red;
    }
 }
+
+

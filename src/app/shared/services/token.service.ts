@@ -14,4 +14,8 @@ export class TokenService {
     const token = JSON.parse(sessionStorage.getItem('login'))
     return !token ? null : token.access_token
   }
+
+    clearSessionStorage() {
+        sessionStorage.clear();
+    }
 }

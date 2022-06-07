@@ -11,7 +11,7 @@ export class VacanciesService {
     }
 
     postPassport(body: any) {
-        return this.http.post<any>(API + 'passport', body);
+        return this.http.post<any>(API + 'nibbd/get-client-info', body);
     }
 
     getVacancies() {
@@ -20,6 +20,22 @@ export class VacanciesService {
 
     getAllLanguages(){
         return this.http.get<any>(API + 'languages')
+    }
+
+    postWork(body: any) {
+        return this.http.post<any>(API + 'work', body);
+    }
+
+    postEdu(body: any) {
+        return this.http.post<any>(API + 'education', body);
+    }
+
+    postRelative(body: any) {
+        return this.http.post<any>(API + 'relative', body);
+    }
+
+    postResume(body:any){
+        return this.http.post<any>(API + 'resume', body);
     }
 
 }
