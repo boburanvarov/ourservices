@@ -10,6 +10,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {WelcomeModule} from './pages/welcome/welcome.module';
 import {InterceptorService} from './shared/interceptor/interceptor.service';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 registerLocaleData(en);
 
@@ -24,7 +25,7 @@ registerLocaleData(en);
         HttpClientModule,
         BrowserAnimationsModule,
         WelcomeModule,
-
+        SweetAlert2Module.forRoot(),
     ],
     providers: [
 

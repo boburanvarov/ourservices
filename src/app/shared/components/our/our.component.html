@@ -1,5 +1,20 @@
 
 <p-toast position="top-right" key="tst"></p-toast>
+<swal
+    #saveSwal
+    (confirm)="saveSwalFunc()"
+    [focusCancel]="true"
+    icon="success"
+    title="Успешно сохранено!">
+</swal>
+<swal
+    #warnSwal
+    (confirm)="warnSwalFunc()"
+    [focusCancel]="true"
+    icon="warning"
+    text="Попробуйте заного"
+    title="Что то пошло не так!">
+</swal>
 <div class="main">
     <div class="header">
         <h1 class="header-title">
@@ -74,7 +89,7 @@
 
         </div>
 
-        <div class="block" *ngIf="showLogin" >
+        <div class="block" *ngIf="!showLogin" >
             <h3 class="box-title">Основная информация</h3>
 
                 <form [formGroup]="basicInfor" >
@@ -151,17 +166,18 @@
                             <!--                              <i class="pi pi-camera"></i>-->
                             <!--                          </div>-->
 
-                            <div class="inputWrapper" *ngIf="!base64textString">
+                            <div class="inputWrapper" >
                                 <input class="fileInput" (change)="onBasicUploadAuto($event)"  type="file" name="file1"
                                        formControlName="images"/>
-                                <i class="pi pi-camera"></i>
+                                <i class="pi pi-camera "  *ngIf="!base64textString"></i>
+                                <i class="pi pi-pencil "  *ngIf="base64textString"></i>
 
+                                <img [src]="base64textString"  *ngIf="base64textString"/>
 
                             </div >
-                            <div class="image-wrap"  *ngIf="base64textString" >
+<!--                            <div class="image-wrap"    >-->
 
-                                <img [src]="base64textString" />
-                            </div>
+<!--                            </div>-->
                             <small class="p-invalid"
                                    *ngIf="
                       basicInfor.get('images')?.errors &&
@@ -857,7 +873,7 @@
 
         <div class="send-block " *ngIf="showLogin">
 
-            <button pButton pRipple type="button" label="Отправить" class="p-button-raised  p-button-text"
+            <button [disabled]="activeDisabled" pButton pRipple type="button" label="Отправить" class="p-button-raised  p-button-text"
                     (click)="sendResume()"></button>
         </div>
 

@@ -14,6 +14,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {MessageService} from 'primeng/api';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ToastModule} from 'primeng/toast';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+
+
 
 @NgModule({
     imports: [
@@ -27,6 +30,7 @@ import {ToastModule} from 'primeng/toast';
         FileUploadModule,
         MultiSelectModule,
         ToastModule,
+        SweetAlert2Module,
     ],
   declarations: [
     WelcomeComponent,

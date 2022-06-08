@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, Validators} from '@angular/forms';
 import {VacanciesService} from '../../services/vacancies.service';
 import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
 import * as _ from 'lodash';
+import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
     selector: 'app-our',
@@ -11,7 +12,10 @@ import * as _ from 'lodash';
     styleUrls: ['./our.component.scss']
 })
 export class OurComponent implements OnInit {
-
+    @ViewChild('saveSwal')
+    public readonly saveSwal!: SwalComponent;
+    @ViewChild('warnSwal')
+    public readonly warnSwal!: SwalComponent;
 
     base64textString: string = '';
     isImageSaved: boolean = false;
@@ -23,7 +27,7 @@ export class OurComponent implements OnInit {
     workInfo: any[] = [];
     eduInfo: any[] = [];
     relatives: any[] = [];
-
+    activeDisabled = false;
     constructor(
         private fb: FormBuilder,
         private vacanciesService: VacanciesService,
@@ -150,6 +154,13 @@ export class OurComponent implements OnInit {
         this.relativeInfoElements.push(this.newRelativeInfo());
         this.getLanguages();
     }
+    saveSwalFunc() {
+        this.showLogin = false;
+    }
+
+    warnSwalFunc() {
+        this.showLogin = false;
+    }
 
 
     //addWork
@@ -214,13 +225,13 @@ export class OurComponent implements OnInit {
             if (fileInput.target.files[0].size > maxsize) {
                 const mb = fileInput.target.files[0].size / maxsize;
                 this.imageError =
-                    'Размер изображения не должен превышать 1 мб.' + mb.toFixed(2)  + 'Mb';
+                    'Размер изображения не должен превышать 1 мб.' + mb.toFixed(2) + 'Mb';
                 console.log(this.imageError);
 
             } else if (!_.includes(allowedTypes, fileInput.target.files[0].type)) {
-                 this.imageError = 'Only Images are allowed ( JPG | PNG )';
+                this.imageError = 'Only Images are allowed ( JPG | PNG )';
 
-             }else{
+            } else {
                 const reader = new FileReader();
                 reader.onload = (e: any) => {
                     const image = new Image();
@@ -250,6 +261,7 @@ export class OurComponent implements OnInit {
         this.base64textString = null;
         this.isImageSaved = false;
     }
+
     getLanguages() {
         this.vacanciesService.getAllLanguages().subscribe((res) => {
             this.languages = res;
@@ -476,6 +488,13 @@ export class OurComponent implements OnInit {
                 console.log(body);
                 this.vacanciesService.postResume(body).subscribe((res) => {
                     console.log(res);
+                    this.saveSwal.fire();
+                    this.activeDisabled = true;
+                }, (error) => {
+                    if (error.status === 404 || error.status === 500) {
+                        this.warnSwal.fire();
+                        this.activeDisabled = false;
+                    }
                 });
             } else {
                 const noVacancy = {
@@ -501,8 +520,16 @@ export class OurComponent implements OnInit {
                 };
                 console.log(noVacancy);
                 this.vacanciesService.postResume(noVacancy).subscribe((res) => {
-                    console.log(res);
-                });
+                        console.log(res);
+                        this.activeDisabled = true;
+                        this.saveSwal.fire();
+                    },
+                    (error) => {
+                        if (error.status === 404 || error.status === 500) {
+                            this.warnSwal.fire();
+                            this.activeDisabled = false;
+                        }
+                    });
             }
         }, 3000);
 
