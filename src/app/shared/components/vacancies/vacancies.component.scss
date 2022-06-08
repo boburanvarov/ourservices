@@ -24,8 +24,11 @@
   float: right;
 }
 
-.header .logo img{
-  width: 250px;
+.header .logo img.showImg {
+    width: 250px;
+}
+.header .logo img.hideImg {
+    display: none;
 }
 
 .main{
@@ -75,6 +78,17 @@
   background: #1785E5;
   font-weight: 600;
   color: #fff;
+}
+
+@media (max-width: 425px) {
+    .header .logo img.showImg {
+        display: none;
+    }
+    .header .logo img.hideImg {
+        width: 80px;
+        display: block;
+        height: 60px;
+    }
 }
 
 

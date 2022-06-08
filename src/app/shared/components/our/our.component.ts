@@ -17,6 +17,9 @@ export class OurComponent implements OnInit {
     passwordVisible2 = false;
     languages: any[] = [];
     personInfo: any;
+    workInfo: any[] = [];
+    eduInfo: any[] = [];
+    relatives: any[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -27,13 +30,13 @@ export class OurComponent implements OnInit {
 
 
     passportForm = this.fb.group({
-        series: ['', [
+        series: ['AB', [
             Validators.required,
             Validators.maxLength(2),
             Validators.minLength(2)
         ]
         ],
-        number: ['', [
+        number: ['3253882', [
             Validators.required,
             Validators.maxLength(7),
             Validators.minLength(7)
@@ -75,7 +78,7 @@ export class OurComponent implements OnInit {
         academic_degree: ['', Validators.required],
         awards: ['', Validators.required],
         government_agencies: ['', Validators.required],
-        email: ['', Validators.required],
+        email: [''],
     });
 
     workExperience = this.fb.group({
@@ -215,7 +218,7 @@ export class OurComponent implements OnInit {
                     const imgBase64Path = e.target.result;
                     this.base64textString = imgBase64Path;
                     this.isImageSaved = true;
-                    console.log(imgBase64Path);
+                    console.log(this.base64textString);
                 };
             };
             reader.readAsDataURL(fileInput.target.files[0]);
@@ -234,7 +237,7 @@ export class OurComponent implements OnInit {
         });
     }
 
-    saveWork() {
+    async saveWork() {
         this.workExprienceElements.controls.forEach(el => {
             console.log(el.value, 'el');
             const body = {
@@ -245,7 +248,9 @@ export class OurComponent implements OnInit {
             };
             console.log(body);
             this.vacanciesService.postWork(body).subscribe((res) => {
+                this.workInfo.push(res);
                 console.log(res);
+                console.log(this.workInfo, 'workInfo');
             });
         });
 
@@ -263,6 +268,8 @@ export class OurComponent implements OnInit {
             };
             console.log(edu, 'edu');
             this.vacanciesService.postEdu(edu).subscribe((res) => {
+
+                this.eduInfo.push(res);
                 console.log(res);
             });
         });
@@ -285,6 +292,7 @@ export class OurComponent implements OnInit {
             };
             console.log(rel, 'rel');
             this.vacanciesService.postRelative(rel).subscribe((res) => {
+                this.relatives.push(res);
                 console.log(res);
             });
         });
@@ -296,7 +304,7 @@ export class OurComponent implements OnInit {
     //     console.log('onChange: ', result);
     // }
 
-    patchValues(data:any){
+    patchValues(data: any) {
         this.basicInfor.patchValue({
             fName: data.surname,
             name: data.givenname,
@@ -304,7 +312,7 @@ export class OurComponent implements OnInit {
             birth_date: data.birth_date,
             birth_place: data.birth_place,
             nationality: data.nationality_desc,
-        })
+        });
     }
 
     passportSubmit() {
@@ -342,7 +350,8 @@ export class OurComponent implements OnInit {
 
     }
 
-    sendResume(){
+
+    sendResume() {
         // fName:
         //     name:
         //     lName:
@@ -358,26 +367,77 @@ export class OurComponent implements OnInit {
         //     awards:
         //     government_agencies:
         //     email:
-        const body = {
-            first_name: this.basicInfor.get('name').value,
-            last_name: this.basicInfor.get('fName').value,
-            middle_name: this.basicInfor.get('lName').value,
-            image: this.basicInfor.get('images').value,
-            birth_date: this.basicInfor.get('birth_date').value,
-            birth_place: this.basicInfor.get('birth_place').value,
-            nationality: this.basicInfor.get('nationality').value,
-            phone: this.basicInfor.get('phone').value,
-            partisanship:  this.personalInfor.get('partisanship').value,
-            education_degree: this.personalInfor.get('education_degree').value,
-            specialty: this.personalInfor.get('specialty').value,
-            academic_degree: this.personalInfor.get('academic_degree').value,
-            awards: this.personalInfor.get('awards').value,
-            government_agencies: this.personalInfor.get('government_agencies').value,
-            email: this.personalInfor.get('email').value
+
+
+        console.log(this.workInfo, 'workinfo');
+        if (!this.basicInfor.valid && !this.personalInfor.valid && !this.educationInfoElements.valid) {
+            this.basicInfor.markAllAsTouched();
+            this.personalInfor.markAllAsTouched();
+            this.educationInfoElements.markAllAsTouched();
+            return;
         }
-        // this.vacanciesService.postRelative(body).subscribe((res)=>{
-        //
-        // })
+
+        const vacancies = JSON.parse(sessionStorage.getItem('vacancy'));
+
+        setTimeout(() => {
+            if (vacancies) {
+                const body = {
+                    first_name: this.basicInfor.get('name').value,
+                    last_name: this.basicInfor.get('fName').value,
+                    middle_name: this.basicInfor.get('lName').value,
+                    image: this.base64textString,
+                    birth_date: this.basicInfor.get('birth_date').value,
+                    birth_place: this.basicInfor.get('birth_place').value,
+                    nationality: this.basicInfor.get('nationality').value,
+                    phone: this.basicInfor.get('phone').value,
+                    partisanship: this.personalInfor.get('partisanship').value,
+                    education_degree: this.personalInfor.get('education_degree').value,
+                    specialty: this.personalInfor.get('specialty').value,
+                    academic_degree: this.personalInfor.get('academic_degree').value,
+                    awards: this.personalInfor.get('awards').value,
+                    government_agencies: this.personalInfor.get('government_agencies').value,
+                    email: this.personalInfor.get('email').value,
+                    work_info: this.workInfo,
+                    education_info: this.eduInfo,
+                    languages: this.languagesForm.get('languages').value,
+                    relatives: this.relatives,
+                    vacancy: vacancies
+                };
+                console.log(body);
+                this.vacanciesService.postResume(body).subscribe((res) => {
+                    console.log(res);
+                });
+            }else{
+                const noVacancy = {
+                    first_name: this.basicInfor.get('name').value,
+                    last_name: this.basicInfor.get('fName').value,
+                    middle_name: this.basicInfor.get('lName').value,
+                    image: this.base64textString,
+                    birth_date: this.basicInfor.get('birth_date').value,
+                    birth_place: this.basicInfor.get('birth_place').value,
+                    nationality: this.basicInfor.get('nationality').value,
+                    phone: this.basicInfor.get('phone').value,
+                    partisanship: this.personalInfor.get('partisanship').value,
+                    education_degree: this.personalInfor.get('education_degree').value,
+                    specialty: this.personalInfor.get('specialty').value,
+                    academic_degree: this.personalInfor.get('academic_degree').value,
+                    awards: this.personalInfor.get('awards').value,
+                    government_agencies: this.personalInfor.get('government_agencies').value,
+                    email: this.personalInfor.get('email').value,
+                    work_info: this.workInfo,
+                    education_info: this.eduInfo,
+                    languages: this.languagesForm.get('languages').value,
+                    relatives: this.relatives,
+                };
+                console.log(noVacancy);
+                this.vacanciesService.postResume(noVacancy).subscribe((res) => {
+                    console.log(res);
+                });
+            }
+        }, 3000);
+
+
+
     }
 
 }

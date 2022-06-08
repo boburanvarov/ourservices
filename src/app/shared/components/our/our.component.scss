@@ -26,8 +26,11 @@
     float: right;
 }
 
-.header .logo img {
+.header .logo img.showImg {
     width: 250px;
+}
+.header .logo img.hideImg {
+    display: none;
 }
 
 //
@@ -218,9 +221,13 @@ i {
         background: #30A059;
     }
 
-    .send{
-        width: 150px !important;
-    }
+        .send{
+            span{
+                margin-left: 25px;
+                font-size: 16px !important;
+            }
+            width: 150px !important;
+        }
 }
 
 
@@ -235,4 +242,92 @@ i {
    }
 }
 
+
+@media (max-width: 425px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        width: 360px;
+    }
+    .header .logo img.showImg {
+        display: none;
+    }
+    .header .logo img.hideImg {
+        width: 80px;
+        display: block;
+        height: 60px;
+    }
+    ::ng-deep .inputWrapper  i.pi-camera{
+        position: absolute;
+        font-size: 68px !important;
+        margin-top: 70px;
+        margin-left: 45px;
+    }
+
+    .add-block {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0 10px;
+        .p-button{
+            width: 60px !important;
+            float: right;
+            background: #30A059;
+        }
+
+        .send{
+
+            span{
+                margin: 0 !important;
+                text-align: center;
+                font-size: 16px !important;
+            }
+            width: 100px !important;
+        }
+    }
+
+}
+
+@media (max-width: 320px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        padding: 10px;
+        width: 300px;
+    }
+    .header .logo img.showImg {
+        display: none;
+    }
+
+    ::ng-deep .inputWrapper  i.pi-camera{
+        position: absolute;
+        font-size: 68px !important;
+        margin-top: 70px;
+        margin-left: 25px;
+    }
+
+    .add-block {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .box  .group-item input {
+        margin: 0 20px !important;
+        width: 280px;
+    }
+
+    .box .group-item label, {
+        margin: 0 20px !important;
+        width: 280px;
+    }
+
+    ::ng-deep .box .p-calendar .p-inputtext {
+        width: 245px !important;
+        margin-left: 20px;
+    }
+
+    .search{
+        margin-right: 110px;
+    }
+}
 
