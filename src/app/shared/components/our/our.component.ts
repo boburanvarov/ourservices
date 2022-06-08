@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, Validators} from '@angular/forms';
 import {VacanciesService} from '../../services/vacancies.service';
 import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
-import {error} from 'protractor';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-our',
@@ -12,6 +12,9 @@ import {error} from 'protractor';
 })
 export class OurComponent implements OnInit {
 
+
+    base64textString: string = '';
+    isImageSaved: boolean = false;
     showLogin = false;
     passwordVisible = false;
     passwordVisible2 = false;
@@ -199,37 +202,54 @@ export class OurComponent implements OnInit {
         return formatDate(new Date(Date.parse(date)), 'dd.MM.yyyy', 'en');
     }
 
-    saveMain() {
-
-    }
-
-    base64textString: string = '';
-    imageType: string = '';
-    isImageSaved: boolean = false;
+    imageError: string = '';
 
     onBasicUploadAuto(fileInput: any) {
 
         if (fileInput.target.files && fileInput.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (e: any) => {
-                const image = new Image();
-                image.src = e.target.result;
-                image.onload = rs => {
-                    const imgBase64Path = e.target.result;
-                    this.base64textString = imgBase64Path;
-                    this.isImageSaved = true;
-                    console.log(this.base64textString);
+            const maxsize = 1048576;
+            const allowedTypes = ['image/png', 'image/jpeg'];
+
+            console.log(fileInput.target.files[0].size);
+            if (fileInput.target.files[0].size > maxsize) {
+                const mb = fileInput.target.files[0].size / maxsize;
+                this.imageError =
+                    'Размер изображения не должен превышать 1 мб.' + mb.toFixed(2)  + 'Mb';
+                console.log(this.imageError);
+
+            } else if (!_.includes(allowedTypes, fileInput.target.files[0].type)) {
+                 this.imageError = 'Only Images are allowed ( JPG | PNG )';
+
+             }else{
+                const reader = new FileReader();
+                reader.onload = (e: any) => {
+                    const image = new Image();
+                    image.src = e.target.result;
+                    image.onload = rs => {
+                        const imgBase64Path = e.target.result;
+                        this.base64textString = imgBase64Path;
+                        this.isImageSaved = true;
+                        console.log(this.base64textString);
+                    };
                 };
-            };
-            reader.readAsDataURL(fileInput.target.files[0]);
+                reader.readAsDataURL(fileInput.target.files[0]);
+                this.imageError = '';
+                console.log(this.imageError);
+            }
+
+            // if (!_.includes(allowedTypes, fileInput.target.files[0].type)) {
+            //     this.imageError = 'Only Images are allowed ( JPG | PNG )';
+            //
+            // }
+
+
         }
     }
 
-    _handleReaderLoaded(readerEvt: any) {
-        let binaryString = readerEvt.target.result;
-        this.base64textString = btoa(binaryString);
+    removeImage() {
+        this.base64textString = null;
+        this.isImageSaved = false;
     }
-
     getLanguages() {
         this.vacanciesService.getAllLanguages().subscribe((res) => {
             this.languages = res;
@@ -237,7 +257,11 @@ export class OurComponent implements OnInit {
         });
     }
 
-    async saveWork() {
+    saveWork() {
+        if (!this.workExprienceElements.valid) {
+            this.workExprienceElements.markAllAsTouched();
+            return;
+        }
         this.workExprienceElements.controls.forEach(el => {
             console.log(el.value, 'el');
             const body = {
@@ -248,16 +272,31 @@ export class OurComponent implements OnInit {
             };
             console.log(body);
             this.vacanciesService.postWork(body).subscribe((res) => {
-                this.workInfo.push(res);
-                console.log(res);
-                console.log(this.workInfo, 'workInfo');
+                if (res) {
+                    this.workInfo.push(res);
+                    console.log(res);
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'success',
+                        summary: 'Информация успешно сохранена'
+                    });
+                } else {
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'error',
+                        summary: 'Произошла ошибка при сохранении информации'
+                    });
+                }
             });
         });
 
     }
 
     saveEdu() {
-
+        if (!this.educationInfoElements.valid) {
+            this.educationInfoElements.markAllAsTouched();
+            return;
+        }
         this.educationInfoElements.controls.forEach(el => {
             console.log(el.value, 'el');
             const edu = {
@@ -268,16 +307,32 @@ export class OurComponent implements OnInit {
             };
             console.log(edu, 'edu');
             this.vacanciesService.postEdu(edu).subscribe((res) => {
+                if (res) {
 
-                this.eduInfo.push(res);
-                console.log(res);
+                    this.eduInfo.push(res);
+                    console.log(res);
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'success',
+                        summary: 'Информация успешно сохранена'
+                    });
+                } else {
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'error',
+                        summary: 'Произошла ошибка при сохранении информации'
+                    });
+                }
             });
         });
 
     }
 
     saveRelative() {
-
+        if (!this.relativeInfoElements.valid) {
+            this.relativeInfoElements.markAllAsTouched();
+            return;
+        }
         this.relativeInfoElements.controls.forEach(el => {
             console.log(el.value, 'el');
             const rel = {
@@ -292,8 +347,23 @@ export class OurComponent implements OnInit {
             };
             console.log(rel, 'rel');
             this.vacanciesService.postRelative(rel).subscribe((res) => {
-                this.relatives.push(res);
-                console.log(res);
+
+                if (res) {
+
+                    this.relatives.push(res);
+                    console.log(res);
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'success',
+                        summary: 'Информация успешно сохранена'
+                    });
+                } else {
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'error',
+                        summary: 'Произошла ошибка при сохранении информации'
+                    });
+                }
             });
         });
 
@@ -339,7 +409,7 @@ export class OurComponent implements OnInit {
                     console.log(res);
                     this.personInfo = res;
                     this.patchValues(this.personInfo);
-                    // this.showLogin = true;
+                    this.showLogin = true;
                     console.log(this.showLogin);
                 }
             },
@@ -407,7 +477,7 @@ export class OurComponent implements OnInit {
                 this.vacanciesService.postResume(body).subscribe((res) => {
                     console.log(res);
                 });
-            }else{
+            } else {
                 const noVacancy = {
                     first_name: this.basicInfor.get('name').value,
                     last_name: this.basicInfor.get('fName').value,
@@ -435,7 +505,6 @@ export class OurComponent implements OnInit {
                 });
             }
         }, 3000);
-
 
 
     }

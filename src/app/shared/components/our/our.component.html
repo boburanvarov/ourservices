@@ -1,3 +1,5 @@
+
+<p-toast position="top-right" key="tst"></p-toast>
 <div class="main">
     <div class="header">
         <h1 class="header-title">
@@ -72,7 +74,7 @@
 
         </div>
 
-        <div class="block" *ngIf="!showLogin" >
+        <div class="block" *ngIf="showLogin" >
             <h3 class="box-title">Основная информация</h3>
 
                 <form [formGroup]="basicInfor" >
@@ -139,7 +141,7 @@
                             </div>
                         </div>
 
-                        <div class="img-block p-field p-col-6 ">
+                        <div class="img-block p-field p-col-6 " >
 
                             <!--                          <div class="upload-block">-->
                             <!--                              <input class="file_upload" type="file" maxFileSize="1000000"-->
@@ -149,18 +151,25 @@
                             <!--                              <i class="pi pi-camera"></i>-->
                             <!--                          </div>-->
 
-                            <div class="inputWrapper">
-                                <input class="fileInput" (change)="onBasicUploadAuto($event)" type="file" name="file1"
+                            <div class="inputWrapper" *ngIf="!base64textString">
+                                <input class="fileInput" (change)="onBasicUploadAuto($event)"  type="file" name="file1"
                                        formControlName="images"/>
                                 <i class="pi pi-camera"></i>
 
 
+                            </div >
+                            <div class="image-wrap"  *ngIf="base64textString" >
+
+                                <img [src]="base64textString" />
                             </div>
                             <small class="p-invalid"
                                    *ngIf="
                       basicInfor.get('images')?.errors &&
                       basicInfor.get('images')?.touched"
                             >Поле обязателен</small>
+                            <small class="p-invalid"
+                                   *ngIf="imageError"
+                            >{{imageError}}</small>
                         </div>
                     </div>
 
@@ -257,7 +266,7 @@
         </div>
 
 
-        <div class="block " *ngIf="!showLogin">
+        <div class="block " *ngIf="showLogin">
             <h3 class="box-title">Личная информация</h3>
             <div class="box2">
                 <form [formGroup]="personalInfor">
@@ -415,7 +424,7 @@
         </div>
 
         <!--dinamics block-->
-        <div class="block " *ngIf="!showLogin">
+        <div class="block " *ngIf="showLogin">
             <h3 class="box-title">Опыт работы</h3>
             <p class="box-subtitle">Укажите ваши предыдущие места работы - большинство работодателей предпочитают
                 опытных сотрудников</p>
@@ -498,13 +507,17 @@
                                 </small>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
 
-
+                <p class="p-col-12 warning-block"  *ngIf="workExprienceElements.length > 0">
+                    <i class="pi pi-exclamation-triangle"></i>
+                  <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
+                </p>
                 <div class="add-block p-col-12">
-                    <button class="send" pButton pRipple type="button"
+                     <button class="send" pButton pRipple type="button"
                             *ngIf="workExprienceElements.length > 0" (click)="saveWork()">
                         <span>Сохранить</span>
                     </button>
@@ -517,7 +530,7 @@
 
         </div>
 
-        <div class="block " *ngIf="!showLogin">
+        <div class="block " *ngIf="showLogin">
             <h3 class="box-title">Образование</h3>
             <p class="box-subtitle">Расскажите где вы получали образование - это увеличит ваши шансы на
                 трудоустройство</p>
@@ -606,8 +619,11 @@
 
                 </div>
 
+                <p class="p-col-12 warning-block">
+                    <i class="pi pi-exclamation-triangle"></i>
+                    <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
+                </p>
                 <div class="add-block p-col-12">
-
                     <button class="send" pButton pRipple type="button"
                             *ngIf="educationInfoElements.length > 0" (click)="saveEdu()">
                         <span>Сохранить</span>
@@ -622,7 +638,7 @@
         </div>
 
         <!--  multi-select-->
-        <div class="block " *ngIf="!showLogin">
+        <div class="block " *ngIf="showLogin">
             <h3 class="box-title">Иностранные языки </h3>
             <div class="box2">
                 <form [formGroup]="languagesForm">
@@ -643,14 +659,14 @@
         </div>
 
         <!--dinamics block-->
-        <div class="block " *ngIf="!showLogin">
+        <div class="block " *ngIf="showLogin">
             <h3 class="box-title">Дополнительная информация</h3>
             <p class="box-subtitle">Близкие родственники</p>
 
             <form [formGroup]="relativeInfo">
                 <div formArrayName="relativeInfoElements">
                     <div class="p-grid p-fluid p-formgrid box2"
-                         *ngFor="let items of relativeInfoElements.controls; let index = index"
+                         *ngFor="let relatives of relativeInfoElements.controls; let index = index"
                          [formGroupName]="index">
                         <div class="delete-block p-col-12">
                             <button pButton pRipple type="button" icon="pi pi-times"
@@ -665,17 +681,17 @@
                             <input id="kinship" type="text" pInputText formControlName="kinship">
 
                             <div
-                                *ngIf="items.get('kinship')?.invalid && items.get('kinship').touched"
+                                *ngIf="relatives.get('kinship')?.invalid && relatives.get('kinship').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('kinship').errors.required">Поле
+                                <small *ngIf="relatives.get('kinship').errors.required">Поле
                                     обязателен</small>
-                                <small *ngIf="items.get('kinship').errors.maxlength">
+                                <small *ngIf="relatives.get('kinship').errors.maxlength">
                                     Родство должна состоять не более чем из
-                                    {{items.get('kinship').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('kinship').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('kinship').errors.minlength">
+                                <small *ngIf="relatives.get('kinship').errors.minlength">
                                     Родство должна состоять не менее чем из
-                                    {{items.get('kinship').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('kinship').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
 
@@ -687,16 +703,16 @@
                             <input id="first_name" type="text" pInputText formControlName="first_name">
 
                             <div
-                                *ngIf="items.get('first_name')?.invalid && items.get('first_name').touched"
+                                *ngIf="relatives.get('first_name')?.invalid && relatives.get('first_name').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('first_name').errors.required">Поле обязателен</small>
-                                <small *ngIf="items.get('first_name').errors.maxlength">
+                                <small *ngIf="relatives.get('first_name').errors.required">Поле обязателен</small>
+                                <small *ngIf="relatives.get('first_name').errors.maxlength">
                                     Имя должна состоять не более чем из
-                                    {{items.get('first_name').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('first_name').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('first_name').errors.minlength">
+                                <small *ngIf="relatives.get('first_name').errors.minlength">
                                     Имя должна состоять не менее чем из
-                                    {{items.get('first_name').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('first_name').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
                         </div>
@@ -706,17 +722,17 @@
                             <input id="last_name" type="text" pInputText formControlName="last_name">
 
                             <div
-                                *ngIf="items.get('last_name')?.invalid && items.get('last_name').touched"
+                                *ngIf="relatives.get('last_name')?.invalid && relatives.get('last_name').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('last_name').errors.required">Поле
+                                <small *ngIf="relatives.get('last_name').errors.required">Поле
                                     обязателен</small>
-                                <small *ngIf="items.get('last_name').errors.maxlength">
+                                <small *ngIf="relatives.get('last_name').errors.maxlength">
                                     Фамилия должна состоять не более чем из
-                                    {{items.get('last_name').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('last_name').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('last_name').errors.minlength">
+                                <small *ngIf="relatives.get('last_name').errors.minlength">
                                     Фамилия должна состоять не менее чем из
-                                    {{items.get('last_name').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('last_name').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
 
@@ -728,16 +744,16 @@
                             <input id="middle_name" type="text" pInputText formControlName="middle_name">
 
                             <div
-                                *ngIf="items.get('middle_name')?.invalid && items.get('middle_name').touched"
+                                *ngIf="relatives.get('middle_name')?.invalid && relatives.get('middle_name').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('middle_name').errors.required">Поле обязателен</small>
-                                <small *ngIf="items.get('middle_name').errors.maxlength">
+                                <small *ngIf="relatives.get('middle_name').errors.required">Поле обязателен</small>
+                                <small *ngIf="relatives.get('middle_name').errors.maxlength">
                                     Отчество должна состоять не более чем из
-                                    {{items.get('middle_name').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('middle_name').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('middle_name').errors.minlength">
+                                <small *ngIf="relatives.get('middle_name').errors.minlength">
                                     Отчество должна состоять не менее чем из
-                                    {{items.get('middle_name').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('middle_name').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
                         </div>
@@ -750,8 +766,8 @@
 
                             <small class="p-invalid"
                                    *ngIf="
-                      items.get('start_date')?.errors &&
-                      items.get('start_date')?.touched"
+                      relatives.get('start_date')?.errors &&
+                      relatives.get('start_date')?.touched"
                             >Поле обязателен</small>
                         </div>
 
@@ -762,16 +778,16 @@
                             <input id="birth_place2" type="text" pInputText formControlName="birth_place">
 
                             <div
-                                *ngIf="items.get('birth_place')?.invalid && items.get('birth_place').touched"
+                                *ngIf="relatives.get('birth_place')?.invalid && relatives.get('birth_place').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('birth_place').errors.required">Поле обязателен</small>
-                                <small *ngIf="items.get('birth_place').errors.maxlength">
+                                <small *ngIf="relatives.get('birth_place').errors.required">Поле обязателен</small>
+                                <small *ngIf="relatives.get('birth_place').errors.maxlength">
                                     Место рождения должна состоять не более чем из
-                                    {{items.get('birth_place').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('birth_place').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('birth_place').errors.minlength">
+                                <small *ngIf="relatives.get('birth_place').errors.minlength">
                                     Место рождения должна состоять не менее чем из
-                                    {{items.get('birth_place').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('birth_place').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
                         </div>
@@ -781,17 +797,17 @@
                             <input id="position2" type="text" pInputText formControlName="position">
 
                             <div
-                                *ngIf="items.get('position')?.invalid && items.get('position').touched"
+                                *ngIf="relatives.get('position')?.invalid && relatives.get('position').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('position').errors.required">Поле
+                                <small *ngIf="relatives.get('position').errors.required">Поле
                                     обязателен</small>
-                                <small *ngIf="items.get('position').errors.maxlength">
+                                <small *ngIf="relatives.get('position').errors.maxlength">
                                     Должность должна состоять не более чем из
-                                    {{items.get('position').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('position').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('position').errors.minlength">
+                                <small *ngIf="relatives.get('position').errors.minlength">
                                     Должность должна состоять не менее чем из
-                                    {{items.get('position').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('position').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
 
@@ -800,19 +816,19 @@
 
                         <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
                             <label for="living_place">Места жительства</label>
-                            <input id="living_place" type="text" pInputText formControlName="middle_name">
+                            <input id="living_place" type="text" pInputText formControlName="living_place">
 
                             <div
-                                *ngIf="items.get('living_place')?.invalid && items.get('living_place').touched"
+                                *ngIf="relatives.get('living_place')?.invalid && relatives.get('living_place').touched"
                                 class="p-invalid">
-                                <small *ngIf="items.get('living_place').errors.required">Поле обязателен</small>
-                                <small *ngIf="items.get('living_place').errors.maxlength">
+                                <small *ngIf="relatives.get('living_place').errors.required">Поле обязателен</small>
+                                <small *ngIf="relatives.get('living_place').errors.maxlength">
                                     Места жительства должна состоять не более чем из
-                                    {{items.get('living_place').errors.maxlength.requiredLength}} букв
+                                    {{relatives.get('living_place').errors.maxlength.requiredLength}} букв
                                 </small>
-                                <small *ngIf="items.get('living_place').errors.minlength">
+                                <small *ngIf="relatives.get('living_place').errors.minlength">
                                     Места жительства должна состоять не менее чем из
-                                    {{items.get('living_place').errors.minlength.requiredLength}} букв
+                                    {{relatives.get('living_place').errors.minlength.requiredLength}} букв
                                 </small>
                             </div>
                         </div>
@@ -821,8 +837,11 @@
 
                 </div>
 
+                <p class="p-col-12 warning-block"  *ngIf="relativeInfoElements.length > 0">
+                    <i class="pi pi-exclamation-triangle"></i>
+                    <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
+                </p>
                 <div class="add-block p-col-12">
-
                     <button class="send" pButton pRipple type="button"
                             *ngIf="relativeInfoElements.length > 0" (click)="saveRelative()">
                         <span>Сохранить</span>
@@ -836,7 +855,7 @@
 
         </div>
 
-        <div class="send-block " *ngIf="!showLogin">
+        <div class="send-block " *ngIf="showLogin">
 
             <button pButton pRipple type="button" label="Отправить" class="p-button-raised  p-button-text"
                     (click)="sendResume()"></button>

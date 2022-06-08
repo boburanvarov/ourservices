@@ -13,6 +13,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {MessageService} from 'primeng/api';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
         CalendarModule,
         FileUploadModule,
         MultiSelectModule,
+        ToastModule,
     ],
   declarations: [
     WelcomeComponent,
