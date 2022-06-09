@@ -73,8 +73,6 @@ export class PassportInfoComponent implements OnInit {
                     sessionStorage.setItem('passportInfo', JSON.stringify(this.personInfo))
 
 
-
-                    sessionStorage.setItem('step', JSON.stringify(true))
                 }
             },
             (error) => {

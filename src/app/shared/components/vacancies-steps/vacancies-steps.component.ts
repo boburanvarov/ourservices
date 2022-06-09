@@ -14,6 +14,7 @@ export class VacanciesStepsComponent implements OnInit {
     stepActive = false;
     subscription: Subscription;
     steps: any;
+    resume:any;
 
     constructor(
         public messageService: MessageService,
@@ -47,10 +48,10 @@ export class VacanciesStepsComponent implements OnInit {
                 }
             },
             {
-                label: 'Вы можете получить свое резюме в формате Word',
+                label: 'формате Word',
                 routerLink: 'ourWord',
                 command: (event: any) => {
-
+                    this.step(event);
                     this.messageService.add({severity: 'info', summary: 'Pay with CC', detail: event.item.label});
                 }
             },
@@ -60,8 +61,16 @@ export class VacanciesStepsComponent implements OnInit {
 
     step(event: any) {
         this.steps = JSON.parse(sessionStorage.getItem('passportInfo'));
+
+        this.resume = JSON.parse(sessionStorage.getItem('resume'));
         console.log(event.item.routerLink);
         console.log(this.steps);
+        if(this.resume == null){
+            if (event.item.routerLink == 'ourWord') {
+
+                this.router.navigate(['steps/our']);
+            }
+        }
         if (this.steps == null ) {
 
                 this.router.navigate(['steps/passport']);
@@ -72,8 +81,8 @@ export class VacanciesStepsComponent implements OnInit {
         } else if (event.item.routerLink == 'our') {
 
             this.router.navigate(['steps/our']);
-
         }
+
 
         console.log(this.stepActive);
     }

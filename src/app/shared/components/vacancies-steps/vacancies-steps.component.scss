@@ -29,6 +29,7 @@
 .header .logo img.showImg {
     width: 250px;
 }
+
 .header .logo img.hideImg {
     display: none;
 }
@@ -47,4 +48,42 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+@media (max-width: 425px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        width: 360px;
+    }
+    .header .logo img.showImg {
+        display: none;
+    }
+    .header .logo img.hideImg {
+        width: 80px;
+        display: block;
+        height: 60px;
+    }
+
+    ::ng-deep .p-steps ul {
+
+        //display: block !important;
+    }
+    ::ng-deep .p-steps ul li{
+        width: 60px;
+        text-align: left;
+    }
+
+}
+
+@media (max-width: 320px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        padding: 10px;
+        width: 300px;
+    }
+    .header .logo img.showImg {
+        display: none;
+    }
 }

@@ -64,4 +64,30 @@
     display: block;
     color: red;
 }
+@media (max-width: 425px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        width: 360px;
+    }
+    .header .logo img.showImg {
+        display: none;
+    }
+    .header .logo img.hideImg {
+        width: 80px;
+        display: block;
+        height: 60px;
+    }
+}
 
+@media (max-width: 320px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        padding: 10px;
+        width: 300px;
+    }
+    .header .logo img.showImg {
+        display: none;
+    }
+}
