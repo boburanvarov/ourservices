@@ -1,0 +1,21 @@
+
+<div class="main">
+    <div class="header">
+        <h1 class="header-title">
+            Resume
+        </h1>
+        <div class="logo">
+            <img class="showImg" src="../../../../assets/img.png" alt="#">
+            <img class="hideImg"  src="../../../../assets/davrLoggo.jpg" alt="#">
+        </div>
+    </div>
+    <div class="card">
+
+
+        <p-steps [model]="items" [readonly]="stepActive"></p-steps>
+    </div>
+    <div class="content">
+
+        <router-outlet></router-outlet>
+    </div>
+</div>

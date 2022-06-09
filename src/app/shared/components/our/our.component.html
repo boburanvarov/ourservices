@@ -1,4 +1,3 @@
-
 <p-toast position="top-right" key="tst"></p-toast>
 <swal
     #saveSwal
@@ -15,867 +14,811 @@
     text="Попробуйте заного"
     title="Что то пошло не так!">
 </swal>
-<div class="main">
-    <div class="header">
-        <h1 class="header-title">
-            Resume
-        </h1>
-        <div class="logo">
-            <img class="showImg" src="../../../../assets/img.png" alt="#">
-                <img class="hideImg"  src="../../../../assets/davrLoggo.jpg" alt="#">
-        </div>
-    </div>
-    <!--</form>-->
 
-    <div class="content">
+<div class="stepsdemo-content">
+    <div class="main">
 
-        <div class="box" *ngIf="!showLogin">
+        <!--</form>-->
 
-            <form [formGroup]="passportForm" (submit)="passportSubmit()" class="box-form">
-                <div class="group-item series">
-                    <label for="float-input">Пасспорт Серия</label>
-                    <input id="float-input" formControlName="series" type="text" pInputText>
-
-                    <div *ngIf="passportForm.get('series').invalid && passportForm.get('series').touched"
-                         class="p-invalid">
-                        <small *ngIf="passportForm.get('series').errors.required">Поле обязателен</small>
-                        <small *ngIf="passportForm.get('series').errors.maxlength">
-                            Пасспорт Серия должна состоять не более чем из
-                            {{passportForm.get('series').errors.maxlength.requiredLength}} букв
-                        </small>
-                        <small *ngIf="passportForm.get('series').errors.minlength">
-                            Серия паспорта должна состоять не менее чем из
-                            {{passportForm.get('series').errors.minlength.requiredLength}} букв
-                        </small>
-                    </div>
-
-                </div>
+        <div class="content">
 
 
-                <div class="group-item">
-                    <label for="number">Пасспорт Номер</label>
-                    <input id="number" type="text" pInputText formControlName="number">
 
-                    <div *ngIf="passportForm.get('number')?.invalid && passportForm.get('number')?.touched"
-                         class="p-invalid">
-                        <small *ngIf="passportForm.get('number').errors.required">Поле обязателен</small>
-                        <small *ngIf="passportForm.get('number').errors.maxlength">
-                            Номер паспорта должен состоять не более чем из
-                            {{passportForm.get('number').errors.maxlength.requiredLength}} цифр
-                        </small>
-                        <small *ngIf="passportForm.get('number').errors.minlength">
-                            Номер паспорта должен состоять как минимум из
-                            {{passportForm.get('number').errors.minlength.requiredLength}} цифр
-                        </small>
-                    </div>
+            <div class="block" *ngIf="showLogin">
 
+                <h3 class="box-title">Основная информация</h3>
 
-                </div>
-
-                <div class="group-item">
-                    <label for="date">День Рождения</label>
-                    <p-calendar [showIcon]="true" inputId="icon" formControlName="birthDate" dateFormat="dd.mm.yy"
-                                id="date"></p-calendar>
-
-                    <small class="p-invalid"
-                           *ngIf="
-                      passportForm.get('birthDate')?.errors &&
-                      passportForm.get('birthDate')?.touched"
-                    >Поле обязателен</small>
-                </div>
-
-                <button type="submit" class="search">Поиск</button>
-            </form>
-
-        </div>
-
-        <div class="block" *ngIf="!showLogin" >
-            <h3 class="box-title">Основная информация</h3>
-
-                <form [formGroup]="basicInfor" >
+                <form [formGroup]="basicInfor">
                     <div class="box2">
-                    <div class="p-grid p-formgrid ">
-                        <div class="p-field p-col-6 ">
+                        <div class="p-grid p-formgrid ">
+                            <div class="p-field p-col-6 ">
 
-                            <div class="group-item">
-                                <label for="fName">Фамилия</label>
-                                <input id="fName" type="text" pInputText formControlName="fName" readonly>
+                                <div class="group-item">
+                                    <label for="fName">Фамилия</label>
+                                    <input id="fName" type="text" pInputText formControlName="fName" readonly>
 
-                                <div *ngIf="basicInfor.get('fName')?.invalid && basicInfor.get('fName').touched"
-                                     class="p-invalid">
-                                    <small *ngIf="basicInfor.get('fName').errors.required">Поле обязателен</small>
-                                    <small *ngIf="basicInfor.get('fName').errors.maxlength">
-                                        Фамилия должна состоять не более чем из
-                                        {{basicInfor.get('fName').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="basicInfor.get('fName').errors.minlength">
-                                        Фамилия должна состоять не менее чем из
-                                        {{basicInfor.get('fName').errors.minlength.requiredLength}} букв
-                                    </small>
+                                    <div *ngIf="basicInfor.get('fName')?.invalid && basicInfor.get('fName').touched"
+                                         class="p-invalid">
+                                        <small *ngIf="basicInfor.get('fName').errors.required">Поле обязателен</small>
+                                        <small *ngIf="basicInfor.get('fName').errors.maxlength">
+                                            Фамилия должна состоять не более чем из
+                                            {{basicInfor.get('fName').errors.maxlength.requiredLength}} букв
+                                        </small>
+                                        <small *ngIf="basicInfor.get('fName').errors.minlength">
+                                            Фамилия должна состоять не менее чем из
+                                            {{basicInfor.get('fName').errors.minlength.requiredLength}} букв
+                                        </small>
+                                    </div>
+
+
                                 </div>
 
+                                <div class="group-item">
+                                    <label for="name">Имя</label>
+                                    <input id="name" type="text" pInputText formControlName="name" readonly>
 
-                            </div>
+                                    <div *ngIf="basicInfor.get('name')?.invalid && basicInfor.get('name').touched"
+                                         class="p-invalid">
+                                        <small *ngIf="basicInfor.get('name').errors.required">Поле обязателен</small>
+                                        <small *ngIf="basicInfor.get('name').errors.maxlength">
+                                            Имя должна состоять не более чем из
+                                            {{basicInfor.get('name').errors.maxlength.requiredLength}} букв
+                                        </small>
+                                        <small *ngIf="basicInfor.get('name').errors.minlength">
+                                            Имя должна состоять не менее чем из
+                                            {{passportForm.get('name').errors.minlength.requiredLength}} букв
+                                        </small>
+                                    </div>
 
-                            <div class="group-item">
-                                <label for="name">Имя</label>
-                                <input id="name" type="text" pInputText formControlName="name" readonly>
 
-                                <div *ngIf="basicInfor.get('name')?.invalid && basicInfor.get('name').touched"
-                                     class="p-invalid">
-                                    <small *ngIf="basicInfor.get('name').errors.required">Поле обязателен</small>
-                                    <small *ngIf="basicInfor.get('name').errors.maxlength">
-                                        Имя должна состоять не более чем из
-                                        {{basicInfor.get('name').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="basicInfor.get('name').errors.minlength">
-                                        Имя должна состоять не менее чем из
-                                        {{passportForm.get('name').errors.minlength.requiredLength}} букв
-                                    </small>
                                 </div>
 
+                                <div class="group-item">
+                                    <label for="lName">Отчество</label>
+                                    <input id="lName" type="text" pInputText formControlName="lName" readonly>
 
-                            </div>
-
-                            <div class="group-item">
-                                <label for="lName">Отчество</label>
-                                <input id="lName" type="text" pInputText formControlName="lName" readonly>
-
-                                <div *ngIf="basicInfor.get('lName')?.invalid && basicInfor.get('lName').touched"
-                                     class="p-invalid">
-                                    <small *ngIf="basicInfor.get('lName').errors.required">Поле обязателен</small>
-                                    <small *ngIf="basicInfor.get('lName').errors.maxlength">
-                                        Отчество должна состоять не более чем из
-                                        {{basicInfor.get('lName').errors.maxlength.requiredLength}} букв
-                                    </small>
-                                    <small *ngIf="basicInfor.get('lName').errors.minlength">
-                                        Отчество должна состоять не менее чем из
-                                        {{basicInfor.get('lName').errors.minlength.requiredLength}} букв
-                                    </small>
+                                    <div *ngIf="basicInfor.get('lName')?.invalid && basicInfor.get('lName').touched"
+                                         class="p-invalid">
+                                        <small *ngIf="basicInfor.get('lName').errors.required">Поле обязателен</small>
+                                        <small *ngIf="basicInfor.get('lName').errors.maxlength">
+                                            Отчество должна состоять не более чем из
+                                            {{basicInfor.get('lName').errors.maxlength.requiredLength}} букв
+                                        </small>
+                                        <small *ngIf="basicInfor.get('lName').errors.minlength">
+                                            Отчество должна состоять не менее чем из
+                                            {{basicInfor.get('lName').errors.minlength.requiredLength}} букв
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="img-block p-field p-col-6 " >
+                            <div class="img-block p-field p-col-6 ">
 
-                            <!--                          <div class="upload-block">-->
-                            <!--                              <input class="file_upload" type="file" maxFileSize="1000000"-->
-                            <!--                                     (change)="onBasicUploadAuto($event)"-->
-                            <!--                                     formControlName="image"-->
-                            <!--                                     chooseLabel="Прикрепить фотографию">-->
-                            <!--                              <i class="pi pi-camera"></i>-->
-                            <!--                          </div>-->
+                                <!--                          <div class="upload-block">-->
+                                <!--                              <input class="file_upload" type="file" maxFileSize="1000000"-->
+                                <!--                                     (change)="onBasicUploadAuto($event)"-->
+                                <!--                                     formControlName="image"-->
+                                <!--                                     chooseLabel="Прикрепить фотографию">-->
+                                <!--                              <i class="pi pi-camera"></i>-->
+                                <!--                          </div>-->
 
-                            <div class="inputWrapper" >
-                                <input class="fileInput" (change)="onBasicUploadAuto($event)"  type="file" name="file1"
-                                       formControlName="images"/>
-                                <i class="pi pi-camera "  *ngIf="!base64textString"></i>
-                                <i class="pi pi-pencil "  *ngIf="base64textString"></i>
+                                <div class="inputWrapper">
+                                    <input class="fileInput" (change)="onBasicUploadAuto($event)" type="file"
+                                           name="file1"
+                                           formControlName="images"/>
+                                    <i class="pi pi-camera " *ngIf="!base64textString"></i>
+                                    <i class="pi pi-pencil " *ngIf="base64textString"></i>
 
-                                <img [src]="base64textString"  *ngIf="base64textString"/>
+                                    <img [src]="base64textString" *ngIf="base64textString"/>
 
-                            </div >
-<!--                            <div class="image-wrap"    >-->
+                                </div>
+                                <!--                            <div class="image-wrap"    >-->
 
-<!--                            </div>-->
-                            <small class="p-invalid"
-                                   *ngIf="
+                                <!--                            </div>-->
+                                <small class="p-invalid"
+                                       *ngIf="
                       basicInfor.get('images')?.errors &&
                       basicInfor.get('images')?.touched"
-                            >Поле обязателен</small>
-                            <small class="p-invalid"
-                                   *ngIf="imageError"
-                            >{{imageError}}</small>
-                        </div>
-                    </div>
-
-                    <div class="p-grid p-formgrid">
-
-                        <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="birth_date">Дата рождения</label>
-                            <input id="birth_date" type="text" pInputText formControlName="birth_date" readonly>
-
-                            <div
-                                *ngIf="basicInfor.get('birth_date')?.invalid && basicInfor.get('birth_date').touched"
-                                class="p-invalid">
-                                <small *ngIf="basicInfor.get('birth_date').errors.required">Поле обязателен</small>
-                                <small *ngIf="basicInfor.get('birth_date').errors.maxlength">
-                                    Дата рождения должна состоять не более чем из
-                                    {{basicInfor.get('birth_date').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="basicInfor.get('birth_date').errors.minlength">
-                                    Дата рождения должна состоять не менее чем из
-                                    {{basicInfor.get('birth_date').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-                        <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="birth_place">Город проживания</label>
-                            <input id="birth_place" type="text" pInputText formControlName="birth_place" readonly>
-
-                            <div
-                                *ngIf="basicInfor.get('birth_place')?.invalid && basicInfor.get('birth_place').touched"
-                                class="p-invalid">
-                                <small *ngIf="basicInfor.get('birth_place').errors.required">Поле обязателен</small>
-                                <small *ngIf="basicInfor.get('birth_place').errors.maxlength">
-                                    Город проживания должна состоять не более чем из
-                                    {{basicInfor.get('birth_place').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="basicInfor.get('birth_place').errors.minlength">
-                                    Город проживания должна состоять не менее чем из
-                                    {{basicInfor.get('birth_place').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-                        <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="nationality">Национальность</label>
-                            <input id="nationality" type="text" pInputText formControlName="nationality" readonly>
-
-                            <div
-                                *ngIf="basicInfor.get('nationality')?.invalid && basicInfor.get('nationality').touched"
-                                class="p-invalid">
-                                <small *ngIf="basicInfor.get('nationality').errors.required">Поле обязателен</small>
-                                <small *ngIf="basicInfor.get('nationality').errors.maxlength">
-                                    Национальность должна состоять не более чем из
-                                    {{basicInfor.get('nationality').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="basicInfor.get('nationality').errors.minlength">
-                                    Национальность должна состоять не менее чем из
-                                    {{basicInfor.get('nationality').errors.minlength.requiredLength}} букв
-                                </small>
+                                >Поле обязателен</small>
+                                <small class="p-invalid"
+                                       *ngIf="imageError"
+                                >{{imageError}}</small>
                             </div>
                         </div>
 
-                        <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="phone">Телефон</label>
-                            <input id="phone" type="text" pInputText formControlName="phone">
+                        <div class="p-grid p-formgrid">
 
-                            <div *ngIf="basicInfor.get('phone')?.invalid && basicInfor.get('phone').touched"
-                                 class="p-invalid">
-                                <small *ngIf="basicInfor.get('phone').errors.required">Поле обязателен</small>
-                                <small *ngIf="basicInfor.get('phone').errors.maxlength">
-                                    Телефон должна состоять не более чем из
-                                    {{basicInfor.get('phone').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="basicInfor.get('phone').errors.minlength">
-                                    Телефон должна состоять не менее чем из
-                                    {{basicInfor.get('phone').errors.minlength.requiredLength}} букв
-                                </small>
+                            <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="birth_date">Дата рождения</label>
+                                <input id="birth_date" type="text" pInputText formControlName="birth_date" readonly>
+
+                                <div
+                                    *ngIf="basicInfor.get('birth_date')?.invalid && basicInfor.get('birth_date').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="basicInfor.get('birth_date').errors.required">Поле обязателен</small>
+                                    <small *ngIf="basicInfor.get('birth_date').errors.maxlength">
+                                        Дата рождения должна состоять не более чем из
+                                        {{basicInfor.get('birth_date').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="basicInfor.get('birth_date').errors.minlength">
+                                        Дата рождения должна состоять не менее чем из
+                                        {{basicInfor.get('birth_date').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
                             </div>
+
+                            <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="birth_place">Город проживания</label>
+                                <input id="birth_place" type="text" pInputText formControlName="birth_place" readonly>
+
+                                <div
+                                    *ngIf="basicInfor.get('birth_place')?.invalid && basicInfor.get('birth_place').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="basicInfor.get('birth_place').errors.required">Поле обязателен</small>
+                                    <small *ngIf="basicInfor.get('birth_place').errors.maxlength">
+                                        Город проживания должна состоять не более чем из
+                                        {{basicInfor.get('birth_place').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="basicInfor.get('birth_place').errors.minlength">
+                                        Город проживания должна состоять не менее чем из
+                                        {{basicInfor.get('birth_place').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="nationality">Национальность</label>
+                                <input id="nationality" type="text" pInputText formControlName="nationality" readonly>
+
+                                <div
+                                    *ngIf="basicInfor.get('nationality')?.invalid && basicInfor.get('nationality').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="basicInfor.get('nationality').errors.required">Поле обязателен</small>
+                                    <small *ngIf="basicInfor.get('nationality').errors.maxlength">
+                                        Национальность должна состоять не более чем из
+                                        {{basicInfor.get('nationality').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="basicInfor.get('nationality').errors.minlength">
+                                        Национальность должна состоять не менее чем из
+                                        {{basicInfor.get('nationality').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="phone">Телефон</label>
+                                <input id="phone" type="text" pInputText formControlName="phone">
+
+                                <div *ngIf="basicInfor.get('phone')?.invalid && basicInfor.get('phone').touched"
+                                     class="p-invalid">
+                                    <small *ngIf="basicInfor.get('phone').errors.required">Поле обязателен</small>
+                                    <small *ngIf="basicInfor.get('phone').errors.maxlength">
+                                        Телефон должна состоять не более чем из
+                                        {{basicInfor.get('phone').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="basicInfor.get('phone').errors.minlength">
+                                        Телефон должна состоять не менее чем из
+                                        {{basicInfor.get('phone').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <!--                    <div class="add-block p-col-12">-->
-                    <!--                        <button class="send" pButton pRipple type="button" label="Сохранять" (click)="saveMain()"></button>-->
-                    <!--                    </div>-->
+                        <!--                    <div class="add-block p-col-12">-->
+                        <!--                        <button class="send" pButton pRipple type="button" label="Сохранять" (click)="saveMain()"></button>-->
+                        <!--                    </div>-->
                     </div>
                 </form>
 
-
-        </div>
-
-
-        <div class="block " *ngIf="showLogin">
-            <h3 class="box-title">Личная информация</h3>
-            <div class="box2">
-                <form [formGroup]="personalInfor">
-
-                    <div class="p-grid p-fluid p-formgrid  ">
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="partisanship">Партийность</label>
-                            <input id="partisanship" type="text" pInputText formControlName="partisanship">
-
-                            <div
-                                *ngIf="personalInfor.get('partisanship')?.invalid && personalInfor.get('partisanship').touched"
-                                class="p-invalid">
-                                <small *ngIf="personalInfor.get('partisanship').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="personalInfor.get('partisanship').errors.maxlength">
-                                    Партийность должна состоять не более чем из
-                                    {{personalInfor.get('partisanship').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('partisanship').errors.minlength">
-                                    Партийность должна состоять не менее чем из
-                                    {{personalInfor.get('partisanship').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="education_degree">Степень образования</label>
-                            <input id="education_degree" type="text" pInputText formControlName="education_degree">
-
-                            <div
-                                *ngIf="personalInfor.get('education_degree')?.invalid && personalInfor.get('education_degree').touched"
-                                class="p-invalid">
-                                <small *ngIf="personalInfor.get('education_degree').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="personalInfor.get('education_degree').errors.maxlength">
-                                    Степень образования должна состоять не более чем из
-                                    {{personalInfor.get('education_degree').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('education_degree').errors.minlength">
-                                    Степень образования должна состоять не менее чем из
-                                    {{personalInfor.get('education_degree').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="specialty">Специальность</label>
-                            <input id="specialty" type="text" pInputText formControlName="specialty">
-
-                            <div
-                                *ngIf="personalInfor.get('specialty')?.invalid && personalInfor.get('specialty').touched"
-                                class="p-invalid">
-                                <small *ngIf="personalInfor.get('specialty').errors.required">Поле обязателен</small>
-                                <small *ngIf="personalInfor.get('specialty').errors.maxlength">
-                                    Специальность должна состоять не более чем из
-                                    {{personalInfor.get('specialty').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('specialty').errors.minlength">
-                                    Специальность должна состоять не менее чем из
-                                    {{personalInfor.get('specialty').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="academic_degree">Ученая степень</label>
-                            <input id="academic_degree" type="text" pInputText formControlName="academic_degree">
-
-                            <div
-                                *ngIf="personalInfor.get('academic_degree')?.invalid && personalInfor.get('academic_degree').touched"
-                                class="p-invalid">
-                                <small *ngIf="personalInfor.get('academic_degree').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="personalInfor.get('academic_degree').errors.maxlength">
-                                    Ученая степень должна состоять не более чем из
-                                    {{passportForm.get('academic_degree').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('academic_degree').errors.minlength">
-                                    Ученая степень должна состоять не менее чем из
-                                    {{personalInfor.get('academic_degree').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="awards">Награды</label>
-                            <input id="awards" type="text" pInputText formControlName="partisanship">
-
-                            <div *ngIf="personalInfor.get('awards')?.invalid && personalInfor.get('awards').touched"
-                                 class="p-invalid">
-                                <small *ngIf="personalInfor.get('awards').errors.required">Поле обязателен</small>
-                                <small *ngIf="personalInfor.get('awards').errors.maxlength">
-                                    Награды должна состоять не более чем из
-                                    {{personalInfor.get('awards').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('awards').errors.minlength">
-                                    Награды должна состоять не менее чем из
-                                    {{personalInfor.get('awards').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="government_agencies">Государственные учреждения</label>
-                            <input id="government_agencies" type="text" pInputText
-                                   formControlName="government_agencies">
-
-                            <div
-                                *ngIf="personalInfor.get('government_agencies')?.invalid && personalInfor.get('government_agencies').touched"
-                                class="p-invalid">
-                                <small *ngIf="personalInfor.get('government_agencies').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="personalInfor.get('government_agencies').errors.maxlength">
-                                    Государственные учреждения должна состоять не более чем из
-                                    {{personalInfor.get('government_agencies').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('government_agencies').errors.minlength">
-                                    Государственные учреждения должна состоять не менее чем из
-                                    {{personalInfor.get('government_agencies').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="email">E-mail</label>
-                            <input id="email" type="text" pInputText formControlName="email">
-
-                            <div *ngIf="personalInfor.get('email')?.invalid && personalInfor.get('email').touched"
-                                 class="p-invalid">
-                                <small *ngIf="personalInfor.get('email').errors.required">Поле обязателен</small>
-                                <small *ngIf="passportForm.get('email').errors.maxlength">
-                                    E-mail должна состоять не более чем из
-                                    {{personalInfor.get('email').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="personalInfor.get('email').errors.minlength">
-                                    E-mail должна состоять не менее чем из
-                                    {{personalInfor.get('email').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-                </form>
 
             </div>
-        </div>
 
-        <!--dinamics block-->
-        <div class="block " *ngIf="showLogin">
-            <h3 class="box-title">Опыт работы</h3>
-            <p class="box-subtitle">Укажите ваши предыдущие места работы - большинство работодателей предпочитают
-                опытных сотрудников</p>
 
-            <form [formGroup]="workExperience">
-                <div formArrayName="workExprienceElements">
-                    <div class="p-grid p-fluid p-formgrid box2"
-                         *ngFor="let items of workExprienceElements.controls; let index = index"
-                         [formGroupName]="index">
-                        <div class="delete-block p-col-12">
-                            <button pButton pRipple type="button" icon="pi pi-times"
-                                    class="p-button-rounded p-button-danger"
-                                    (click)="deleteItem(index, workExprienceElements)"></button>
+            <div class="block " *ngIf="showLogin">
+                <h3 class="box-title">Личная информация</h3>
+                <div class="box2">
+                    <form [formGroup]="personalInfor">
+
+                        <div class="p-grid p-fluid p-formgrid  ">
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="partisanship">Партийность</label>
+                                <input id="partisanship" type="text" pInputText formControlName="partisanship">
+
+                                <div
+                                    *ngIf="personalInfor.get('partisanship')?.invalid && personalInfor.get('partisanship').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="personalInfor.get('partisanship').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="personalInfor.get('partisanship').errors.maxlength">
+                                        Партийность должна состоять не более чем из
+                                        {{personalInfor.get('partisanship').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('partisanship').errors.minlength">
+                                        Партийность должна состоять не менее чем из
+                                        {{personalInfor.get('partisanship').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="education_degree">Степень образования</label>
+                                <input id="education_degree" type="text" pInputText formControlName="education_degree">
+
+                                <div
+                                    *ngIf="personalInfor.get('education_degree')?.invalid && personalInfor.get('education_degree').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="personalInfor.get('education_degree').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="personalInfor.get('education_degree').errors.maxlength">
+                                        Степень образования должна состоять не более чем из
+                                        {{personalInfor.get('education_degree').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('education_degree').errors.minlength">
+                                        Степень образования должна состоять не менее чем из
+                                        {{personalInfor.get('education_degree').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="specialty">Специальность</label>
+                                <input id="specialty" type="text" pInputText formControlName="specialty">
+
+                                <div
+                                    *ngIf="personalInfor.get('specialty')?.invalid && personalInfor.get('specialty').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="personalInfor.get('specialty').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="personalInfor.get('specialty').errors.maxlength">
+                                        Специальность должна состоять не более чем из
+                                        {{personalInfor.get('specialty').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('specialty').errors.minlength">
+                                        Специальность должна состоять не менее чем из
+                                        {{personalInfor.get('specialty').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="academic_degree">Ученая степень</label>
+                                <input id="academic_degree" type="text" pInputText formControlName="academic_degree">
+
+                                <div
+                                    *ngIf="personalInfor.get('academic_degree')?.invalid && personalInfor.get('academic_degree').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="personalInfor.get('academic_degree').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="personalInfor.get('academic_degree').errors.maxlength">
+                                        Ученая степень должна состоять не более чем из
+                                        {{personalInfor.get('academic_degree').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('academic_degree').errors.minlength">
+                                        Ученая степень должна состоять не менее чем из
+                                        {{personalInfor.get('academic_degree').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="awards">Награды</label>
+                                <input id="awards" type="text" pInputText formControlName="partisanship">
+
+                                <div *ngIf="personalInfor.get('awards')?.invalid && personalInfor.get('awards').touched"
+                                     class="p-invalid">
+                                    <small *ngIf="personalInfor.get('awards').errors.required">Поле обязателен</small>
+                                    <small *ngIf="personalInfor.get('awards').errors.maxlength">
+                                        Награды должна состоять не более чем из
+                                        {{personalInfor.get('awards').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('awards').errors.minlength">
+                                        Награды должна состоять не менее чем из
+                                        {{personalInfor.get('awards').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="government_agencies">Государственные учреждения</label>
+                                <input id="government_agencies" type="text" pInputText
+                                       formControlName="government_agencies">
+
+                                <div
+                                    *ngIf="personalInfor.get('government_agencies')?.invalid && personalInfor.get('government_agencies').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="personalInfor.get('government_agencies').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="personalInfor.get('government_agencies').errors.maxlength">
+                                        Государственные учреждения должна состоять не более чем из
+                                        {{personalInfor.get('government_agencies').errors.maxlength.requiredLength}}
+                                        букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('government_agencies').errors.minlength">
+                                        Государственные учреждения должна состоять не менее чем из
+                                        {{personalInfor.get('government_agencies').errors.minlength.requiredLength}}
+                                        букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="email">E-mail</label>
+                                <input id="email" type="text" pInputText formControlName="email">
+
+                                <div *ngIf="personalInfor.get('email')?.invalid && personalInfor.get('email').touched"
+                                     class="p-invalid">
+                                    <small *ngIf="personalInfor.get('email').errors.required">Поле обязателен</small>
+                                    <small *ngIf="passportForm.get('email').errors.maxlength">
+                                        E-mail должна состоять не более чем из
+                                        {{personalInfor.get('email').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="personalInfor.get('email').errors.minlength">
+                                        E-mail должна состоять не менее чем из
+                                        {{personalInfor.get('email').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
 
                         </div>
 
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="start_date">Устроился</label>
-                            <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
-                                        inputId="icon"
-                                        id="start_date"></p-calendar>
+                    </form>
 
-                            <small class="p-invalid"
-                                   *ngIf="
+                </div>
+            </div>
+
+            <!--dinamics block-->
+            <div class="block " *ngIf="showLogin">
+                <h3 class="box-title">Опыт работы</h3>
+                <p class="box-subtitle">Укажите ваши предыдущие места работы - большинство работодателей предпочитают
+                    опытных сотрудников</p>
+
+                <form [formGroup]="workExperience">
+                    <div formArrayName="workExprienceElements">
+                        <div class="p-grid p-fluid p-formgrid box2"
+                             *ngFor="let items of workExprienceElements.controls; let index = index"
+                             [formGroupName]="index">
+                            <div class="delete-block p-col-12">
+                                <button pButton pRipple type="button" icon="pi pi-times"
+                                        class="p-button-rounded p-button-danger"
+                                        (click)="deleteItem(index, workExprienceElements)"></button>
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="start_date">Устроился</label>
+                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                            inputId="icon"
+                                            id="start_date"></p-calendar>
+
+                                <small class="p-invalid"
+                                       *ngIf="
                       items.get('start_date')?.errors &&
                       items.get('start_date')?.touched"
-                            >Поле обязателен</small>
-                        </div>
+                                >Поле обязателен</small>
+                            </div>
 
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="end_date">Уволился</label>
-                            <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
-                                        inputId="icon"
-                                        id="end_date"></p-calendar>
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="end_date">Уволился</label>
+                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                            inputId="icon"
+                                            id="end_date"></p-calendar>
 
-                            <small class="p-invalid"
-                                   *ngIf="
+                                <small class="p-invalid"
+                                       *ngIf="
                       items.get('end_date')?.errors &&
                       items.get('end_date')?.touched"
-                            >Поле обязателен</small>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="company">Организация</label>
-                            <input id="company" type="text" pInputText formControlName="company">
-
-                            <div
-                                *ngIf="items.get('company')?.invalid && items.get('company').touched"
-                                class="p-invalid">
-                                <small *ngIf="items.get('company').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="items.get('company').errors.maxlength">
-                                    Организация должна состоять не более чем из
-                                    {{items.get('company').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="items.get('company').errors.minlength">
-                                    Организация должна состоять не менее чем из
-                                    {{items.get('company').errors.minlength.requiredLength}} букв
-                                </small>
+                                >Поле обязателен</small>
                             </div>
 
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="company">Организация</label>
+                                <input id="company" type="text" pInputText formControlName="company">
 
-                        </div>
+                                <div
+                                    *ngIf="items.get('company')?.invalid && items.get('company').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="items.get('company').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="items.get('company').errors.maxlength">
+                                        Организация должна состоять не более чем из
+                                        {{items.get('company').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="items.get('company').errors.minlength">
+                                        Организация должна состоять не менее чем из
+                                        {{items.get('company').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
 
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="position">Должность</label>
-                            <input id="position" type="text" pInputText formControlName="position">
 
-                            <div
-                                *ngIf="items.get('position')?.invalid && items.get('position').touched"
-                                class="p-invalid">
-                                <small *ngIf="items.get('position').errors.required">Поле обязателен</small>
-                                <small *ngIf="items.get('position').errors.maxlength">
-                                    Должность должна состоять не более чем из
-                                    {{items.get('position').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="items.get('position').errors.minlength">
-                                    Должность должна состоять не менее чем из
-                                    {{items.get('position').errors.minlength.requiredLength}} букв
-                                </small>
                             </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="position">Должность</label>
+                                <input id="position" type="text" pInputText formControlName="position">
+
+                                <div
+                                    *ngIf="items.get('position')?.invalid && items.get('position').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="items.get('position').errors.required">Поле обязателен</small>
+                                    <small *ngIf="items.get('position').errors.maxlength">
+                                        Должность должна состоять не более чем из
+                                        {{items.get('position').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="items.get('position').errors.minlength">
+                                        Должность должна состоять не менее чем из
+                                        {{items.get('position').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
 
-                </div>
-
-                <p class="p-col-12 warning-block"  *ngIf="workExprienceElements.length > 0">
-                    <i class="pi pi-exclamation-triangle"></i>
-                  <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
-                </p>
-                <div class="add-block p-col-12">
-                     <button class="send" pButton pRipple type="button"
-                            *ngIf="workExprienceElements.length > 0" (click)="saveWork()">
-                        <span>Сохранить</span>
-                    </button>
-                    <button pButton pRipple type="button" icon="pi pi-plus"
-                            (click)="add(workExprienceElements)"></button>
-                </div>
-
-            </form>
-
-
-        </div>
-
-        <div class="block " *ngIf="showLogin">
-            <h3 class="box-title">Образование</h3>
-            <p class="box-subtitle">Расскажите где вы получали образование - это увеличит ваши шансы на
-                трудоустройство</p>
-
-            <form [formGroup]="educationInfo">
-                <div formArrayName="educationInfoElements">
-                    <div class="p-grid p-fluid p-formgrid box2"
-                         *ngFor="let item of educationInfoElements.controls; let index = index"
-                         [formGroupName]="index">
-                        <div class="delete-block p-col-12" *ngIf="this.educationInfoElements.length > 1">
-                            <button pButton pRipple type="button" icon="pi pi-times"
-                                    class="p-button-rounded p-button-danger"
-                                    (click)="deleteItem(index, educationInfoElements)"></button>
-
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="start_date2">Устроился</label>
-                            <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
-                                        inputId="icon"
-                                        id="start_date2"></p-calendar>
-
-                            <small class="p-invalid"
-                                   *ngIf="
-                      item.get('start_date')?.errors &&
-                      item.get('start_date')?.touched"
-                            >Поле обязателен</small>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="end_date2">Уволился</label>
-                            <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
-                                        inputId="icon"
-                                        id="end_date2"></p-calendar>
-
-                            <small class="p-invalid"
-                                   *ngIf="
-                      item.get('end_date')?.errors &&
-                      item.get('end_date')?.touched"
-                            >Поле обязателен</small>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="name2">Учебный завадения</label>
-                            <input id="name2" type="text" pInputText formControlName="name">
-
-                            <div
-                                *ngIf="item.get('name')?.invalid && item.get('name').touched"
-                                class="p-invalid">
-                                <small *ngIf="item.get('name').errors.required">Поле обязателен</small>
-                                <small *ngIf="item.get('name').errors.maxlength">
-                                    Учебный завадения должна состоять не более чем из
-                                    {{item.get('name').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="item.get('name').errors.minlength">
-                                    Учебный завадения должна состоять не менее чем из
-                                    {{item.get('name').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="faculty">Факультет</label>
-                            <input id="faculty" type="text" pInputText formControlName="faculty">
-
-                            <div
-                                *ngIf="item.get('faculty')?.invalid && item.get('faculty').touched"
-                                class="p-invalid">
-                                <small *ngIf="item.get('faculty').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="item.get('faculty').errors.maxlength">
-                                    Факультет должна состоять не более чем из
-                                    {{passportForm.get('faculty').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="item.get('faculty').errors.minlength">
-                                    Факультет должна состоять не менее чем из
-                                    {{item.get('faculty').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-                <p class="p-col-12 warning-block">
-                    <i class="pi pi-exclamation-triangle"></i>
-                    <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
-                </p>
-                <div class="add-block p-col-12">
-                    <button class="send" pButton pRipple type="button"
-                            *ngIf="educationInfoElements.length > 0" (click)="saveEdu()">
-                        <span>Сохранить</span>
-                    </button>
-                    <button pButton pRipple type="button" icon="pi pi-plus"
-                            (click)="add(educationInfoElements)"></button>
-                </div>
-
-            </form>
-
-
-        </div>
-
-        <!--  multi-select-->
-        <div class="block " *ngIf="showLogin">
-            <h3 class="box-title">Иностранные языки </h3>
-            <div class="box2">
-                <form [formGroup]="languagesForm">
-                    <div class="p-grid p-fluid p-formgrid  ">
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="partisanship">Языки</label>
-                            <p-multiSelect  display="chip" [options]="languages" defaultLabel="выберите язык" optionLabel="name"
-                                           selectedItemsLabel="{0} items selected"
-                                           formControlName="languages"></p-multiSelect>
-                        </div>
-
+                    <p class="p-col-12 warning-block" *ngIf="workExprienceElements.length > 0">
+                        <i class="pi pi-exclamation-triangle"></i>
+                        <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
+                    </p>
+                    <div class="add-block p-col-12">
+                        <button class="send" pButton pRipple type="button"
+                                *ngIf="workExprienceElements.length > 0" (click)="saveWork()">
+                            <span>Сохранить</span>
+                        </button>
+                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                (click)="add(workExprienceElements)"></button>
                     </div>
 
                 </form>
 
+
             </div>
-        </div>
 
-        <!--dinamics block-->
-        <div class="block " *ngIf="showLogin">
-            <h3 class="box-title">Дополнительная информация</h3>
-            <p class="box-subtitle">Близкие родственники</p>
+            <div class="block " *ngIf="showLogin">
+                <h3 class="box-title">Образование</h3>
+                <p class="box-subtitle">Расскажите где вы получали образование - это увеличит ваши шансы на
+                    трудоустройство</p>
 
-            <form [formGroup]="relativeInfo">
-                <div formArrayName="relativeInfoElements">
-                    <div class="p-grid p-fluid p-formgrid box2"
-                         *ngFor="let relatives of relativeInfoElements.controls; let index = index"
-                         [formGroupName]="index">
-                        <div class="delete-block p-col-12">
-                            <button pButton pRipple type="button" icon="pi pi-times"
-                                    class="p-button-rounded p-button-danger"
-                                    (click)="deleteItem(index, relativeInfoElements)"></button>
+                <form [formGroup]="educationInfo">
+                    <div formArrayName="educationInfoElements">
+                        <div class="p-grid p-fluid p-formgrid box2"
+                             *ngFor="let item of educationInfoElements.controls; let index = index"
+                             [formGroupName]="index">
+                            <div class="delete-block p-col-12" *ngIf="this.educationInfoElements.length > 1">
+                                <button pButton pRipple type="button" icon="pi pi-times"
+                                        class="p-button-rounded p-button-danger"
+                                        (click)="deleteItem(index, educationInfoElements)"></button>
 
-                        </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="start_date2">Устроился</label>
+                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                            inputId="icon"
+                                            id="start_date2"></p-calendar>
+
+                                <small class="p-invalid"
+                                       *ngIf="
+                      item.get('start_date')?.errors &&
+                      item.get('start_date')?.touched"
+                                >Поле обязателен</small>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="end_date2">Уволился</label>
+                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                            inputId="icon"
+                                            id="end_date2"></p-calendar>
+
+                                <small class="p-invalid"
+                                       *ngIf="
+                      item.get('end_date')?.errors &&
+                      item.get('end_date')?.touched"
+                                >Поле обязателен</small>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="name2">Учебный завадения</label>
+                                <input id="name2" type="text" pInputText formControlName="name">
+
+                                <div
+                                    *ngIf="item.get('name')?.invalid && item.get('name').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="item.get('name').errors.required">Поле обязателен</small>
+                                    <small *ngIf="item.get('name').errors.maxlength">
+                                        Учебный завадения должна состоять не более чем из
+                                        {{item.get('name').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="item.get('name').errors.minlength">
+                                        Учебный завадения должна состоять не менее чем из
+                                        {{item.get('name').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="faculty">Факультет</label>
+                                <input id="faculty" type="text" pInputText formControlName="faculty">
+
+                                <div
+                                    *ngIf="item.get('faculty')?.invalid && item.get('faculty').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="item.get('faculty').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="item.get('faculty').errors.maxlength">
+                                        Факультет должна состоять не более чем из
+                                        {{item.get('faculty').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="item.get('faculty').errors.minlength">
+                                        Факультет должна состоять не менее чем из
+                                        {{item.get('faculty').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
 
 
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="kinship">Родство</label>
-                            <input id="kinship" type="text" pInputText formControlName="kinship">
-
-                            <div
-                                *ngIf="relatives.get('kinship')?.invalid && relatives.get('kinship').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('kinship').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="relatives.get('kinship').errors.maxlength">
-                                    Родство должна состоять не более чем из
-                                    {{relatives.get('kinship').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('kinship').errors.minlength">
-                                    Родство должна состоять не менее чем из
-                                    {{relatives.get('kinship').errors.minlength.requiredLength}} букв
-                                </small>
                             </div>
 
 
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="first_name">Имя</label>
-                            <input id="first_name" type="text" pInputText formControlName="first_name">
-
-                            <div
-                                *ngIf="relatives.get('first_name')?.invalid && relatives.get('first_name').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('first_name').errors.required">Поле обязателен</small>
-                                <small *ngIf="relatives.get('first_name').errors.maxlength">
-                                    Имя должна состоять не более чем из
-                                    {{relatives.get('first_name').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('first_name').errors.minlength">
-                                    Имя должна состоять не менее чем из
-                                    {{relatives.get('first_name').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="last_name">Фамилия</label>
-                            <input id="last_name" type="text" pInputText formControlName="last_name">
-
-                            <div
-                                *ngIf="relatives.get('last_name')?.invalid && relatives.get('last_name').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('last_name').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="relatives.get('last_name').errors.maxlength">
-                                    Фамилия должна состоять не более чем из
-                                    {{relatives.get('last_name').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('last_name').errors.minlength">
-                                    Фамилия должна состоять не менее чем из
-                                    {{relatives.get('last_name').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="middle_name">Отчество</label>
-                            <input id="middle_name" type="text" pInputText formControlName="middle_name">
-
-                            <div
-                                *ngIf="relatives.get('middle_name')?.invalid && relatives.get('middle_name').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('middle_name').errors.required">Поле обязателен</small>
-                                <small *ngIf="relatives.get('middle_name').errors.maxlength">
-                                    Отчество должна состоять не более чем из
-                                    {{relatives.get('middle_name').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('middle_name').errors.minlength">
-                                    Отчество должна состоять не менее чем из
-                                    {{relatives.get('middle_name').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="birth_date2">Дата рождения</label>
-                            <p-calendar formControlName="birth_date" [showIcon]="true" dateFormat="dd.mm.yy"
-                                        inputId="icon"
-                                        id="birth_date2"></p-calendar>
-
-                            <small class="p-invalid"
-                                   *ngIf="
-                      relatives.get('start_date')?.errors &&
-                      relatives.get('start_date')?.touched"
-                            >Поле обязателен</small>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="birth_place2">
-                                Место рождения
-                            </label>
-                            <input id="birth_place2" type="text" pInputText formControlName="birth_place">
-
-                            <div
-                                *ngIf="relatives.get('birth_place')?.invalid && relatives.get('birth_place').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('birth_place').errors.required">Поле обязателен</small>
-                                <small *ngIf="relatives.get('birth_place').errors.maxlength">
-                                    Место рождения должна состоять не более чем из
-                                    {{relatives.get('birth_place').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('birth_place').errors.minlength">
-                                    Место рождения должна состоять не менее чем из
-                                    {{relatives.get('birth_place').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
-                            <label for="position2">Должность</label>
-                            <input id="position2" type="text" pInputText formControlName="position">
-
-                            <div
-                                *ngIf="relatives.get('position')?.invalid && relatives.get('position').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('position').errors.required">Поле
-                                    обязателен</small>
-                                <small *ngIf="relatives.get('position').errors.maxlength">
-                                    Должность должна состоять не более чем из
-                                    {{relatives.get('position').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('position').errors.minlength">
-                                    Должность должна состоять не менее чем из
-                                    {{relatives.get('position').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
-
-
-                        </div>
-
-                        <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
-                            <label for="living_place">Места жительства</label>
-                            <input id="living_place" type="text" pInputText formControlName="living_place">
-
-                            <div
-                                *ngIf="relatives.get('living_place')?.invalid && relatives.get('living_place').touched"
-                                class="p-invalid">
-                                <small *ngIf="relatives.get('living_place').errors.required">Поле обязателен</small>
-                                <small *ngIf="relatives.get('living_place').errors.maxlength">
-                                    Места жительства должна состоять не более чем из
-                                    {{relatives.get('living_place').errors.maxlength.requiredLength}} букв
-                                </small>
-                                <small *ngIf="relatives.get('living_place').errors.minlength">
-                                    Места жительства должна состоять не менее чем из
-                                    {{relatives.get('living_place').errors.minlength.requiredLength}} букв
-                                </small>
-                            </div>
                         </div>
 
                     </div>
 
+                    <p class="p-col-12 warning-block">
+                        <i class="pi pi-exclamation-triangle"></i>
+                        <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
+                    </p>
+                    <div class="add-block p-col-12">
+                        <button class="send" pButton pRipple type="button"
+                                *ngIf="educationInfoElements.length > 0" (click)="saveEdu()">
+                            <span>Сохранить</span>
+                        </button>
+                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                (click)="add(educationInfoElements)"></button>
+                    </div>
+
+                </form>
+
+
+            </div>
+
+            <!--  multi-select-->
+            <div class="block " *ngIf="showLogin">
+                <h3 class="box-title">Иностранные языки </h3>
+                <div class="box2">
+                    <form [formGroup]="languagesForm">
+                        <div class="p-grid p-fluid p-formgrid  ">
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="partisanship">Языки</label>
+                                <p-multiSelect display="chip" [options]="languages" defaultLabel="выберите язык"
+                                               optionLabel="name"
+                                               selectedItemsLabel="{0} items selected"
+                                               formControlName="languages"></p-multiSelect>
+                            </div>
+
+                        </div>
+
+                    </form>
+
                 </div>
+            </div>
 
-                <p class="p-col-12 warning-block"  *ngIf="relativeInfoElements.length > 0">
-                    <i class="pi pi-exclamation-triangle"></i>
-                    <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
-                </p>
-                <div class="add-block p-col-12">
-                    <button class="send" pButton pRipple type="button"
-                            *ngIf="relativeInfoElements.length > 0" (click)="saveRelative()">
-                        <span>Сохранить</span>
-                    </button>
-                    <button pButton pRipple type="button" icon="pi pi-plus"
-                            (click)="add(relativeInfoElements)"></button>
-                </div>
+            <!--dinamics block-->
+            <div class="block " *ngIf="showLogin">
+                <h3 class="box-title">Дополнительная информация</h3>
+                <p class="box-subtitle">Близкие родственники</p>
 
-            </form>
+                <form [formGroup]="relativeInfo">
+                    <div formArrayName="relativeInfoElements">
+                        <div class="p-grid p-fluid p-formgrid box2"
+                             *ngFor="let relatives of relativeInfoElements.controls; let index = index"
+                             [formGroupName]="index">
+                            <div class="delete-block p-col-12">
+                                <button pButton pRipple type="button" icon="pi pi-times"
+                                        class="p-button-rounded p-button-danger"
+                                        (click)="deleteItem(index, relativeInfoElements)"></button>
 
+                            </div>
+
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="kinship">Родство</label>
+                                <input id="kinship" type="text" pInputText formControlName="kinship">
+
+                                <div
+                                    *ngIf="relatives.get('kinship')?.invalid && relatives.get('kinship').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('kinship').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="relatives.get('kinship').errors.maxlength">
+                                        Родство должна состоять не более чем из
+                                        {{relatives.get('kinship').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('kinship').errors.minlength">
+                                        Родство должна состоять не менее чем из
+                                        {{relatives.get('kinship').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="first_name">Имя</label>
+                                <input id="first_name" type="text" pInputText formControlName="first_name">
+
+                                <div
+                                    *ngIf="relatives.get('first_name')?.invalid && relatives.get('first_name').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('first_name').errors.required">Поле обязателен</small>
+                                    <small *ngIf="relatives.get('first_name').errors.maxlength">
+                                        Имя должна состоять не более чем из
+                                        {{relatives.get('first_name').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('first_name').errors.minlength">
+                                        Имя должна состоять не менее чем из
+                                        {{relatives.get('first_name').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="last_name">Фамилия</label>
+                                <input id="last_name" type="text" pInputText formControlName="last_name">
+
+                                <div
+                                    *ngIf="relatives.get('last_name')?.invalid && relatives.get('last_name').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('last_name').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="relatives.get('last_name').errors.maxlength">
+                                        Фамилия должна состоять не более чем из
+                                        {{relatives.get('last_name').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('last_name').errors.minlength">
+                                        Фамилия должна состоять не менее чем из
+                                        {{relatives.get('last_name').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="middle_name">Отчество</label>
+                                <input id="middle_name" type="text" pInputText formControlName="middle_name">
+
+                                <div
+                                    *ngIf="relatives.get('middle_name')?.invalid && relatives.get('middle_name').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('middle_name').errors.required">Поле обязателен</small>
+                                    <small *ngIf="relatives.get('middle_name').errors.maxlength">
+                                        Отчество должна состоять не более чем из
+                                        {{relatives.get('middle_name').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('middle_name').errors.minlength">
+                                        Отчество должна состоять не менее чем из
+                                        {{relatives.get('middle_name').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="birth_date2">Дата рождения</label>
+                                <p-calendar formControlName="birth_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                            inputId="icon"
+                                            id="birth_date2"></p-calendar>
+
+                                <small class="p-invalid"
+                                       *ngIf="
+                      relatives.get('birth_date')?.errors &&
+                      relatives.get('birth_date')?.touched"
+                                >Поле обязателен</small>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="birth_place2">
+                                    Место рождения
+                                </label>
+                                <input id="birth_place2" type="text" pInputText formControlName="birth_place">
+
+                                <div
+                                    *ngIf="relatives.get('birth_place')?.invalid && relatives.get('birth_place').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('birth_place').errors.required">Поле обязателен</small>
+                                    <small *ngIf="relatives.get('birth_place').errors.maxlength">
+                                        Место рождения должна состоять не более чем из
+                                        {{relatives.get('birth_place').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('birth_place').errors.minlength">
+                                        Место рождения должна состоять не менее чем из
+                                        {{relatives.get('birth_place').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
+                                <label for="position2">Должность</label>
+                                <input id="position2" type="text" pInputText formControlName="position">
+
+                                <div
+                                    *ngIf="relatives.get('position')?.invalid && relatives.get('position').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('position').errors.required">Поле
+                                        обязателен</small>
+                                    <small *ngIf="relatives.get('position').errors.maxlength">
+                                        Должность должна состоять не более чем из
+                                        {{relatives.get('position').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('position').errors.minlength">
+                                        Должность должна состоять не менее чем из
+                                        {{relatives.get('position').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+
+
+                            </div>
+
+                            <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
+                                <label for="living_place">Места жительства</label>
+                                <input id="living_place" type="text" pInputText formControlName="living_place">
+
+                                <div
+                                    *ngIf="relatives.get('living_place')?.invalid && relatives.get('living_place').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="relatives.get('living_place').errors.required">Поле обязателен</small>
+                                    <small *ngIf="relatives.get('living_place').errors.maxlength">
+                                        Места жительства должна состоять не более чем из
+                                        {{relatives.get('living_place').errors.maxlength.requiredLength}} букв
+                                    </small>
+                                    <small *ngIf="relatives.get('living_place').errors.minlength">
+                                        Места жительства должна состоять не менее чем из
+                                        {{relatives.get('living_place').errors.minlength.requiredLength}} букв
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="p-col-12 warning-block" *ngIf="relativeInfoElements.length > 0">
+                        <i class="pi pi-exclamation-triangle"></i>
+                        <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
+                    </p>
+                    <div class="add-block p-col-12">
+                        <button class="send" pButton pRipple type="button"
+                                *ngIf="relativeInfoElements.length > 0" (click)="saveRelative()">
+                            <span>Сохранить</span>
+                        </button>
+                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                (click)="add(relativeInfoElements)"></button>
+                    </div>
+
+                </form>
+
+
+            </div>
+
+            <div class="send-block p-col-12" *ngIf="showLogin" >
+
+                <button [disabled]="activeDisabled" pButton pRipple type="button" label="Отправить"
+                        class="p-button-raised  p-button-text"
+                        (click)="sendResume()"></button>
+            </div>
 
         </div>
-
-        <div class="send-block " *ngIf="showLogin">
-
-            <button [disabled]="activeDisabled" pButton pRipple type="button" label="Отправить" class="p-button-raised  p-button-text"
-                    (click)="sendResume()"></button>
-        </div>
-
     </div>
 </div>

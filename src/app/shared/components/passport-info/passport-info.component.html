@@ -1,0 +1,60 @@
+
+<div class="box" >
+    <h3>Введите свои паспортные данные</h3>
+    <form [formGroup]="passportForm" (submit)="passportSubmit()" class="box-form">
+        <div class="group-item series">
+            <label for="float-input">Пасспорт Серия</label>
+            <input id="float-input" formControlName="series" type="text" pInputText>
+
+            <div *ngIf="passportForm.get('series').invalid && passportForm.get('series').touched"
+                 class="p-invalid">
+                <small *ngIf="passportForm.get('series').errors.required">Поле обязателен</small>
+                <small *ngIf="passportForm.get('series').errors.maxlength">
+                    Пасспорт Серия должна состоять не более чем из
+                    {{passportForm.get('series').errors.maxlength.requiredLength}} букв
+                </small>
+                <small *ngIf="passportForm.get('series').errors.minlength">
+                    Серия паспорта должна состоять не менее чем из
+                    {{passportForm.get('series').errors.minlength.requiredLength}} букв
+                </small>
+            </div>
+
+        </div>
+
+
+        <div class="group-item">
+            <label for="number">Пасспорт Номер</label>
+            <input id="number" type="text" pInputText formControlName="number">
+
+            <div *ngIf="passportForm.get('number')?.invalid && passportForm.get('number')?.touched"
+                 class="p-invalid">
+                <small *ngIf="passportForm.get('number').errors.required">Поле обязателен</small>
+                <small *ngIf="passportForm.get('number').errors.maxlength">
+                    Номер паспорта должен состоять не более чем из
+                    {{passportForm.get('number').errors.maxlength.requiredLength}} цифр
+                </small>
+                <small *ngIf="passportForm.get('number').errors.minlength">
+                    Номер паспорта должен состоять как минимум из
+                    {{passportForm.get('number').errors.minlength.requiredLength}} цифр
+                </small>
+            </div>
+
+
+        </div>
+
+        <div class="group-item">
+            <label for="date">День Рождения</label>
+            <p-calendar [showIcon]="true" inputId="icon" formControlName="birthDate" dateFormat="dd.mm.yy"
+                        id="date"></p-calendar>
+
+            <small class="p-invalid"
+                   *ngIf="
+                      passportForm.get('birthDate')?.errors &&
+                      passportForm.get('birthDate')?.touched"
+            >Поле обязателен</small>
+        </div>
+
+        <button type="submit" class="search">Поиск</button>
+    </form>
+
+</div>

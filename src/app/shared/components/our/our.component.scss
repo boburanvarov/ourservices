@@ -1,73 +1,11 @@
 
-.header {
-    width: 100%;
-    height: 80px;
-    padding: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    -webkit-box-shadow: -1px 11px 5px -4px rgba(34, 60, 80, 0.6);
-    -moz-box-shadow: -1px 11px 5px -4px rgba(34, 60, 80, 0.6);
-    box-shadow: -1px 11px 5px -4px rgba(34, 60, 80, 0.6);
-    position: relative;
-    z-index: 99;
-    background: #fff;
-}
 
-.header-title {
-    color: #0652cb;
-    margin-top: 8px;
-    cursor: pointer;
-    //margin-left: 8px;
-    font-size: 35px;
-}
 
-.header .logo {
-    float: right;
-}
-
-.header .logo img.showImg {
-    width: 250px;
-}
-.header .logo img.hideImg {
-    display: none;
-}
-
-//
-
-.main {
-    width: 100%;
-    height: auto;
-}
-
-.content {
-    width: 100%;
-    padding: 50px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
 
 //box
 .block{
     margin: 20px 0;
     width: 680px;
-}
-.box {
-    margin: 10px 0;
-    padding: 15px;
-    height: auto;
-    width: 680px;
-    border: none;
-    border-radius: 5px;
-    background: #fff;
-    box-shadow: 0px 0px 24px #877979;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 }
 
 .box2 {
@@ -127,25 +65,7 @@ i {
     color: red;
 }
 
-.search {
-    margin-top: 10px;
-    background: #162be4;
-    float: right;
-    width: 100px;
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: 0.5s;
-}
 
-.search:hover {
-    transition: .8s;
-    border: 1px solid #162be4;
-    background: none;
-    color: #162be4;
-}
 
 .inputWrapper {
     height: 220px;
@@ -172,7 +92,8 @@ i {
 }
 .inputWrapper  img{
     width: 100%;
-    height: 200px;
+    height: 100%;
+    //height: 200px;
 }
 
 
@@ -285,8 +206,12 @@ i {
         font-size: 18px;
     }
 }
-
 .send-block{
+    display: flex;
+    justify-content: center;
+}
+.send-block button{
+
     border: 1px solid #30A059;
     border-radius: 5px;
 }

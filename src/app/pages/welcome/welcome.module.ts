@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { WelcomeRoutingModule } from './welcome-routing.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {WelcomeRoutingModule} from './welcome-routing.module';
 
-import { WelcomeComponent } from './welcome.component';
+import {WelcomeComponent} from './welcome.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {OurComponent} from '../../shared/components/our/our.component';
 import {VacanciesComponent} from '../../shared/components/vacancies/vacancies.component';
@@ -15,8 +15,11 @@ import {MessageService} from 'primeng/api';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ToastModule} from 'primeng/toast';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
-
-
+import {StepsModule} from 'primeng/steps';
+import {VacanciesStepsComponent} from '../../shared/components/vacancies-steps/vacancies-steps.component';
+import {MenuItem} from 'primeng/api';
+import {PassportInfoComponent} from '../../shared/components/passport-info/passport-info.component';
+import {OurWordComponent} from '../../shared/components/our-word/our-word.component';
 
 @NgModule({
     imports: [
@@ -31,15 +34,20 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
         MultiSelectModule,
         ToastModule,
         SweetAlert2Module,
+        StepsModule,
     ],
-  declarations: [
-    WelcomeComponent,
-    OurComponent,
-    VacanciesComponent,
-  ],
-  exports: [WelcomeComponent],
+    declarations: [
+        WelcomeComponent,
+        OurComponent,
+        VacanciesComponent,
+        VacanciesStepsComponent,
+        PassportInfoComponent,
+        OurWordComponent,
+    ],
+    exports: [WelcomeComponent],
     providers: [
-        MessageService
+        MessageService,
     ]
 })
-export class WelcomeModule { }
+export class WelcomeModule {
+}

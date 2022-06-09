@@ -18,8 +18,8 @@ export class VacanciesService {
         return this.http.get<any>(API + 'vacancy?page=&size&sort');
     }
 
-    getAllLanguages(){
-        return this.http.get<any>(API + 'languages')
+    getAllLanguages() {
+        return this.http.get<any>(API + 'languages');
     }
 
     postWork(body: any) {
@@ -34,8 +34,12 @@ export class VacanciesService {
         return this.http.post<any>(API + 'relative', body);
     }
 
-    postResume(body:any){
+    postResume(body: any) {
         return this.http.post<any>(API + 'resume', body);
+    }
+
+    getResumeId(id: number) {
+        return this.http.get<any>(API + 'resume/' + id);
     }
 
 }

@@ -5,6 +5,7 @@ import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
 import * as _ from 'lodash';
 import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-our',
@@ -23,11 +24,12 @@ export class OurComponent implements OnInit {
     passwordVisible = false;
     passwordVisible2 = false;
     languages: any[] = [];
-    personInfo: any;
     workInfo: any[] = [];
     eduInfo: any[] = [];
     relatives: any[] = [];
     activeDisabled = false;
+
+
     constructor(
         private fb: FormBuilder,
         private vacanciesService: VacanciesService,
@@ -36,21 +38,7 @@ export class OurComponent implements OnInit {
     }
 
 
-    passportForm = this.fb.group({
-        series: ['AB', [
-            Validators.required,
-            Validators.maxLength(2),
-            Validators.minLength(2)
-        ]
-        ],
-        number: ['3253882', [
-            Validators.required,
-            Validators.maxLength(7),
-            Validators.minLength(7)
-        ]
-        ],
-        birthDate: ['', Validators.required],
-    });
+
 
     basicInfor = this.fb.group({
         fName: ['', [
@@ -149,17 +137,26 @@ export class OurComponent implements OnInit {
 
 
     ngOnInit() {
-        this.workExprienceElements.push(this.newWorkExperience());
-        this.educationInfoElements.push(this.newEducationInfo());
-        this.relativeInfoElements.push(this.newRelativeInfo());
-        this.getLanguages();
+        const passportInfo =  JSON.parse(sessionStorage.getItem('passportInfo'));
+        if(passportInfo){
+            this.patchValues(passportInfo)
+            this.workExprienceElements.push(this.newWorkExperience());
+            this.educationInfoElements.push(this.newEducationInfo());
+            this.relativeInfoElements.push(this.newRelativeInfo());
+            this.getLanguages();
+            this.showLogin = true;
+        }
+
+
+
+
     }
     saveSwalFunc() {
-        this.showLogin = false;
+
     }
 
     warnSwalFunc() {
-        this.showLogin = false;
+
     }
 
 
@@ -218,14 +215,14 @@ export class OurComponent implements OnInit {
     onBasicUploadAuto(fileInput: any) {
 
         if (fileInput.target.files && fileInput.target.files[0]) {
-            const maxsize = 1048576;
+            const maxsize = 2097152 //1048576;
             const allowedTypes = ['image/png', 'image/jpeg'];
 
             console.log(fileInput.target.files[0].size);
             if (fileInput.target.files[0].size > maxsize) {
                 const mb = fileInput.target.files[0].size / maxsize;
                 this.imageError =
-                    'Размер изображения не должен превышать 1 мб.' + mb.toFixed(2) + 'Mb';
+                    'Размер изображения не должен превышать 2 мб.' + mb.toFixed(2) + 'Mb';
                 console.log(this.imageError);
 
             } else if (!_.includes(allowedTypes, fileInput.target.files[0].type)) {
@@ -397,40 +394,6 @@ export class OurComponent implements OnInit {
         });
     }
 
-    passportSubmit() {
-        if (!this.passportForm.valid) {
-            this.passportForm.markAllAsTouched();
-            return;
-        }
-        // @ts-ignore
-        console.log(this.passportForm.get('number').value);
-        const body = {
-            p_number: this.passportForm.get('number').value,
-            p_series: this.passportForm.get('series').value,
-            birth_date: this.dateFormater(this.passportForm.get('birthDate').value)
-        };
-        console.log(body);
-        // if (body.passportNumber == '1234567' && body.series == 'AB' && body.birthDate == '04.06.2022') {
-        //     this.showLogin = true;
-        //     console.log(this.showLogin);
-        // } else {
-        //     this.showLogin = false;
-        // }
-        this.vacanciesService.postPassport(body).subscribe((res) => {
-                if (res) {
-                    console.log(res);
-                    this.personInfo = res;
-                    this.patchValues(this.personInfo);
-                    this.showLogin = true;
-                    console.log(this.showLogin);
-                }
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-
-    }
 
 
     sendResume() {
@@ -488,6 +451,8 @@ export class OurComponent implements OnInit {
                 console.log(body);
                 this.vacanciesService.postResume(body).subscribe((res) => {
                     console.log(res);
+                    console.log(res);
+                    sessionStorage.setItem('resume', JSON.stringify(res))
                     this.saveSwal.fire();
                     this.activeDisabled = true;
                 }, (error) => {
@@ -521,6 +486,8 @@ export class OurComponent implements OnInit {
                 console.log(noVacancy);
                 this.vacanciesService.postResume(noVacancy).subscribe((res) => {
                         console.log(res);
+                        console.log(res);
+                        sessionStorage.setItem('resume', JSON.stringify(res))
                         this.activeDisabled = true;
                         this.saveSwal.fire();
                     },

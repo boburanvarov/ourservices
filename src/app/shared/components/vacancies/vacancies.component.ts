@@ -50,7 +50,7 @@ export class VacanciesComponent implements OnInit {
 
   resume(vacancy: any){
       sessionStorage.setItem('vacancy',JSON.stringify(vacancy));
-    this.router.navigate(['our'])
+    this.router.navigate(['steps/passport'])
       console.log(vacancy);
   }
 
