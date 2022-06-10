@@ -17,8 +17,7 @@ export class VacanciesComponent implements OnInit {
 
   ngOnInit(): void {
     this.allVacancies();
-    sessionStorage.removeItem('vacancy')
-    // this.tokenService.clearSessionStorage();
+    this.tokenService.removeGroupSessionStroge()
   }
 
   // vacancies=[

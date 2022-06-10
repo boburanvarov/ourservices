@@ -15,6 +15,7 @@ export class VacanciesStepsComponent implements OnInit {
     subscription: Subscription;
     steps: any;
     resume:any;
+    activeIndex: number = 1;
 
     constructor(
         public messageService: MessageService,
@@ -35,7 +36,6 @@ export class VacanciesStepsComponent implements OnInit {
                 command: (event: any) => {
                     console.log(event.item.routerLink);
                     this.step(event);
-                    this.messageService.add({severity: 'info', summary: 'First Step', detail: event.item.label});
                 }
             },
             {
@@ -44,15 +44,13 @@ export class VacanciesStepsComponent implements OnInit {
                 command: (event: any) => {
 
                     this.step(event);
-                    this.messageService.add({severity: 'info', summary: 'Seat Selection', detail: event.item.label});
                 }
             },
             {
-                label: 'формате Word',
+                label: 'Формате word',
                 routerLink: 'ourWord',
                 command: (event: any) => {
                     this.step(event);
-                    this.messageService.add({severity: 'info', summary: 'Pay with CC', detail: event.item.label});
                 }
             },
         ];

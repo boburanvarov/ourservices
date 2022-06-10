@@ -15,7 +15,6 @@ export class InterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
         const authHeaderString = this.tokenService.getToken();
-        console.log(authHeaderString, 'header');
         if (authHeaderString) {
             req = req.clone({
                 setHeaders: {

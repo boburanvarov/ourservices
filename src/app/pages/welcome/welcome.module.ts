@@ -20,6 +20,8 @@ import {VacanciesStepsComponent} from '../../shared/components/vacancies-steps/v
 import {MenuItem} from 'primeng/api';
 import {PassportInfoComponent} from '../../shared/components/passport-info/passport-info.component';
 import {OurWordComponent} from '../../shared/components/our-word/our-word.component';
+import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
     imports: [
@@ -35,6 +37,8 @@ import {OurWordComponent} from '../../shared/components/our-word/our-word.compon
         ToastModule,
         SweetAlert2Module,
         StepsModule,
+        TableModule,
+        DropdownModule,
     ],
     declarations: [
         WelcomeComponent,

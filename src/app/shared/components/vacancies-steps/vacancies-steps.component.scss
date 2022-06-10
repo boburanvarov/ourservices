@@ -74,6 +74,14 @@
         text-align: left;
     }
 
+    ::ng-deep .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+
+        font-size: 0.78rem;
+    }
+    ::ng-deep .p-steps ul {
+        gap: 0 5px;
+    }
+
 }
 
 @media (max-width: 320px) {

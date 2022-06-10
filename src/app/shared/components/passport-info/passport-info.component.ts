@@ -51,7 +51,7 @@ export class PassportInfoComponent implements OnInit {
             this.passportForm.markAllAsTouched();
             return;
         }
-        // @ts-ignore
+
         console.log(this.passportForm.get('number').value);
         const body = {
             p_number: this.passportForm.get('number').value,
@@ -59,12 +59,7 @@ export class PassportInfoComponent implements OnInit {
             birth_date: this.dateFormater(this.passportForm.get('birthDate').value)
         };
         console.log(body);
-        // if (body.passportNumber == '1234567' && body.series == 'AB' && body.birthDate == '04.06.2022') {
-        //     this.showLogin = true;
-        //     console.log(this.showLogin);
-        // } else {
-        //     this.showLogin = false;
-        // }
+
         this.vacanciesService.postPassport(body).subscribe((res) => {
                 if (res) {
                     console.log(res);

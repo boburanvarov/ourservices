@@ -18,4 +18,9 @@ export class TokenService {
     clearSessionStorage() {
         sessionStorage.clear();
     }
+    removeGroupSessionStroge(){
+        sessionStorage.removeItem('vacancy');
+        sessionStorage.removeItem('passportInfo');
+        sessionStorage.removeItem('resume');
+    }
 }

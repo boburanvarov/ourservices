@@ -149,4 +149,60 @@
 
 </div>
 
-<button (click)="ExportToDoc('box', 'html-content');">download</button>
+<div class="box">
+    <div class="card">
+
+        <p-table [value]="resumeItem?.relatives" [scrollable]="true" scrollHeight="400px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width:150px">Родство</th>
+                    <th style="min-width:150px">Имя</th>
+                    <th style="min-width:150px">Фамилия</th>
+                    <th style="min-width:150px">Отчество</th>
+
+                    <th style="min-width:150px">Дата рождения</th>
+                    <th style="min-width:150px">Место рождения</th>
+                    <th style="min-width:150px">Должность</th>
+                    <th style="min-width:150px">Места жительства</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-relative>
+                <tr>
+                    <td style="min-width:150px">{{relative.kinship}}</td>
+                    <td style="min-width:150px">{{relative.firstName}}</td>
+                    <td style="min-width:150px">{{relative.lastName}}</td>
+                    <td style="min-width:150px">{{relative.middleName}}</td>
+
+
+                    <td style="min-width:150px">{{relative.birthDate}}</td>
+                    <td style="min-width:150px">{{relative.birthPlace}}</td>
+                    <td style="min-width:150px">{{relative.position}}</td>
+                    <td style="min-width:150px">{{relative.livingPlace}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <th>Родство</th>-->
+<!--            <th>Имя</th>-->
+<!--            <th>Фамилия</th>-->
+<!--            <th>Отчество</th>-->
+<!--            <th>Дата рождения</th>-->
+<!--            <th>Место рождения</th>-->
+<!--            <th>Должность</th>-->
+<!--            <th>Места жительства</th>-->
+<!--        </tr>-->
+<!--        <tr class="activeTr"  *ngFor="let relative of resumeItem?.relatives">-->
+<!--            <td>{{relative.kinship}}</td>-->
+<!--            <td>{{relative.firstName}}</td>-->
+<!--            <td>{{relative.lastName}}</td>-->
+<!--            <td>{{relative.middleName}}</td>-->
+<!--            <td>{{relative.birthDate}}</td>-->
+<!--            <td>{{relative.birthPlace}}</td>-->
+<!--            <td>{{relative.position}}</td>-->
+<!--            <td>{{relative.livingPlace}}</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+</div>
+<!--<button (click)="ExportToDoc('box', 'html-content');">download</button>-->

@@ -1,18 +1,23 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+/* tslint:disable */
+// noinspection DuplicatedCode
+
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VacanciesService} from '../../services/vacancies.service';
 import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
 import * as _ from 'lodash';
 import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
+import {Utils} from '../../Utils';
 
 @Component({
     selector: 'app-our',
     templateUrl: './our.component.html',
     styleUrls: ['./our.component.scss']
 })
-export class OurComponent implements OnInit {
+export class OurComponent implements OnInit, OnDestroy {
     @ViewChild('saveSwal')
     public readonly saveSwal!: SwalComponent;
     @ViewChild('warnSwal')
@@ -21,23 +26,41 @@ export class OurComponent implements OnInit {
     base64textString: string = '';
     isImageSaved: boolean = false;
     showLogin = false;
-    passwordVisible = false;
-    passwordVisible2 = false;
     languages: any[] = [];
     workInfo: any[] = [];
     eduInfo: any[] = [];
+    eduInfo2 = {};
     relatives: any[] = [];
     activeDisabled = false;
-
+    imageError: string = '';
+    personInfo: any;
+    education_level: any[];
+    editActive = true;
 
     constructor(
         private fb: FormBuilder,
         private vacanciesService: VacanciesService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private router: Router
     ) {
     }
 
 
+    passportForm = this.fb.group({
+        series: ['AB', [
+            Validators.required,
+            Validators.maxLength(2),
+            Validators.minLength(2)
+        ]
+        ],
+        number: ['3253882', [
+            Validators.required,
+            Validators.maxLength(7),
+            Validators.minLength(7)
+        ]
+        ],
+        birthDate: ['', Validators.required],
+    });
 
 
     basicInfor = this.fb.group({
@@ -64,6 +87,7 @@ export class OurComponent implements OnInit {
         nationality: ['', Validators.required],
         phone: ['', Validators.required],
         images: ['', Validators.required],
+        education_level: ['', Validators.required],
     });
 
     personalInfor = this.fb.group({
@@ -93,7 +117,7 @@ export class OurComponent implements OnInit {
     });
 
     get workExprienceElements() {
-        return this.workExperience.get('workExprienceElements') as FormArray;
+        return this.workExperience.controls.workExprienceElements as FormArray;
     }
 
     get educationInfoElements() {
@@ -137,21 +161,60 @@ export class OurComponent implements OnInit {
 
 
     ngOnInit() {
-        const passportInfo =  JSON.parse(sessionStorage.getItem('passportInfo'));
-        if(passportInfo){
-            this.patchValues(passportInfo)
+        this.education_level = [
+            {name: 'Oliy Malumot', code: 'Oliy Malumot'},
+            {name: `O'rta maxsus`, code: `O'rta maxsus`},
+        ];
+        const passportInfo = JSON.parse(sessionStorage.getItem('passportInfo'));
+        if (passportInfo) {
             this.workExprienceElements.push(this.newWorkExperience());
             this.educationInfoElements.push(this.newEducationInfo());
             this.relativeInfoElements.push(this.newRelativeInfo());
+            this.patchValues(passportInfo);
             this.getLanguages();
             this.showLogin = true;
         }
-
-
-
+        if (!Utils.IsExist('basicInfor')) {
+            this.basicInfor.patchValue(Utils.getItem('basicInfor'));
+            this.editActive = false;
+        }
+        if (!Utils.IsExist('personalInfor')) {
+            this.personalInfor.patchValue(Utils.getItem('personalInfor'));
+            this.editActive = false;
+        }
+        if (!Utils.IsExist('workExperience')) {
+            if(Utils.getItem('workExperience').length > 1){
+                this.workExprienceElements.push(this.newWorkExperience())
+            }
+            this.workExprienceElements.patchValue(Utils.getItem('workExperience'));
+            this.editActive = false;
+        }
+        if (!Utils.IsExist('educationInfo')) {
+            if(Utils.getItem('educationInfo').length > 1){
+                this.educationInfoElements.push(this.newEducationInfo())
+            }
+            this.educationInfoElements.patchValue(Utils.getItem('educationInfo'));
+            this.editActive = false;
+        }
+        if (!Utils.IsExist('relativeInfo')) {
+            if(Utils.getItem('relativeInfo').length > 1){
+                this.relativeInfoElements.push(this.newRelativeInfo())
+            }
+            this.relativeInfoElements.patchValue(Utils.getItem('relativeInfo'));
+            this.editActive = false;
+        }
+        if (!Utils.IsExist('languagesForm')) {
+            this.languagesForm.patchValue(Utils.getItem('languagesForm'));
+            this.editActive = false;
+        }
 
     }
+
+
     saveSwalFunc() {
+        this.router.navigate(['steps/ourWord']).then(() => {
+
+        });
 
     }
 
@@ -159,6 +222,14 @@ export class OurComponent implements OnInit {
 
     }
 
+    ngOnDestroy() {
+        sessionStorage.setItem('basicInfor', JSON.stringify(this.basicInfor.value));
+        sessionStorage.setItem('personalInfor', JSON.stringify(this.personalInfor.value));
+        sessionStorage.setItem('workExperience', JSON.stringify(this.workInfo));
+        sessionStorage.setItem('educationInfo', JSON.stringify(this.eduInfo));
+        sessionStorage.setItem('relativeInfo', JSON.stringify(this.relatives));
+        sessionStorage.setItem('languagesForm', JSON.stringify(this.languagesForm.value));
+    }
 
     //addWork
     add(elementName: any) {
@@ -194,28 +265,15 @@ export class OurComponent implements OnInit {
     }
 
 
-    // //addEduction
-    // addEducation() {
-    //     console.log(this.languagesForm.get('languages').value, 'lang');
-    //     this.educationInfoElements.push(this.newEducationInfo());
-    // }
-
-    // //deleteEduction
-    // deleteEducation(index: number) {
-    //     this.educationInfoElements.removeAt(index);
-    // }
-
-
     dateFormater(date: any) {
         return formatDate(new Date(Date.parse(date)), 'dd.MM.yyyy', 'en');
     }
 
-    imageError: string = '';
 
     onBasicUploadAuto(fileInput: any) {
 
         if (fileInput.target.files && fileInput.target.files[0]) {
-            const maxsize = 2097152 //1048576;
+            const maxsize = 2097152; //1048576;
             const allowedTypes = ['image/png', 'image/jpeg'];
 
             console.log(fileInput.target.files[0].size);
@@ -245,19 +303,10 @@ export class OurComponent implements OnInit {
                 console.log(this.imageError);
             }
 
-            // if (!_.includes(allowedTypes, fileInput.target.files[0].type)) {
-            //     this.imageError = 'Only Images are allowed ( JPG | PNG )';
-            //
-            // }
-
 
         }
     }
 
-    removeImage() {
-        this.base64textString = null;
-        this.isImageSaved = false;
-    }
 
     getLanguages() {
         this.vacanciesService.getAllLanguages().subscribe((res) => {
@@ -279,11 +328,22 @@ export class OurComponent implements OnInit {
                 company: el.value.company,
                 position: el.value.position
             };
-            console.log(body);
+            // this.workInfo2 = {
+            //     workExprienceElements: [
+            //         {
+            //             start_date: this.dateFormater(el.value.start_date),
+            //             end_date: this.dateFormater(el.value.end_date),
+            //             company: el.value.company,
+            //             position: el.value.position
+            //         }
+            //     ]
+            // };
+
             this.vacanciesService.postWork(body).subscribe((res) => {
                 if (res) {
                     this.workInfo.push(res);
-                    console.log(res);
+                    console.log(this.workInfo,'work');
+                    console.log(res, 'res');
                     this.messageService.add({
                         key: 'tst',
                         severity: 'success',
@@ -379,10 +439,6 @@ export class OurComponent implements OnInit {
     }
 
 
-    // onChange(result: Date): void {
-    //     console.log('onChange: ', result);
-    // }
-
     patchValues(data: any) {
         this.basicInfor.patchValue({
             fName: data.surname,
@@ -395,25 +451,7 @@ export class OurComponent implements OnInit {
     }
 
 
-
     sendResume() {
-        // fName:
-        //     name:
-        //     lName:
-        //     birth_date:
-        //     birth_place:
-        //     nationality:
-        //     phone:
-        //     images:
-        // partisanship:
-        //     education_degree:
-        //     specialty:
-        //     academic_degree:
-        //     awards:
-        //     government_agencies:
-        //     email:
-
-
         console.log(this.workInfo, 'workinfo');
         if (!this.basicInfor.valid && !this.personalInfor.valid && !this.educationInfoElements.valid) {
             this.basicInfor.markAllAsTouched();
@@ -426,10 +464,12 @@ export class OurComponent implements OnInit {
 
         setTimeout(() => {
             if (vacancies) {
+                const form = this.basicInfor.value;
                 const body = {
                     first_name: this.basicInfor.get('name').value,
                     last_name: this.basicInfor.get('fName').value,
                     middle_name: this.basicInfor.get('lName').value,
+                    education_level: this.basicInfor.get('education_level').value.code,
                     image: this.base64textString,
                     birth_date: this.basicInfor.get('birth_date').value,
                     birth_place: this.basicInfor.get('birth_place').value,
@@ -452,7 +492,7 @@ export class OurComponent implements OnInit {
                 this.vacanciesService.postResume(body).subscribe((res) => {
                     console.log(res);
                     console.log(res);
-                    sessionStorage.setItem('resume', JSON.stringify(res))
+                    sessionStorage.setItem('resume', JSON.stringify(res));
                     this.saveSwal.fire();
                     this.activeDisabled = true;
                 }, (error) => {
@@ -487,7 +527,7 @@ export class OurComponent implements OnInit {
                 this.vacanciesService.postResume(noVacancy).subscribe((res) => {
                         console.log(res);
                         console.log(res);
-                        sessionStorage.setItem('resume', JSON.stringify(res))
+                        sessionStorage.setItem('resume', JSON.stringify(res));
                         this.activeDisabled = true;
                         this.saveSwal.fire();
                     },

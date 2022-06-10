@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 import {Router} from "@angular/router";
+import {TokenService} from '../../shared/services/token.service';
 
 @Component({
   selector: 'app-welcome',
@@ -15,7 +16,8 @@ export class WelcomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService$: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) { }
 
   vacanciesBlock=[
@@ -41,6 +43,7 @@ export class WelcomeComponent implements OnInit {
   })
 
   ngOnInit() {
+      this.tokenService.clearSessionStorage()
     const body = {
       username: 'DavrVacancy',
       password: 'davr2001'

@@ -1,6 +1,76 @@
 
+.box {
+    margin: 10px 0;
+    padding: 15px;
+    height: auto;
+    width: 680px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 0px 24px #877979;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.box .group-item label,
+.box2  .group-item label {
+    display: block;
+    color: #4C489D;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.box2  .group-item,
+.box  .group-item{
+    height: 80px;
+}
+.box  .group-item input,
+.box2  .group-item input {
+    width: 100%;
+}
 
 
+
+::ng-deep .p-calendar .p-inputtext {
+    width: 265px !important;
+}
+
+.search {
+    margin-top: 10px;
+    background: #162be4;
+    float: right;
+    width: 100px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.search:hover {
+    transition: .8s;
+    border: 1px solid #162be4;
+    background: none;
+    color: #162be4;
+}
+
+
+::ng-deep .p-calendar .p-inputtext {
+    width: 265px !important;
+}
+
+.p-invalid {
+    display: block;
+    color: red;
+}
+
+
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+    height: 35px;
+}
 
 //box
 .block{
