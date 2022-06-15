@@ -1,4 +1,6 @@
-
+<div *ngIf="loadingService.isLoading | async" class="loading-container">
+    <!--    <app-loading></app-loading>-->
+</div>
 <div class="box" >
     <h3>Введите свои паспортные данные</h3>
     <form [formGroup]="passportForm" (submit)="passportSubmit()" class="box-form">

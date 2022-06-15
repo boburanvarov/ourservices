@@ -4,8 +4,8 @@ import {WelcomeRoutingModule} from './welcome-routing.module';
 
 import {WelcomeComponent} from './welcome.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {OurComponent} from '../../shared/components/our/our.component';
-import {VacanciesComponent} from '../../shared/components/vacancies/vacancies.component';
+import {OurComponent} from '../our/our.component';
+import {VacanciesComponent} from '../vacancies/vacancies.component';
 import {AccordionModule} from 'primeng/accordion';
 import {CalendarModule} from 'primeng/calendar';
 import {InputTextModule} from 'primeng/inputtext';
@@ -16,10 +16,11 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {ToastModule} from 'primeng/toast';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {StepsModule} from 'primeng/steps';
-import {VacanciesStepsComponent} from '../../shared/components/vacancies-steps/vacancies-steps.component';
+import {VacanciesStepsComponent} from '../vacancies-steps/vacancies-steps.component';
 import {MenuItem} from 'primeng/api';
-import {PassportInfoComponent} from '../../shared/components/passport-info/passport-info.component';
-import {OurWordComponent} from '../../shared/components/our-word/our-word.component';
+import {PassportInfoComponent} from '../passport-info/passport-info.component';
+import {OurWordComponent} from '../our-word/our-word.component';
+
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 

@@ -11,10 +11,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {WelcomeModule} from './pages/welcome/welcome.module';
 import {InterceptorService} from './shared/interceptor/interceptor.service';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
-import { VacanciesStepsComponent } from './shared/components/vacancies-steps/vacancies-steps.component';
+import { VacanciesStepsComponent } from './pages/vacancies-steps/vacancies-steps.component';
 import {StepsModule} from 'primeng/steps';
-import { PassportInfoComponent } from './shared/components/passport-info/passport-info.component';
-import { OurWordComponent } from './shared/components/our-word/our-word.component';
+import { PassportInfoComponent } from './pages/passport-info/passport-info.component';
+import { OurWordComponent } from './pages/our-word/our-word.component';
 
 registerLocaleData(en);
 

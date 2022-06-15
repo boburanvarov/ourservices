@@ -121,6 +121,7 @@ FullCalendarModule.registerPlugins([
     AppFooterComponent,
     AppTopBarComponent,
     NotFoundComponent,
+      LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -211,8 +212,7 @@ FullCalendarModule.registerPlugins([
     VirtualScrollerModule,
     ReactiveFormsModule,
     HttpClientModule
-    
-  ], 
+  ],
   providers: [
     MenuService,
     VashService,

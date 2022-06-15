@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Vacancies} from "../../interfaces/vacancies.interfaces";
-import {VacanciesService} from "../../services/vacancies.service";
+import {Vacancies} from "../../shared/interfaces/vacancies.interfaces";
+import {VacanciesService} from "../../shared/services/vacancies.service";
 import {Router} from "@angular/router";
-import {TokenService} from '../../services/token.service';
+import {TokenService} from '../../shared/services/token.service';
 
 @Component({
   selector: 'app-vacancies',

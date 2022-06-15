@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacanciesService} from '../../shared/services/vacancies.service';
 import {Router} from '@angular/router';
+import {LoadingService} from '../../shared/services/loading.service';
 
 @Component({
     selector: 'app-passport-info',
@@ -33,7 +34,8 @@ export class PassportInfoComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private vacanciesService: VacanciesService,
-        private router: Router
+        private router: Router,
+        public loadingService: LoadingService,
     ) {
     }
 

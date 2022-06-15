@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacanciesService} from '../../shared/services/vacancies.service';
 import {Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Packer } from 'docx';

@@ -5,14 +5,17 @@
             Resume
         </h1>
         <div class="logo">
-            <img class="showImg" src="../../../../assets/img.png" alt="#">
-            <img class="hideImg"  src="../../../../assets/davrLoggo.jpg" alt="#">
+            <img class="showImg" src="../../../assets/img.png" alt="#">
+            <img class="hideImg" src="../../../assets/davrLoggo.jpg" alt="#">
         </div>
     </div>
     <div class="card">
 
 
         <p-steps [model]="items" [readonly]="stepActive"></p-steps>
+    </div>
+    <div class="btn-block">
+        <p-button label="Выход" icon="pi pi-arrow-left" iconPos="left" class="p-ml-5" routerLink="/vacancies"></p-button>
     </div>
     <div class="content">
 

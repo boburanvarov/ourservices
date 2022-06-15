@@ -3,14 +3,14 @@
 
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacanciesService} from '../../shared/services/vacancies.service';
 import {formatDate} from '@angular/common';
 import {MessageService} from 'primeng/api';
 import * as _ from 'lodash';
 import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {Utils} from '../../Utils';
+import {Utils} from '../../shared/Utils';
 
 @Component({
     selector: 'app-our',

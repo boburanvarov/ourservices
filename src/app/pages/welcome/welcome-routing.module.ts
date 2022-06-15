@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {WelcomeComponent} from './welcome.component';
-import {VacanciesComponent} from '../../shared/components/vacancies/vacancies.component';
-import {OurComponent} from '../../shared/components/our/our.component';
-import {VacanciesStepsComponent} from '../../shared/components/vacancies-steps/vacancies-steps.component';
-import {PassportInfoComponent} from '../../shared/components/passport-info/passport-info.component';
-import {OurWordComponent} from '../../shared/components/our-word/our-word.component';
+import {VacanciesComponent} from '../vacancies/vacancies.component';
+import {OurComponent} from '../our/our.component';
+import {VacanciesStepsComponent} from '../vacancies-steps/vacancies-steps.component';
+import {PassportInfoComponent} from '../passport-info/passport-info.component';
+import {OurWordComponent} from '../our-word/our-word.component';
 
 const routes: Routes = [
     {
