@@ -47,13 +47,13 @@ export class OurComponent implements OnInit, OnDestroy {
 
 
     passportForm = this.fb.group({
-        series: ['AB', [
+        series: ['', [
             Validators.required,
             Validators.maxLength(2),
             Validators.minLength(2)
         ]
         ],
-        number: ['3253882', [
+        number: ['', [
             Validators.required,
             Validators.maxLength(7),
             Validators.minLength(7)
