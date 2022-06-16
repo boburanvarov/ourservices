@@ -19,28 +19,28 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  onSubmit() {
-    if (!this.userLoginForm.valid) {
-      console.log('form error');
-      return;
-    }
-    console.log('submitted');
-
-    const username = this.userLoginForm.controls['username'].value;
-    const password = this.userLoginForm.controls['password'].value;
-
-    const body ={
-      username: username,
-      password: password
-    }
-
-    this.authService$.login(body).subscribe(res => {
-      // console.log(res);
-      sessionStorage.setItem('user', JSON.stringify(res));
-      this.router.navigate(['/']).then();
-    }, error => {
-      // console.log(error);
-      // this.errorMessage = error.error.status + ' ' + error.error.description;
-    });
-  }
+  // onSubmit() {
+  //   if (!this.userLoginForm.valid) {
+  //     console.log('form error');
+  //     return;
+  //   }
+  //   console.log('submitted');
+  //
+  //   const username = this.userLoginForm.controls['username'].value;
+  //   const password = this.userLoginForm.controls['password'].value;
+  //
+  //   const body ={
+  //     username: username,
+  //     password: password
+  //   }
+  //
+  //   this.authService$.login(body).subscribe(res => {
+  //     // console.log(res);
+  //     sessionStorage.setItem('user', JSON.stringify(res));
+  //     this.router.navigate(['/']).then();
+  //   }, error => {
+  //     // console.log(error);
+  //     // this.errorMessage = error.error.status + ' ' + error.error.description;
+  //   });
+  // }
 }

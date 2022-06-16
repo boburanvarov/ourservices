@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -15,6 +15,8 @@ import { VacanciesStepsComponent } from './pages/vacancies-steps/vacancies-steps
 import {StepsModule} from 'primeng/steps';
 import { PassportInfoComponent } from './pages/passport-info/passport-info.component';
 import { OurWordComponent } from './pages/our-word/our-word.component';
+import {LoadingComponent} from './mains/loading/loading.component';
+import {MainsModule} from './mains/mains.module';
 
 registerLocaleData(en);
 
@@ -30,7 +32,6 @@ registerLocaleData(en);
         BrowserAnimationsModule,
         WelcomeModule,
         SweetAlert2Module.forRoot(),
-
     ],
     providers: [
 
@@ -38,7 +39,8 @@ registerLocaleData(en);
         {provide: LocationStrategy, useClass: HashLocationStrategy},
     ],
     exports: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class AppModule {
 }
