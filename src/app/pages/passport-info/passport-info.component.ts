@@ -4,6 +4,7 @@ import {formatDate} from '@angular/common';
 import {VacanciesService} from '../../shared/services/vacancies.service';
 import {Router} from '@angular/router';
 import {LoadingService} from '../../shared/services/loading.service';
+import {TokenService} from '../../shared/services/token.service';
 
 @Component({
     selector: 'app-passport-info',
@@ -16,13 +17,13 @@ export class PassportInfoComponent implements OnInit {
     personInfo: any;
 
     passportForm = this.fb.group({
-        series: ['AB', [
+        series: ['', [
             Validators.required,
             Validators.maxLength(2),
             Validators.minLength(2)
         ]
         ],
-        number: ['3253882', [
+        number: ['', [
             Validators.required,
             Validators.maxLength(7),
             Validators.minLength(7)
@@ -36,6 +37,7 @@ export class PassportInfoComponent implements OnInit {
         private vacanciesService: VacanciesService,
         private router: Router,
         public loadingService: LoadingService,
+        private tokenService: TokenService
     ) {
     }
 
@@ -61,7 +63,7 @@ export class PassportInfoComponent implements OnInit {
             birth_date: this.dateFormater(this.passportForm.get('birthDate').value)
         };
         console.log(body);
-
+        this.tokenService.removeGroupSessionStroge2()
         this.vacanciesService.postPassport(body).subscribe((res) => {
                 if (res) {
                     console.log(res);

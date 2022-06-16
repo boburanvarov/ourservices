@@ -11,6 +11,7 @@ import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {Utils} from '../../shared/Utils';
+import {LoadingService} from '../../shared/services/loading.service';
 
 @Component({
     selector: 'app-our',
@@ -41,7 +42,8 @@ export class OurComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private vacanciesService: VacanciesService,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
+        public loadingService: LoadingService,
     ) {
     }
 
@@ -161,6 +163,7 @@ export class OurComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+        this.editActive = true;
         this.education_level = [
             {name: 'Oliy Malumot', code: 'Oliy Malumot'},
             {name: `O'rta maxsus`, code: `O'rta maxsus`},
@@ -207,6 +210,8 @@ export class OurComponent implements OnInit, OnDestroy {
             this.languagesForm.patchValue(Utils.getItem('languagesForm'));
             this.editActive = false;
         }
+
+        this.editActive=true
 
     }
 

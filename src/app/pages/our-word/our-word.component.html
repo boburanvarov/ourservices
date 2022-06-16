@@ -22,129 +22,131 @@
 
    </div>
 
-    <div class="local-info info-block">
-        <div class="block">
-            <i class="far fa-user"></i>
-            <span class="user-title">Личная информация</span>
+    <div class="blocks">
+        <div class="local-info info-block">
+            <div class="block">
+                <i class="far fa-user"></i>
+                <span class="user-title">Личная информация</span>
+            </div>
+            <ul class="info">
+                <li>
+                    <span class="default-title">Дата рождения:</span>
+                    <span>{{resumeItem?.birth_date}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Город проживания:</span>
+                    <span>{{resumeItem?.birth_place}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Национальность:</span>
+                    <span>{{resumeItem?.nationality}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Партийность:</span>
+                    <span>{{resumeItem?.partisanship}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Степень образования:</span>
+                    <span>{{resumeItem?.education_degree}}</span>
+                </li>
+
+                <li>
+                    <span class="default-title">Специальность:</span>
+                    <span>{{resumeItem?.specialty}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Ученая степень:</span>
+                    <span>{{resumeItem?.academic_degree}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Награды:</span>
+                    <span>{{resumeItem?.awards}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Государственные учреждения:</span>
+                    <span>{{resumeItem?.government_agencies}}</span>
+                </li>
+                <li>
+                    <span class="default-title">E-mail:</span>
+                    <span>{{resumeItem?.email}}</span>
+                </li>
+                <li>
+                    <span class="default-title">Телефон:</span>
+                    <span>{{resumeItem?.phone}}</span>
+                </li>
+
+            </ul>
         </div>
-        <ul class="info">
-            <li>
-                <span class="default-title">Дата рождения:</span>
-                <span>{{resumeItem?.birth_date}}</span>
-            </li>
-            <li>
-                <span class="default-title">Город проживания:</span>
-                <span>{{resumeItem?.birth_place}}</span>
-            </li>
-            <li>
-                <span class="default-title">Национальность:</span>
-                <span>{{resumeItem?.nationality}}</span>
-            </li>
-            <li>
-                <span class="default-title">Партийность:</span>
-                <span>{{resumeItem?.partisanship}}</span>
-            </li>
-            <li>
-                <span class="default-title">Степень образования:</span>
-                <span>{{resumeItem?.education_degree}}</span>
-            </li>
 
-            <li>
-                <span class="default-title">Специальность:</span>
-                <span>{{resumeItem?.specialty}}</span>
-            </li>
-            <li>
-                <span class="default-title">Ученая степень:</span>
-                <span>{{resumeItem?.academic_degree}}</span>
-            </li>
-            <li>
-                <span class="default-title">Награды:</span>
-                <span>{{resumeItem?.awards}}</span>
-            </li>
-            <li>
-                <span class="default-title">Государственные учреждения:</span>
-                <span>{{resumeItem?.government_agencies}}</span>
-            </li>
-            <li>
-                <span class="default-title">E-mail:</span>
-                <span>{{resumeItem?.email}}</span>
-            </li>
-            <li>
-                <span class="default-title">Телефон:</span>
-                <span>{{resumeItem?.phone}}</span>
-            </li>
+        <div class="work-info info-block">
+            <div class="block">
+                <i class="fas fa-briefcase"></i>
+                <span class="user-title">Опыт работы</span>
+            </div>
+            <ul class="info">
+                <li *ngFor="let company of resumeItem?.work_info;">
+                    <div class="company-name sub-block">
+                        <span class="default-title">Название компании:</span>
+                        <span>{{company?.company}}</span>
 
-        </ul>
-    </div>
+                    </div>
+                    <div class="postiion sub-block">
+                        <span class="default-title">Должность:</span>
+                        <span>{{company?.position}}</span>
+                    </div>
+                    <div class="company-time sub-block">
+                        <span>{{company?.start}}</span> -
+                        <span>{{company?.end}}</span>
+                    </div>
+                </li>
 
-    <div class="work-info info-block">
-        <div class="block">
-            <i class="fas fa-briefcase"></i>
-            <span class="user-title">Опыт работы</span>
+            </ul>
+
         </div>
-        <ul class="info">
-            <li *ngFor="let company of resumeItem?.work_info;">
-               <div class="company-name sub-block">
-                   <span class="default-title">Название компании:</span>
-                   <span>{{company?.company}}</span>
 
-               </div>
-                <div class="postiion sub-block">
-                    <span class="default-title">Должность:</span>
-                    <span>{{company?.position}}</span>
-                </div>
-                <div class="company-time sub-block">
-                    <span>{{company?.start}}</span> -
-                    <span>{{company?.end}}</span>
-                </div>
-            </li>
+        <div class="edu-info info-block">
+            <div class="block">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="user-title">Образование</span>
+            </div>
+            <ul class="info">
+                <li *ngFor="let company of resumeItem?.education_info;">
+                    <div class="company-name sub-block">
+                        <span class="default-title">Учебный завадения:</span>
+                        <span>{{company?.name}}</span>
 
-        </ul>
+                    </div>
+                    <div class="postiion sub-block">
+                        <span class="default-title">Факультет:</span>
+                        <span>{{company?.faculty}}</span>
+                    </div>
+                    <div class="company-time sub-block">
+                        <span>{{company?.start}}</span> -
+                        <span>{{company?.end}}</span>
+                    </div>
+                </li>
 
-    </div>
+            </ul>
 
-    <div class="edu-info info-block">
-        <div class="block">
-            <i class="fas fa-graduation-cap"></i>
-            <span class="user-title">Образование</span>
         </div>
-        <ul class="info">
-            <li *ngFor="let company of resumeItem?.education_info;">
-                <div class="company-name sub-block">
-                    <span class="default-title">Учебный завадения:</span>
-                    <span>{{company?.name}}</span>
 
-                </div>
-                <div class="postiion sub-block">
-                    <span class="default-title">Факультет:</span>
-                    <span>{{company?.faculty}}</span>
-                </div>
-                <div class="company-time sub-block">
-                    <span>{{company?.start}}</span> -
-                    <span>{{company?.end}}</span>
-                </div>
-            </li>
-
-        </ul>
-
-    </div>
-
-    <div class="language-info info-block">
-        <div class="block">
-            <i class="fa fa-language"></i>
-            <span class="user-title">Иностранные языки</span>
-        </div>
-        <ul class="info">
-            <li>
-                <span class="lang-title">Языки</span>
-                <ol class="number-roman">
-                    <li *ngFor="let language of resumeItem?.languages;">
+        <div class="language-info info-block">
+            <div class="block">
+                <i class="fa fa-language"></i>
+                <span class="user-title">Иностранные языки</span>
+            </div>
+            <ul class="info">
+                <li>
+                    <span class="lang-title">Языки</span>
+                    <ol class="number-roman">
+                        <li *ngFor="let language of resumeItem?.languages;">
                             <span>{{language?.name}}</span>
-                    </li>
-                </ol>
-            </li>
+                        </li>
+                    </ol>
+                </li>
 
-        </ul>
+            </ul>
+        </div>
     </div>
 
 </div>

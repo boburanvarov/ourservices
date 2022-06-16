@@ -1,4 +1,7 @@
 <p-toast position="top-right" key="tst"></p-toast>
+<div *ngIf="loadingService.isLoading | async" class="loading-container">
+    <app-loading></app-loading>
+</div>
 <swal
     #saveSwal
     (confirm)="saveSwalFunc()"
