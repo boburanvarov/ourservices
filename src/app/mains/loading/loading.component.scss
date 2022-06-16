@@ -1,4 +1,12 @@
-.loader { 
+.loader {
     background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
     background: -webkit-radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
+
+
