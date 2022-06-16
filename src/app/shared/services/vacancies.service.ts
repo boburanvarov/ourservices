@@ -38,7 +38,7 @@ export class VacanciesService {
         return this.http.post<any>(API + 'resume', body);
     }
 
-    getResumeId(id: number) {
+     getResumeId(id: number) {
         return this.http.get<any>(API + 'resume/' + id);
     }
 

@@ -3,6 +3,7 @@ import {Vacancies} from "../../shared/interfaces/vacancies.interfaces";
 import {VacanciesService} from "../../shared/services/vacancies.service";
 import {Router} from "@angular/router";
 import {TokenService} from '../../shared/services/token.service';
+import {LoadingService} from '../../shared/services/loading.service';
 
 @Component({
   selector: 'app-vacancies',
@@ -13,6 +14,7 @@ export class VacanciesComponent implements OnInit {
 
   constructor(private vacanciesService: VacanciesService,
               private router: Router,
+              public loadingService: LoadingService,
               private tokenService: TokenService) { }
 
   ngOnInit(): void {

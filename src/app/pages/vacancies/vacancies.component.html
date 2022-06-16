@@ -1,42 +1,51 @@
-
-<div class="main">
-<div class="header">
-  <h1 class="header-title">
-    Vakansiyalar
-  </h1>
-    <div class="logo">
-        <img class="showImg" src="../../../assets/img.png" alt="#">
-        <img class="hideImg" src="../../../assets/logo2.png" alt="#">
-    </div>
+<div *ngIf="loadingService.isLoading | async" class="loading-container">
+        <app-loading></app-loading>
 </div>
 
+<div class="main">
+    <div class="header">
+        <h1 class="header-title">
+            Вакансии
+        </h1>
+        <div class="logo">
+            <img class="showImg" src="../../../assets/img.png" alt="#">
+            <img class="hideImg" src="../../../assets/davrLoggo.jpg" alt="#">
+        </div>
+    </div>
 
 
-  <div class="accardion-block">
-      <p-accordion >
-          <p-accordionTab  *ngFor="let panel of vacancies">
-              <ng-template pTemplate="header">
-                  <div class="panel-header">
-                      <h5 class="headerText">{{panel?.position?.name}}</h5>
-                      <span class="headerSubtitle">{{panel?.position?.createdAt}}</span>
-                  </div>
-              </ng-template>
-              <ng-template pTemplate="content">
-                  <div class="accardionBody">
-                                  <h6 class="accardionText">
-                                    {{panel?.position?.description}}
-                                  </h6>
-                                  <button class="resume" (click)="resume(panel)">
-                                    Resume yuborish
-                                  </button>
-                                </div>
-              </ng-template>
-          </p-accordionTab>
+    <div class="accardion-block">
+        <div class="btn-block">
+            <button pButton pRipple type="button" class="p-button-success" routerLink="/welcome">
+
+                <i class="pi pi-arrow-left"></i>
+                <span>Выход</span>
+            </button>
+        </div>
+        <p-accordion>
+            <p-accordionTab *ngFor="let panel of vacancies">
+                <ng-template pTemplate="header">
+                    <div class="panel-header">
+                        <h5 class="headerText">{{panel?.position?.name}}</h5>
+                        <span class="headerSubtitle">{{panel?.position?.createdAt}}</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <div class="accardionBody">
+                        <h6 class="accardionText">
+                            {{panel?.description}}
+                        </h6>
+                        <button class="resume" (click)="resume(panel)">
+                            Отправить резюме
+                        </button>
+                    </div>
+                </ng-template>
+            </p-accordionTab>
 
 
-      </p-accordion>
+        </p-accordion>
 
-  </div>
+    </div>
 
 </div>
 
