@@ -46,15 +46,15 @@ export class WelcomeComponent implements OnInit {
 
     ngOnInit() {
         this.tokenService.clearSessionStorage();
-        const body = {
-            username: 'DavrVacancy',
-            password: 'davr2001'
-        };
-        this.authService$.login(body).subscribe((res) => {
-
-            console.log(res);
-            sessionStorage.setItem('login', JSON.stringify(res));
-        });
+        // const body = {
+        //     username: 'DavrVacancy',
+        //     password: 'davr2001'
+        // };
+        // this.authService$.login(body).subscribe((res) => {
+        //
+        //     console.log(res);
+        //     sessionStorage.setItem('login', JSON.stringify(res));
+        // });
     }
 
     onChange(result: Date): void {

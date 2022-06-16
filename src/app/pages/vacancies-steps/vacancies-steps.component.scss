@@ -50,6 +50,24 @@
     flex-direction: column;
 }
 
+.btn-block {
+    ::ng-deep button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: 10px;
+        color: #f8fafc;
+        background: #30A059;
+        border: 1px solid #30A059;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        border-radius: 3px;
+        width: 100px;
+        height: 40px !important;
+    }
+}
+
 @media (max-width: 425px) {
     .block,
     .box {
@@ -59,17 +77,19 @@
     .header .logo img.showImg {
         display: none;
     }
+    .header .logo{
+        width: 70px;
+    }
     .header .logo img.hideImg {
-        width: 80px;
+        width: 100%;
         display: block;
-        height: 60px;
     }
 
     ::ng-deep .p-steps ul {
 
         //display: block !important;
     }
-    ::ng-deep .p-steps ul li{
+    ::ng-deep .p-steps ul li {
         width: 60px;
         text-align: left;
     }

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {WelcomeRoutingModule} from './welcome-routing.module';
 
@@ -23,6 +23,9 @@ import {OurWordComponent} from '../our-word/our-word.component';
 
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import {MainsModule} from '../../mains/mains.module';
+import {LoadingComponent} from '../../mains/loading/loading.component';
 
 @NgModule({
     imports: [
@@ -40,6 +43,7 @@ import {DropdownModule} from 'primeng/dropdown';
         StepsModule,
         TableModule,
         DropdownModule,
+        ButtonModule,
     ],
     declarations: [
         WelcomeComponent,
@@ -48,11 +52,13 @@ import {DropdownModule} from 'primeng/dropdown';
         VacanciesStepsComponent,
         PassportInfoComponent,
         OurWordComponent,
+        LoadingComponent
     ],
     exports: [WelcomeComponent],
     providers: [
         MessageService,
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class WelcomeModule {
 }

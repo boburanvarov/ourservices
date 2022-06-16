@@ -2,7 +2,7 @@
 <div class="main">
     <div class="header">
         <h1 class="header-title">
-            Resume
+            Резюме
         </h1>
         <div class="logo">
             <img class="showImg" src="../../../assets/img.png" alt="#">
@@ -15,7 +15,17 @@
         <p-steps [model]="items" [readonly]="stepActive"></p-steps>
     </div>
     <div class="btn-block">
-        <p-button label="Выход" icon="pi pi-arrow-left" iconPos="left" class="p-ml-5" routerLink="/vacancies"></p-button>
+        <button *ngIf="!mainExit" pButton pRipple type="button"  class="p-button-success" routerLink="/vacancies">
+
+            <i class="pi pi-arrow-left" ></i>
+            <span>Выход</span>
+        </button>
+        <button *ngIf="mainExit" pButton pRipple type="button"  class="p-button-success" routerLink="/welcome">
+
+            <i class="pi pi-arrow-left" ></i>
+            <span>Выход</span>
+        </button>
+
     </div>
     <div class="content">
 

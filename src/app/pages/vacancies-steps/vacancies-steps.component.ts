@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {MessageService} from 'primeng/api';
 import {NavigationEnd, Router} from '@angular/router';
+import {Utils} from '../../shared/Utils';
 
 @Component({
     selector: 'app-vacancies-steps',
@@ -12,10 +13,11 @@ export class VacanciesStepsComponent implements OnInit {
 
     items: any[];
     stepActive = false;
+    mainExit = false
     subscription: Subscription;
     steps: any;
-    resume:any;
-    activeIndex: number = 1;
+    resume: any;
+    vacancy: any;
 
     constructor(
         public messageService: MessageService,
@@ -26,8 +28,13 @@ export class VacanciesStepsComponent implements OnInit {
 
     ngOnInit(): void {
 
-
-
+        this.vacancy = Utils.getItem('vacancy');
+        console.log(this.vacancy);
+        if(this.vacancy === null){
+            this.mainExit = true;
+        }else{
+            this.mainExit = false;
+        }
         this.items = [
             {
                 label: 'Паспортные данные',
@@ -58,20 +65,20 @@ export class VacanciesStepsComponent implements OnInit {
     }
 
     step(event: any) {
-        this.steps = JSON.parse(sessionStorage.getItem('passportInfo'));
+        this.steps = Utils.getItem('passportInfo');
 
-        this.resume = JSON.parse(sessionStorage.getItem('resume'));
+        this.resume = Utils.getItem('resume');
         console.log(event.item.routerLink);
         console.log(this.steps);
-        if(this.resume == null){
+        if (this.resume == null) {
             if (event.item.routerLink == 'ourWord') {
 
                 this.router.navigate(['steps/our']);
             }
         }
-        if (this.steps == null ) {
+        if (this.steps == null) {
 
-                this.router.navigate(['steps/passport']);
+            this.router.navigate(['steps/passport']);
 
         } else if (event.item.routerLink == 'passport') {
             this.router.navigate(['steps/passport']);
