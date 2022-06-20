@@ -38,6 +38,9 @@ export class OurComponent implements OnInit, OnDestroy {
     personInfo: any;
     education_level: any[];
     fileSize: number = 0;
+    editWork: any[]= [];
+    editEdu: any[]=[];
+    editRelative: any[]=[];
 
     constructor(
         private fb: FormBuilder,
@@ -134,6 +137,7 @@ export class OurComponent implements OnInit, OnDestroy {
 
     newWorkExperience() {
         return this.fb.group({
+            id: [],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
             company: ['', Validators.required],
@@ -143,6 +147,7 @@ export class OurComponent implements OnInit, OnDestroy {
 
     newEducationInfo() {
         return this.fb.group({
+            id: [],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
             name: ['', Validators.required],
@@ -152,6 +157,7 @@ export class OurComponent implements OnInit, OnDestroy {
 
     newRelativeInfo() {
         return this.fb.group({
+            id: [],
             kinship: ['', Validators.required],
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -563,16 +569,16 @@ export class OurComponent implements OnInit, OnDestroy {
 
 
     }
-    editWork: any;
+
     editResume(){
-        const relativeId = Utils.getItem('relativeInfo');
-        const eduId = Utils.getItem('educationInfo');
-        const workId = Utils.getItem('workExperience');
-        const resume = Utils.getItem('resume')
+
         const vacancies = Utils.getItem('vacancy');
-       this.workExprienceElements.controls.forEach(el => {
-         this.editWork = el.value
-        });
+        const resume = Utils.getItem('resume');
+        this.editWork = this.workExprienceElements.value;
+       this.editEdu = this.educationInfoElements.value;
+      this.editRelative = this.relativeInfoElements.value
+        this.languagesForm.value
+        console.log( this.editEdu);
         if(resume){
             if (vacancies) {
                 const body = {
@@ -593,13 +599,10 @@ export class OurComponent implements OnInit, OnDestroy {
                     awards: this.personalInfor.get('awards').value,
                     government_agencies: this.personalInfor.get('government_agencies').value,
                     email: this.personalInfor.get('email').value,
-                    // work_info: {
-                    //     id: eduId.id
-                    //
-                    // },
-                    education_info: this.eduInfo,
+                    work_info: this.editWork,
+                    education_info: this.editEdu,
                     languages: this.languagesForm.get('languages').value,
-                    relatives: this.relatives,
+                    relatives: this.editRelative,
                     vacancy: vacancies
                 };
                 console.log(body);
@@ -630,10 +633,10 @@ export class OurComponent implements OnInit, OnDestroy {
                     awards: this.personalInfor.get('awards').value,
                     government_agencies: this.personalInfor.get('government_agencies').value,
                     email: this.personalInfor.get('email').value,
-                    work_info: this.workInfo,
-                    education_info: this.eduInfo,
+                    work_info: this.editWork,
+                    education_info: this.editEdu,
                     languages: this.languagesForm.get('languages').value,
-                    relatives: this.relatives,
+                    relatives: this.editRelative,
                 };
                 console.log(noVacancy);
                 this.vacanciesService.editResume(noVacancy).subscribe((res) => {
