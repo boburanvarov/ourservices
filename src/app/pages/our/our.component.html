@@ -26,7 +26,6 @@
         <div class="content">
 
 
-
             <div class="block" *ngIf="showLogin">
 
                 <h3 class="box-title">Основная информация</h3>
@@ -212,11 +211,14 @@
 
                             <div class="group-item  p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="phone">Уровень образования</label>
-                                <p-dropdown [options]="education_level" formControlName="education_level" placeholder=" " optionLabel="name" ></p-dropdown>
+                                <p-dropdown [options]="education_level" formControlName="education_level"
+                                            placeholder=" " optionLabel="name"></p-dropdown>
 
-                                <div *ngIf="basicInfor.get('education_level')?.invalid && basicInfor.get('education_level').touched"
-                                     class="p-invalid">
-                                    <small *ngIf="basicInfor.get('education_level').errors.required">Поле обязателен</small>
+                                <div
+                                    *ngIf="basicInfor.get('education_level')?.invalid && basicInfor.get('education_level').touched"
+                                    class="p-invalid">
+                                    <small *ngIf="basicInfor.get('education_level').errors.required">Поле
+                                        обязателен</small>
                                     <small *ngIf="basicInfor.get('education_level').errors.maxlength">
                                         Уровень образования должна состоять не более чем из
                                         {{basicInfor.get('education_level').errors.maxlength.requiredLength}} букв
@@ -331,7 +333,7 @@
 
                             <div class="group-item p-field p-col-12 p-sm-12 p-lg-6">
                                 <label for="awards">Награды</label>
-                                <input id="awards" type="text" pInputText formControlName="partisanship">
+                                <input id="awards" type="text" pInputText formControlName="awards">
 
                                 <div *ngIf="personalInfor.get('awards')?.invalid && personalInfor.get('awards').touched"
                                      class="p-invalid">
@@ -489,11 +491,11 @@
 
                     </div>
 
-                    <p class="p-col-12 warning-block" *ngIf="editActive">
+                    <p class="p-col-12 warning-block" *ngIf="activeDisabled">
                         <i class="pi pi-exclamation-triangle"></i>
                         <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
                     </p>
-                    <div class="add-block p-col-12" *ngIf="editActive">
+                    <div class="add-block p-col-12" *ngIf="activeDisabled">
                         <button class="send" pButton pRipple type="button"
                                 *ngIf="workExprienceElements.length > 0" (click)="saveWork()">
                             <span>Сохранить</span>
@@ -596,11 +598,11 @@
 
                     </div>
 
-                    <p class="p-col-12 warning-block" *ngIf="editActive">
+                    <p class="p-col-12 warning-block" *ngIf="activeDisabled">
                         <i class="pi pi-exclamation-triangle"></i>
                         <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
                     </p>
-                    <div class="add-block p-col-12" *ngIf="editActive">
+                    <div class="add-block p-col-12" *ngIf="activeDisabled">
                         <button class="send" pButton pRipple type="button"
                                 *ngIf="educationInfoElements.length > 0" (click)="saveEdu()">
                             <span>Сохранить</span>
@@ -815,11 +817,11 @@
 
                     </div>
 
-                    <p class="p-col-12 warning-block" *ngIf="editActive">
+                    <p class="p-col-12 warning-block" *ngIf="activeDisabled">
                         <i class="pi pi-exclamation-triangle"></i>
                         <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
                     </p>
-                    <div class="add-block p-col-12" *ngIf="editActive">
+                    <div class="add-block p-col-12" *ngIf="activeDisabled">
                         <button class="send" pButton pRipple type="button"
                                 *ngIf="relativeInfoElements.length > 0" (click)="saveRelative()">
                             <span>Сохранить</span>
@@ -833,11 +835,14 @@
 
             </div>
 
-            <div class="send-block p-col-12" *ngIf="editActive" >
+            <div class="send-block p-col-12">
 
-                <button [disabled]="activeDisabled" pButton pRipple type="button" label="Отправить"
-                        class="p-button-raised  p-button-text"
-                        (click)="sendResume()"></button>
+                <button pButton pRipple type="submit" label="Отправить"  *ngIf="activeDisabled"
+                        class="p-button-raised  p-button-text"  (click)="sendResume()"
+                ></button>
+                <button pButton pRipple type="submit" label="Изменить"  *ngIf="!activeDisabled"
+                        class="p-button-raised  p-button-text"  (click)="editResume()"
+                ></button>
             </div>
 
         </div>

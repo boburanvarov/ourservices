@@ -1,5 +1,4 @@
 /* tslint:disable */
-// noinspection DuplicatedCode
 
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -12,6 +11,8 @@ import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {Utils} from '../../shared/Utils';
 import {LoadingService} from '../../shared/services/loading.service';
+import {DomSanitizer} from '@angular/platform-browser';
+
 
 @Component({
     selector: 'app-our',
@@ -24,7 +25,7 @@ export class OurComponent implements OnInit, OnDestroy {
     @ViewChild('warnSwal')
     public readonly warnSwal!: SwalComponent;
 
-    base64textString: string = '';
+    base64textString: any;
     isImageSaved: boolean = false;
     showLogin = false;
     languages: any[] = [];
@@ -32,11 +33,11 @@ export class OurComponent implements OnInit, OnDestroy {
     eduInfo: any[] = [];
     eduInfo2 = {};
     relatives: any[] = [];
-    activeDisabled = false;
+    activeDisabled = true;
     imageError: string = '';
     personInfo: any;
     education_level: any[];
-    editActive = true;
+    fileSize: number = 0;
 
     constructor(
         private fb: FormBuilder,
@@ -44,6 +45,7 @@ export class OurComponent implements OnInit, OnDestroy {
         private messageService: MessageService,
         private router: Router,
         public loadingService: LoadingService,
+        private sanitizer: DomSanitizer
     ) {
     }
 
@@ -163,11 +165,15 @@ export class OurComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.editActive = true;
         this.education_level = [
             {name: 'Oliy Malumot', code: 'Oliy Malumot'},
             {name: `O'rta maxsus`, code: `O'rta maxsus`},
         ];
+        const resume = Utils.getItem('resume')
+        if(resume){
+            this.activeDisabled = false;
+            this.base64textString = this.sanitizer.bypassSecurityTrustResourceUrl(resume.image);
+        }
         const passportInfo = JSON.parse(sessionStorage.getItem('passportInfo'));
         if (passportInfo) {
             this.workExprienceElements.push(this.newWorkExperience());
@@ -179,39 +185,39 @@ export class OurComponent implements OnInit, OnDestroy {
         }
         if (!Utils.IsExist('basicInfor')) {
             this.basicInfor.patchValue(Utils.getItem('basicInfor'));
-            this.editActive = false;
+
         }
         if (!Utils.IsExist('personalInfor')) {
             this.personalInfor.patchValue(Utils.getItem('personalInfor'));
-            this.editActive = false;
+
         }
         if (!Utils.IsExist('workExperience')) {
             if(Utils.getItem('workExperience').length > 1){
                 this.workExprienceElements.push(this.newWorkExperience())
             }
             this.workExprienceElements.patchValue(Utils.getItem('workExperience'));
-            this.editActive = false;
+
         }
         if (!Utils.IsExist('educationInfo')) {
             if(Utils.getItem('educationInfo').length > 1){
                 this.educationInfoElements.push(this.newEducationInfo())
             }
             this.educationInfoElements.patchValue(Utils.getItem('educationInfo'));
-            this.editActive = false;
+
         }
         if (!Utils.IsExist('relativeInfo')) {
             if(Utils.getItem('relativeInfo').length > 1){
                 this.relativeInfoElements.push(this.newRelativeInfo())
             }
             this.relativeInfoElements.patchValue(Utils.getItem('relativeInfo'));
-            this.editActive = false;
+
         }
         if (!Utils.IsExist('languagesForm')) {
             this.languagesForm.patchValue(Utils.getItem('languagesForm'));
-            this.editActive = false;
+
         }
 
-        this.editActive=true
+
 
     }
 
@@ -280,7 +286,7 @@ export class OurComponent implements OnInit, OnDestroy {
         if (fileInput.target.files && fileInput.target.files[0]) {
             const maxsize = 2097152; //1048576;
             const allowedTypes = ['image/png', 'image/jpeg'];
-
+            this.fileSize = fileInput.target.files[0].size;
             console.log(fileInput.target.files[0].size);
             if (fileInput.target.files[0].size > maxsize) {
                 const mb = fileInput.target.files[0].size / maxsize;
@@ -333,16 +339,7 @@ export class OurComponent implements OnInit, OnDestroy {
                 company: el.value.company,
                 position: el.value.position
             };
-            // this.workInfo2 = {
-            //     workExprienceElements: [
-            //         {
-            //             start_date: this.dateFormater(el.value.start_date),
-            //             end_date: this.dateFormater(el.value.end_date),
-            //             company: el.value.company,
-            //             position: el.value.position
-            //         }
-            //     ]
-            // };
+
 
             this.vacanciesService.postWork(body).subscribe((res) => {
                 if (res) {
@@ -457,17 +454,34 @@ export class OurComponent implements OnInit, OnDestroy {
 
 
     sendResume() {
+
+        console.log(this.fileSize);
         console.log(this.workInfo, 'workinfo');
-        if (!this.basicInfor.valid && !this.personalInfor.valid && !this.educationInfoElements.valid) {
+        if (!this.basicInfor.valid ) {
             this.basicInfor.markAllAsTouched();
             this.personalInfor.markAllAsTouched();
+
             this.educationInfoElements.markAllAsTouched();
             return;
         }
+        if(!this.personalInfor){
+            this.basicInfor.markAllAsTouched();
+            this.personalInfor.markAllAsTouched();
 
-        const vacancies = JSON.parse(sessionStorage.getItem('vacancy'));
+            this.educationInfoElements.markAllAsTouched();
+            return;
+        }
+        if (!this.educationInfoElements.valid) {
+            this.educationInfoElements.markAllAsTouched();
+            this.basicInfor.markAllAsTouched();
+            this.personalInfor.markAllAsTouched();
+            return;
+        }
 
-        setTimeout(() => {
+            console.log(this.workInfo, 'workinfo2');
+
+        const vacancies =   Utils.getItem('vacancy');
+            console.log(vacancies);
             if (vacancies) {
                 const form = this.basicInfor.value;
                 const body = {
@@ -499,11 +513,9 @@ export class OurComponent implements OnInit, OnDestroy {
                     console.log(res);
                     sessionStorage.setItem('resume', JSON.stringify(res));
                     this.saveSwal.fire();
-                    this.activeDisabled = true;
                 }, (error) => {
                     if (error.status === 404 || error.status === 500) {
                         this.warnSwal.fire();
-                        this.activeDisabled = false;
                     }
                 });
             } else {
@@ -539,12 +551,108 @@ export class OurComponent implements OnInit, OnDestroy {
                     (error) => {
                         if (error.status === 404 || error.status === 500) {
                             this.warnSwal.fire();
-                            this.activeDisabled = false;
                         }
                     });
             }
-        }, 3000);
+            setTimeout(() => {
 
+            }, 3000);
+
+
+
+
+
+    }
+    editWork: any;
+    editResume(){
+        const relativeId = Utils.getItem('relativeInfo');
+        const eduId = Utils.getItem('educationInfo');
+        const workId = Utils.getItem('workExperience');
+        const resume = Utils.getItem('resume')
+        const vacancies = Utils.getItem('vacancy');
+       this.workExprienceElements.controls.forEach(el => {
+         this.editWork = el.value
+        });
+        if(resume){
+            if (vacancies) {
+                const body = {
+                    id: resume.id,
+                    first_name: this.basicInfor.get('name').value,
+                    last_name: this.basicInfor.get('fName').value,
+                    middle_name: this.basicInfor.get('lName').value,
+                    education_level: this.basicInfor.get('education_level').value.code,
+                    image: this.base64textString,
+                    birth_date: this.basicInfor.get('birth_date').value,
+                    birth_place: this.basicInfor.get('birth_place').value,
+                    nationality: this.basicInfor.get('nationality').value,
+                    phone: this.basicInfor.get('phone').value,
+                    partisanship: this.personalInfor.get('partisanship').value,
+                    education_degree: this.personalInfor.get('education_degree').value,
+                    specialty: this.personalInfor.get('specialty').value,
+                    academic_degree: this.personalInfor.get('academic_degree').value,
+                    awards: this.personalInfor.get('awards').value,
+                    government_agencies: this.personalInfor.get('government_agencies').value,
+                    email: this.personalInfor.get('email').value,
+                    // work_info: {
+                    //     id: eduId.id
+                    //
+                    // },
+                    education_info: this.eduInfo,
+                    languages: this.languagesForm.get('languages').value,
+                    relatives: this.relatives,
+                    vacancy: vacancies
+                };
+                console.log(body);
+                this.vacanciesService.editResume(body).subscribe((res) => {
+                    console.log(res);
+                    console.log(res);
+                    sessionStorage.setItem('resume', JSON.stringify(res));
+                    this.saveSwal.fire();
+                }, (error) => {
+                    if (error.status === 404 || error.status === 500) {
+                        this.warnSwal.fire();
+                    }
+                });
+            } else {
+                const noVacancy = {
+                    first_name: this.basicInfor.get('name').value,
+                    last_name: this.basicInfor.get('fName').value,
+                    middle_name: this.basicInfor.get('lName').value,
+                    image: this.base64textString,
+                    birth_date: this.basicInfor.get('birth_date').value,
+                    birth_place: this.basicInfor.get('birth_place').value,
+                    nationality: this.basicInfor.get('nationality').value,
+                    phone: this.basicInfor.get('phone').value,
+                    partisanship: this.personalInfor.get('partisanship').value,
+                    education_degree: this.personalInfor.get('education_degree').value,
+                    specialty: this.personalInfor.get('specialty').value,
+                    academic_degree: this.personalInfor.get('academic_degree').value,
+                    awards: this.personalInfor.get('awards').value,
+                    government_agencies: this.personalInfor.get('government_agencies').value,
+                    email: this.personalInfor.get('email').value,
+                    work_info: this.workInfo,
+                    education_info: this.eduInfo,
+                    languages: this.languagesForm.get('languages').value,
+                    relatives: this.relatives,
+                };
+                console.log(noVacancy);
+                this.vacanciesService.editResume(noVacancy).subscribe((res) => {
+                        console.log(res);
+                        console.log(res);
+                        sessionStorage.setItem('resume', JSON.stringify(res));
+                        this.activeDisabled = true;
+                        this.saveSwal.fire();
+                    },
+                    (error) => {
+                        if (error.status === 404 || error.status === 500) {
+                            this.warnSwal.fire();
+                        }
+                    });
+            }
+            setTimeout(() => {
+
+            }, 3000);
+        }
 
     }
 

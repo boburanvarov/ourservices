@@ -1,160 +1,237 @@
+<!--<p>resume-info works!</p>-->
+<div class="main">
 
 
-<div class="box" id="box">
-   <div class="main-info">
+    <div class="box" id="box">
 
-       <div class="basic-infor">
-           <h3 class="person-name">
+        <div class="main-info">
 
-               <span>{{resumeItem?.last_name}}</span>
-               <span>{{resumeItem?.first_name }}</span>
-               <span>{{resumeItem?.middle_name}}</span>
-           </h3>
-           <div class="phone-block">
-               <i class="fa fa-phone-alt"></i>
-                <span class="phone-number">{{resumeItem?.phone}}</span>
-           </div>
+            <div class="basic-infor">
+                <h3>МАЪЛУМОТНОМА</h3>
+                <h3 class="person-name">
 
-       </div>
-       <div class="img-block">
-           <img [src]="base64textString" alt="">
-       </div>
+                    <span>{{resumeItem?.last_name}}</span>
+                    <span>{{resumeItem?.first_name }}</span>
+                    <span>{{resumeItem?.middle_name}}</span>
+                </h3>
+                <div class="phone-block">
+                    <i class="fa fa-phone-alt"></i>
+                    <span class="phone-number">{{resumeItem?.phone}}</span>
+                </div>
 
-   </div>
-
-    <div class="blocks">
-        <div class="local-info info-block">
-            <div class="block">
-                <i class="far fa-user"></i>
-                <span class="user-title">Личная информация</span>
             </div>
-            <ul class="info">
-                <li>
-                    <span class="default-title">Дата рождения:</span>
-                    <span>{{resumeItem?.birth_date}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Город проживания:</span>
-                    <span>{{resumeItem?.birth_place}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Национальность:</span>
-                    <span>{{resumeItem?.nationality}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Партийность:</span>
-                    <span>{{resumeItem?.partisanship}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Степень образования:</span>
-                    <span>{{resumeItem?.education_degree}}</span>
-                </li>
-
-                <li>
-                    <span class="default-title">Специальность:</span>
-                    <span>{{resumeItem?.specialty}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Ученая степень:</span>
-                    <span>{{resumeItem?.academic_degree}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Награды:</span>
-                    <span>{{resumeItem?.awards}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Государственные учреждения:</span>
-                    <span>{{resumeItem?.government_agencies}}</span>
-                </li>
-                <li>
-                    <span class="default-title">E-mail:</span>
-                    <span>{{resumeItem?.email}}</span>
-                </li>
-                <li>
-                    <span class="default-title">Телефон:</span>
-                    <span>{{resumeItem?.phone}}</span>
-                </li>
-
-            </ul>
-        </div>
-
-        <div class="work-info info-block">
-            <div class="block">
-                <i class="fas fa-briefcase"></i>
-                <span class="user-title">Опыт работы</span>
+            <div class="img-block">
+                <img [src]="base64textString" alt="">
             </div>
-            <ul class="info">
-                <li *ngFor="let company of resumeItem?.work_info;">
-                    <div class="company-name sub-block">
-                        <span class="default-title">Название компании:</span>
-                        <span>{{company?.company}}</span>
-
-                    </div>
-                    <div class="postiion sub-block">
-                        <span class="default-title">Должность:</span>
-                        <span>{{company?.position}}</span>
-                    </div>
-                    <div class="company-time sub-block">
-                        <span>{{company?.start}}</span> -
-                        <span>{{company?.end}}</span>
-                    </div>
-                </li>
-
-            </ul>
 
         </div>
 
-        <div class="edu-info info-block">
-            <div class="block">
-                <i class="fas fa-graduation-cap"></i>
-                <span class="user-title">Образование</span>
+        <div class="blocks">
+            <div class="local-info info-block">
+                <div class="block">
+                    <!--                    <i class="far fa-user"></i>-->
+                    <span class="user-title">Шахсий маълумот</span>
+                </div>
+                <ul class="info">
+                    <li>
+                        <span class="default-title">Туғилган кун:</span>
+                        <span>{{resumeItem?.birth_date}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Туғилган жойи:</span>
+                        <span>{{resumeItem?.birth_place}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Миллати:</span>
+                        <span>{{resumeItem?.nationality}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Партиявийлиги:</span>
+                        <span>{{resumeItem?.partisanship}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Малумоти:</span>
+                        <span>{{resumeItem?.education_level}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Таълим даражаси:</span>
+                        <span>{{resumeItem?.education_degree}}</span>
+                    </li>
+
+                    <li>
+                        <span class="default-title">Малумоти бўйича мутахассислиги:</span>
+                        <span>{{resumeItem?.specialty}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Илмий даража:</span>
+                        <span>{{resumeItem?.academic_degree}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Мукофотлар:</span>
+                        <span>{{resumeItem?.awards}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Давлат муассасалари:</span>
+                        <span>{{resumeItem?.government_agencies}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">E-mail:</span>
+                        <span>{{resumeItem?.email}}</span>
+                    </li>
+                    <li>
+                        <span class="default-title">Телефон:</span>
+                        <span>{{resumeItem?.phone}}</span>
+                    </li>
+
+                </ul>
             </div>
-            <ul class="info">
-                <li *ngFor="let company of resumeItem?.education_info;">
-                    <div class="company-name sub-block">
-                        <span class="default-title">Учебный завадения:</span>
-                        <span>{{company?.name}}</span>
 
-                    </div>
-                    <div class="postiion sub-block">
-                        <span class="default-title">Факультет:</span>
-                        <span>{{company?.faculty}}</span>
-                    </div>
-                    <div class="company-time sub-block">
-                        <span>{{company?.start}}</span> -
-                        <span>{{company?.end}}</span>
-                    </div>
-                </li>
+            <div class="language-info info-block">
+                <div class="block">
+                    <!--                    <i class="fa fa-language"></i>-->
+                    <span class="user-title">Қайси чет тилларни билади</span>
+                </div>
+                <ul class="info">
+                    <li>
+                        <!--                        <span class="lang-title">Языки</span>-->
+                        <ol class="number-roman">
+                            <li *ngFor="let language of resumeItem?.languages;">
+                                <span>{{language?.name}}</span>
+                            </li>
+                        </ol>
+                    </li>
 
-            </ul>
+                </ul>
+            </div>
+
+            <div class="edu-info info-block">
+                <div class="block">
+                    <!--                    <i class="fas fa-graduation-cap"></i>-->
+                    <span class="user-title">Таълим</span>
+                </div>
+
+                <p-table [value]="resumeItem?.education_info">
+>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width:180px">Талим муассаси</th>
+                            <th style="min-width:180px">Факультет</th>
+                            <th style="min-width:180px">Ўқишга кирган йили</th>
+                            <th style="min-width:180px">Ўқишга тамомлаган йили</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-edu>
+                        <tr>
+                            <td>
+                                <textarea class="autotext" value="{{edu.name}}" autosize>
+                                     </textarea>
+                            </td>
+                            <td>
+                                    <textarea class="autotext" value="{{edu.faculty}}" autosize>
+                                     </textarea>
+                            </td>
+                            <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{edu.start}}" autosize>
+                                     </textarea>
+
+                            </td>
+                            <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{edu.end}}" autosize>
+                                 </textarea>
+                            </td>
+
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <!--                <ul class="info">-->
+                <!--                    <li *ngFor="let company of resumeItem?.education_info;">-->
+                <!--                        <div class="company-name sub-block">-->
+                <!--                            <span class="default-title">Учебный завадения:</span>-->
+                <!--                            <span>{{company?.name}}</span>-->
+
+                <!--                        </div>-->
+                <!--                        <div class="postiion sub-block">-->
+                <!--                            <span class="default-title">Факультет:</span>-->
+                <!--                            <span>{{company?.faculty}}</span>-->
+                <!--                        </div>-->
+                <!--                        <div class="company-time sub-block">-->
+                <!--                            <span>{{company?.start}}</span> - -->
+                <!--                            <span>{{company?.end}}</span>-->
+                <!--                        </div>-->
+                <!--                    </li>-->
+
+                <!--                </ul>-->
+
+            </div>
+
+            <div class="work-info info-block">
+                <div class="block">
+                    <!--                    <i class="fas fa-briefcase"></i>-->
+                    <span class="user-title">Иш тажрибаси</span>
+                </div>
+                <p-table [value]="resumeItem?.work_info" scrollHeight="400px">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width:150px">Компания номи</th>
+                            <th style="min-width:150px">Лавозими</th>
+                            <th style="min-width:150px">Ишга кирган йили</th>
+                            <th style="min-width:150px">Ишга тамомлаган йили</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-company>
+                        <tr>
+                            <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{company.company}}" autosize>
+                                 </textarea>
+                            </td>
+                            <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{company.position}}" autosize>
+                                 </textarea>
+                            </td>
+                            <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{company.start}}" autosize>
+                                 </textarea>
+                            </td>
+                            <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{company.end}}" autosize>
+                                 </textarea>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <!--                <ul class="info">-->
+                <!--                    <li *ngFor="let company of resumeItem?.work_info;">-->
+                <!--                        <div class="company-name sub-block">-->
+                <!--                            <span class="default-title">Название компании:</span>-->
+                <!--                            <span>{{company?.company}}</span>-->
+
+                <!--                        </div>-->
+                <!--                        <div class="postiion sub-block">-->
+                <!--                            <span class="default-title">Должность:</span>-->
+                <!--                            <span>{{company?.position}}</span>-->
+                <!--                        </div>-->
+                <!--                        <div class="company-time sub-block">-->
+                <!--                            <span>{{company?.start}}</span> - -->
+                <!--                            <span>{{company?.end}}</span>-->
+                <!--                        </div>-->
+                <!--                    </li>-->
+
+                <!--                </ul>-->
+
+            </div>
+
 
         </div>
 
-        <div class="language-info info-block">
-            <div class="block">
-                <i class="fa fa-language"></i>
-                <span class="user-title">Иностранные языки</span>
-            </div>
-            <ul class="info">
-                <li>
-                    <span class="lang-title">Языки</span>
-                    <ol class="number-roman">
-                        <li *ngFor="let language of resumeItem?.languages;">
-                            <span>{{language?.name}}</span>
-                        </li>
-                    </ol>
-                </li>
 
-            </ul>
-        </div>
     </div>
 
-</div>
+    <div class="box" id="box2">
 
-<div class="box">
-    <div class="card">
 
-        <p-table [value]="resumeItem?.relatives" [scrollable]="true" scrollHeight="400px">
+        <p-table [value]="resumeItem?.relatives" scrollHeight="400px">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="min-width:150px">Родство</th>
@@ -183,28 +260,7 @@
                 </tr>
             </ng-template>
         </p-table>
+
+
     </div>
-<!--    <table>-->
-<!--        <tr>-->
-<!--            <th>Родство</th>-->
-<!--            <th>Имя</th>-->
-<!--            <th>Фамилия</th>-->
-<!--            <th>Отчество</th>-->
-<!--            <th>Дата рождения</th>-->
-<!--            <th>Место рождения</th>-->
-<!--            <th>Должность</th>-->
-<!--            <th>Места жительства</th>-->
-<!--        </tr>-->
-<!--        <tr class="activeTr"  *ngFor="let relative of resumeItem?.relatives">-->
-<!--            <td>{{relative.kinship}}</td>-->
-<!--            <td>{{relative.firstName}}</td>-->
-<!--            <td>{{relative.lastName}}</td>-->
-<!--            <td>{{relative.middleName}}</td>-->
-<!--            <td>{{relative.birthDate}}</td>-->
-<!--            <td>{{relative.birthPlace}}</td>-->
-<!--            <td>{{relative.position}}</td>-->
-<!--            <td>{{relative.livingPlace}}</td>-->
-<!--        </tr>-->
-<!--    </table>-->
 </div>
-<!--<button (click)="ExportToDoc('box', 'html-content');">download</button>-->

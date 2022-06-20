@@ -1,16 +1,33 @@
+ul{
+    margin: 0;
+    padding: 0;
+}
+
 .box{
     width: 800px;
     height:auto;
     border: none;
     border-radius: 5px;
     padding: 20px;
-    background: #fff;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 1px 3px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    //box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 1px 3px 0 rgb(0 0 0 / 10%);
+    margin: 0 auto;
     margin-bottom: 10px;
+}
+#box2{
+    width: 100%;
+    height: auto;
+}
+.btn-block{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .box p-table{
     width: 100%;
- cursor: pointer!important;
+    cursor: pointer!important;
 }
 
 .main-info{
@@ -20,13 +37,19 @@
 }
 
 .main-info .img-block {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
 }
 
 .main-info .img-block img{
     width: 100%;
     height: 100%;
+    margin: 40px 0 0 50px;
+}
+
+.main-info .basic-infor{
+    text-align: center;
+    margin: 20px 0 0 20px;
 }
 
 .main-info .basic-infor .person-name{
@@ -46,27 +69,33 @@
     font-weight: 700;
 }
 
-.blocks{
-    margin-left: 250px;
-}
 
- .info-block{
+.info-block{
     margin: 20px 0;
+
 }
 
- .info-block .block{
+.info-block .block{
     margin-top: 20px;
-     display: flex;
-     align-items: center;
-     color: #4C489D;
-     gap: 0 10px;
-     font-weight: bold;
-     font-size: 18px;
+    display: flex;
+    align-items: center;
+    color: #4C489D;
+    gap: 0 10px;
+    font-weight: bold;
+    font-size: 18px;
 }
+
+.info-block .info{
+    display: flex;
+    gap: 0 100px;
+    flex-wrap: wrap;
+}
+
 .info-block .info li{
     display: flex;
     align-items: center;
     gap: 0 10px;
+    width: 300px;
 
 }
 
@@ -82,7 +111,7 @@
 .language-info .info li,{
     display: flex;
     align-items: flex-start;
-   flex-direction: column;
+    flex-direction: column;
 
     gap: 0 10px;
 }
@@ -92,8 +121,8 @@
     align-items: center;
     gap: 0 10px;
 }
- .info li .company-time,
- .language-info .info li .lang-title{
+.info li .company-time,
+.language-info .info li .lang-title{
     font-weight: 800;
     color: #000;
 }
@@ -101,6 +130,24 @@
 ::ng-deep .language-info .info li .number-roman {
     list-style: roman !important;
 }
+
+::ng-deep .p-datatable-wrapper{
+    margin: 20px 0;
+    height: auto !important;
+}
+
+
+.autotext{
+    padding: 10px 0;
+    background: none;
+    border: none;
+    outline: none;
+    pointer-events: none;
+    resize: none;
+}
+
+
+
 
 @media (max-width: 425px) {
     .block,
@@ -134,7 +181,7 @@
     }
 
 
-    }
+}
 
 @media (max-width: 320px) {
 

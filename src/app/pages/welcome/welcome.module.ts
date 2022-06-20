@@ -26,6 +26,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 import {MainsModule} from '../../mains/mains.module';
 import {LoadingComponent} from '../../mains/loading/loading.component';
+import {AutosizeModule} from 'ngx-autosize';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import {LoadingComponent} from '../../mains/loading/loading.component';
         TableModule,
         DropdownModule,
         ButtonModule,
+        AutosizeModule,
     ],
     declarations: [
         WelcomeComponent,

@@ -27,6 +27,8 @@
         "@fullcalendar/interaction": "^5.8.0",
         "@fullcalendar/timegrid": "^5.8.0",
         "@sweetalert2/ngx-sweetalert2": "^10.0.0",
+        "angular-material-datepicker": "^1.0.2",
+        "bootstrap": "^5.1.3",
         "chart.js": "^3.3.2",
         "docx": "^7.3.0",
         "file-saver": "^1.3.8",

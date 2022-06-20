@@ -45,9 +45,10 @@
         </div>
 
         <div class="group-item">
-            <label for="date">День Рождения</label>
-            <p-calendar [showIcon]="true" inputId="icon" formControlName="birthDate" dateFormat="dd.mm.yy"
-                        id="date"></p-calendar>
+            <label >День Рождения</label>
+            <p-calendar  [monthNavigator]="true"  [yearNavigator]="true" yearRange="1800:2100"  [showIcon]="true" inputId="icon" formControlName="birthDate" dateFormat="dd.mm.yy"></p-calendar>
+<!--            <p-calendar [showIcon]="true" inputId="icon" -->
+<!--                        id="date"></p-calendar>-->
 
             <small class="p-invalid"
                    *ngIf="

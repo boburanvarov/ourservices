@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {API} from '../constants/consts';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -22,15 +23,15 @@ export class VacanciesService {
         return this.http.get<any>(API + 'languages');
     }
 
-    postWork(body: any) {
+    postWork(body: any): Observable<any> {
         return this.http.post<any>(API + 'work', body);
     }
 
-    postEdu(body: any) {
+    postEdu(body: any): Observable<any> {
         return this.http.post<any>(API + 'education', body);
     }
 
-    postRelative(body: any) {
+    postRelative(body: any): Observable<any> {
         return this.http.post<any>(API + 'relative', body);
     }
 
@@ -38,7 +39,11 @@ export class VacanciesService {
         return this.http.post<any>(API + 'resume', body);
     }
 
-     getResumeId(id: number) {
+    editResume(body: any){
+        return this.http.put<any>(API + 'resume', body);
+    }
+
+    getResumeId(id: number) {
         return this.http.get<any>(API + 'resume/' + id);
     }
 
