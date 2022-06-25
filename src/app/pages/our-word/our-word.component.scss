@@ -2,7 +2,11 @@ ul{
     margin: 0;
     padding: 0;
 }
-
+.main-box{
+    background: linear-gradient(99deg, #f6f9fe 0%, #e8f1f8 100%);
+    height: 100%;
+    width: 100%;
+}
 .box{
     width: 800px;
     height:auto;
@@ -15,7 +19,7 @@ ul{
     margin-bottom: 10px;
 }
 #box2{
-    width: 100%;
+    width: 98%;
     height: auto;
 }
 .btn-block{
@@ -55,6 +59,8 @@ ul{
 .main-info .basic-infor .person-name{
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 0 20px;
 }
 
@@ -104,7 +110,13 @@ ul{
     font-size: 16px;
     font-weight: 700;
     color: #000;
+    width: auto;
 }
+
+.info-block .info li span:nth-child(2){
+    width: auto;
+}
+
 
 .work-info .info li,
 .edu-info .info li,
@@ -147,7 +159,46 @@ ul{
 }
 
 
+::ng-deep table {
+    width: 600px;
+    text-align: center;
+}
+::ng-deep .relative  .p-datatable .p-datatable-thead tr > th{
+    text-align: center !important;
+    width: 76px !important;
+}
 
+::ng-deep .relative  .p-datatable  tr > td textarea{
+    text-align: center !important;
+    width: 74px !important;
+}
+
+//::ng-deep .relative .p-datatable  .p-datatable-tbody{
+//    background: red !important;
+//}
+
+@media (max-width: 768px) {
+    .block,
+    .box {
+        margin: 20px 0;
+        width: 660px;
+    }
+    .main-info .img-block {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto 40px;
+
+    }
+    .main-info .img-block img{
+        width: 100%;
+        height: 100%;
+        margin: 40px 0 0 0px;
+    }
+
+
+
+
+}
 
 @media (max-width: 425px) {
     .block,
@@ -159,12 +210,17 @@ ul{
     .main-info{
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 0 20px;
     }
+
+
 
     .main-info .img-block {
         width: 250px;
         height: 250px;
+        margin: 0 auto 40px;
+
     }
 
     .main-info .img-block img{
@@ -173,10 +229,7 @@ ul{
     }
 
     .main-info .basic-infor .person-name{
-        display: flex;
-        align-items: center;
-        text-align: center;
-        flex-direction: column;
+
         gap: 0 20px;
     }
 
@@ -189,6 +242,10 @@ ul{
         margin: 20px 0;
         padding: 10px;
         width: 300px;
+    }
+
+    .info-block .block {
+       width: 300px;
     }
 
 }

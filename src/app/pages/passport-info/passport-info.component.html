@@ -1,6 +1,22 @@
 <div *ngIf="loadingService.isLoading | async" class="loading-container">
         <app-loading></app-loading>
 </div>
+<swal
+    #saveSwal
+    (confirm)="saveSwalFunc()"
+    [focusCancel]="true"
+    icon="success"
+    title="Успешно сохранено!">
+</swal>
+<swal
+    #warnSwal
+    (confirm)="warnSwalFunc()"
+    [focusCancel]="true"
+    icon="warning"
+    text="Попробуйте заного"
+    title="Что то пошло не так!">
+</swal>
+
 <div class="box" >
     <h3>Введите свои паспортные данные</h3>
     <form [formGroup]="passportForm" (submit)="passportSubmit()" class="box-form">

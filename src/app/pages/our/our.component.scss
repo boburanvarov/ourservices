@@ -36,6 +36,22 @@
     width: 265px !important;
 }
 
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month,
+
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year {
+    padding: 5px;
+
+    border: none;
+}
+
+
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year::-webkit-scrollbar{
+    display: none;
+}
+::ng-deep .p-datepicker .p-datepicker-header .p-datepicker-title select option{
+    margin: 10px !important;
+}
+
 .search {
     margin-top: 10px;
     background: #162be4;

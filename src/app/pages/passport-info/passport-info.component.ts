@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {VacanciesService} from '../../shared/services/vacancies.service';
 import {Router} from '@angular/router';
 import {LoadingService} from '../../shared/services/loading.service';
 import {TokenService} from '../../shared/services/token.service';
+import {SwalComponent} from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
     selector: 'app-passport-info',
@@ -13,6 +14,10 @@ import {TokenService} from '../../shared/services/token.service';
 })
 export class PassportInfoComponent implements OnInit {
 
+    @ViewChild('saveSwal')
+    public readonly saveSwal!: SwalComponent;
+    @ViewChild('warnSwal')
+    public readonly warnSwal!: SwalComponent;
 
     personInfo: any;
 
@@ -44,6 +49,9 @@ export class PassportInfoComponent implements OnInit {
 
     ngOnInit(): void {
     }
+    saveSwalFunc() {}
+
+    warnSwalFunc() {}
 
     dateFormater(date: any) {
         return formatDate(new Date(Date.parse(date)), 'dd.MM.yyyy', 'en');
@@ -65,19 +73,19 @@ export class PassportInfoComponent implements OnInit {
         console.log(body);
         this.tokenService.removeGroupSessionStroge2()
         this.vacanciesService.postPassport(body).subscribe((res) => {
-                if (res) {
-                    console.log(res);
+
+                    // console.log(res);
                     this.personInfo = res;
                     this.router.navigate(['steps/our']);
                     sessionStorage.setItem('passportInfo', JSON.stringify(this.personInfo))
 
-
-                }
+                this.saveSwal.fire();
             },
             (error) => {
-                console.log(error);
-            }
-        );
+                if (error.status === 404 || error.status === 500) {
+                    this.warnSwal.fire();
+                }
+            });
 
     }
 

@@ -39,6 +39,9 @@
 .main {
     width: 100%;
     height: auto;
+    //background: url("../../../assets/vacan2.jpg") no-repeat ;
+    background-size: cover;
+    background-position: center;
 }
 
 .content {
@@ -49,6 +52,8 @@
     justify-content: center;
     flex-direction: column;
 }
+
+
 
 .btn-block {
     ::ng-deep button {

@@ -27,19 +27,33 @@ export class VacanciesService {
         return this.http.post<any>(API + 'work', body);
     }
 
+    editWorks(body: any): Observable<any> {
+        return this.http.put<any>(API + 'work', body);
+    }
+
+
     postEdu(body: any): Observable<any> {
         return this.http.post<any>(API + 'education', body);
     }
 
+    editEducations(body: any): Observable<any> {
+        return this.http.put<any>(API + 'education', body);
+    }
+
+
     postRelative(body: any): Observable<any> {
         return this.http.post<any>(API + 'relative', body);
+    }
+
+    editRelative(body: any): Observable<any> {
+        return this.http.put<any>(API + 'relative', body);
     }
 
     postResume(body: any) {
         return this.http.post<any>(API + 'resume', body);
     }
 
-    editResume(body: any){
+    editResume(body: any): Observable<any> {
         return this.http.put<any>(API + 'resume', body);
     }
 

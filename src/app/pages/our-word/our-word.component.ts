@@ -13,6 +13,33 @@ import { saveAs } from 'file-saver/FileSaver';
 })
 export class OurWordComponent implements OnInit {
 
+    tableTitle = [
+        {
+            name: 'Қариндошлик'
+        },
+        {
+            name: 'Исм'
+        },
+        {
+            name: 'Фамилия'
+        },
+        {
+            name: 'Отасининг исми'
+        },
+        {
+            name: 'Туғилган кун'
+        },
+        {
+            name: 'Туғилган жой'
+        },
+        {
+            name: 'Лавозими'
+        },
+        {
+            name: 'Яшаш жойи'
+        },
+    ]
+
     constructor(private vacanciesServices: VacanciesService,
                 private router: Router,
                 private sanitizer: DomSanitizer) {

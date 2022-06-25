@@ -110,7 +110,8 @@
                     <span class="user-title">Таълим</span>
                 </div>
 
-                <p-table [value]="resumeItem?.education_info">
+                <p-table [responsive]="true"
+                         responsiveLayout="scroll" [value]="resumeItem?.education_info">
 >
                     <ng-template pTemplate="header">
                         <tr>
@@ -131,12 +132,12 @@
                                      </textarea>
                             </td>
                             <td style="min-width:150px">
-                                 <textarea class="autotext" value="{{edu.start}}" autosize>
+                                 <textarea class="autotext" value="{{edu.start_date}}" autosize>
                                      </textarea>
 
                             </td>
                             <td style="min-width:150px">
-                                 <textarea class="autotext" value="{{edu.end}}" autosize>
+                                 <textarea class="autotext" value="{{edu.end_date}}" autosize>
                                  </textarea>
                             </td>
 
@@ -170,7 +171,8 @@
                     <!--                    <i class="fas fa-briefcase"></i>-->
                     <span class="user-title">Иш тажрибаси</span>
                 </div>
-                <p-table [value]="resumeItem?.work_info" scrollHeight="400px">
+                <p-table     [responsive]="true"
+                             responsiveLayout="scroll" [value]="resumeItem?.work_info" >
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="min-width:150px">Компания номи</th>
@@ -190,11 +192,11 @@
                                  </textarea>
                             </td>
                             <td style="min-width:150px">
-                                 <textarea class="autotext" value="{{company.start}}" autosize>
+                                 <textarea class="autotext" value="{{company.start_date}}" autosize>
                                  </textarea>
                             </td>
                             <td style="min-width:150px">
-                                 <textarea class="autotext" value="{{company.end}}" autosize>
+                                 <textarea class="autotext" value="{{company.end_date}}" autosize>
                                  </textarea>
                             </td>
 
@@ -224,43 +226,108 @@
 
 
         </div>
+        <div class="info">
+            <p-table
+                    [responsive]="true"
+                    responsiveLayout="scroll"
+                     [value]="resumeItem?.relatives" class="relative">
+                >
+                <ng-template pTemplate="header"  let-columns>
+                    <tr>
+                        <th *ngFor="let title of tableTitle">
+                            {{title.name}}
+                            <!--                            Қариндошлик-->
+                        </th>
+                        <!--                        <th style="min-width:150px">Исм</th>-->
+                        <!--                        <th style="min-width:150px">Фамилия</th>-->
+                        <!--                        <th style="min-width:150px">Отасининг исми</th>-->
+
+                        <!--                        <th style="min-width:150px">Туғилган кун</th>-->
+                        <!--                        <th style="min-width:150px">Туғилган жой</th>-->
+                        <!--                        <th style="min-width:150px">Лавозими</th>-->
+                        <!--                        <th style="min-width:150px">Яшаш жойи</th>-->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-relative>
+                    <tr>
+                        <td>
+                                <textarea class="autotext" value="{{relative.kinship}}" autosize>
+                                     </textarea>
+                        </td>
+                        <td>
+                                    <textarea class="autotext" value="{{relative.first_name}}" autosize>
+                                     </textarea>
+                        </td>
+                        <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{relative.last_name}}" autosize>
+                                     </textarea>
+
+                        </td>
+                        <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{relative.middle_name}}" autosize>
+                                 </textarea>
+                        </td>
+
+                        <td>
+                                <textarea class="autotext" value="{{relative.birth_date}}" autosize>
+                                     </textarea>
+                        </td>
+                        <td>
+                                    <textarea class="autotext" value="{{relative.birth_place}}" autosize>
+                                     </textarea>
+                        </td>
+                        <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{relative.position}}" autosize>
+                                     </textarea>
+
+                        </td>
+                        <td style="min-width:150px">
+                                 <textarea class="autotext" value="{{relative.living_place}}" autosize>
+                                 </textarea>
+                        </td>
+
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
 
 
     </div>
 
-    <div class="box" id="box2">
+<!--    <div class="box" id="box2">-->
 
 
-        <p-table [value]="resumeItem?.relatives" scrollHeight="400px">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="min-width:150px">Родство</th>
-                    <th style="min-width:150px">Имя</th>
-                    <th style="min-width:150px">Фамилия</th>
-                    <th style="min-width:150px">Отчество</th>
+<!--        <p-table [value]="resumeItem?.relatives" scrollHeight="400px">-->
+<!--            <ng-template pTemplate="header">-->
+<!--                <tr>-->
+<!--                    <th style="min-width:150px">Родство</th>-->
+<!--                    <th style="min-width:150px">Имя</th>-->
+<!--                    <th style="min-width:150px">Фамилия</th>-->
+<!--                    <th style="min-width:150px">Отчество</th>-->
 
-                    <th style="min-width:150px">Дата рождения</th>
-                    <th style="min-width:150px">Место рождения</th>
-                    <th style="min-width:150px">Должность</th>
-                    <th style="min-width:150px">Места жительства</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-relative>
-                <tr>
-                    <td style="min-width:150px">{{relative.kinship}}</td>
-                    <td style="min-width:150px">{{relative.firstName}}</td>
-                    <td style="min-width:150px">{{relative.lastName}}</td>
-                    <td style="min-width:150px">{{relative.middleName}}</td>
-
-
-                    <td style="min-width:150px">{{relative.birthDate}}</td>
-                    <td style="min-width:150px">{{relative.birthPlace}}</td>
-                    <td style="min-width:150px">{{relative.position}}</td>
-                    <td style="min-width:150px">{{relative.livingPlace}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+<!--                    <th style="min-width:150px">Дата рождения</th>-->
+<!--                    <th style="min-width:150px">Место рождения</th>-->
+<!--                    <th style="min-width:150px">Должность</th>-->
+<!--                    <th style="min-width:150px">Места жительства</th>-->
+<!--                </tr>-->
+<!--            </ng-template>-->
+<!--            <ng-template pTemplate="body" let-relative>-->
+<!--                <tr>-->
+<!--                    <td style="min-width:150px">{{relative.kinship}}</td>-->
+<!--                    <td style="min-width:150px">{{relative.firstName}}</td>-->
+<!--                    <td style="min-width:150px">{{relative.lastName}}</td>-->
+<!--                    <td style="min-width:150px">{{relative.middleName}}</td>-->
 
 
-    </div>
+<!--                    <td style="min-width:150px">{{relative.birthDate}}</td>-->
+<!--                    <td style="min-width:150px">{{relative.birthPlace}}</td>-->
+<!--                    <td style="min-width:150px">{{relative.position}}</td>-->
+<!--                    <td style="min-width:150px">{{relative.livingPlace}}</td>-->
+<!--                </tr>-->
+<!--            </ng-template>-->
+<!--        </p-table>-->
+
+
+<!--    </div>-->
+
 </div>

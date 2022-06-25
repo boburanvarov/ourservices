@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 import {Utils} from '../../shared/Utils';
 import {LoadingService} from '../../shared/services/loading.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {error} from 'protractor';
 
 
 @Component({
@@ -22,6 +23,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class OurComponent implements OnInit, OnDestroy {
     @ViewChild('saveSwal')
     public readonly saveSwal!: SwalComponent;
+
+    @ViewChild('saveSwal2')
+    public readonly saveSwal2!: SwalComponent;
+
     @ViewChild('warnSwal')
     public readonly warnSwal!: SwalComponent;
 
@@ -31,16 +36,16 @@ export class OurComponent implements OnInit, OnDestroy {
     languages: any[] = [];
     workInfo: any[] = [];
     eduInfo: any[] = [];
-    eduInfo2 = {};
     relatives: any[] = [];
     activeDisabled = true;
     imageError: string = '';
     personInfo: any;
     education_level: any[];
     fileSize: number = 0;
-    editWork: any[]= [];
-    editEdu: any[]=[];
-    editRelative: any[]=[];
+    editWork: any[] = [];
+    editEdu: any[] = [];
+    editRelative: any[] = [];
+    vacancy: any;
 
     constructor(
         private fb: FormBuilder,
@@ -138,6 +143,7 @@ export class OurComponent implements OnInit, OnDestroy {
     newWorkExperience() {
         return this.fb.group({
             id: [],
+            created_at: [],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
             company: ['', Validators.required],
@@ -148,6 +154,7 @@ export class OurComponent implements OnInit, OnDestroy {
     newEducationInfo() {
         return this.fb.group({
             id: [],
+            created_at: [],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
             name: ['', Validators.required],
@@ -158,6 +165,7 @@ export class OurComponent implements OnInit, OnDestroy {
     newRelativeInfo() {
         return this.fb.group({
             id: [],
+            created_at: [],
             kinship: ['', Validators.required],
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -172,11 +180,11 @@ export class OurComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.education_level = [
-            {name: 'Oliy Malumot', code: 'Oliy Malumot'},
-            {name: `O'rta maxsus`, code: `O'rta maxsus`},
+            {name: 'Высшее образование', code: 'Высшее образование'},
+            {name: `Средний специальный`, code: `Средний специальный`},
         ];
-        const resume = Utils.getItem('resume')
-        if(resume){
+        const resume = Utils.getItem('resume');
+        if (resume) {
             this.activeDisabled = false;
             this.base64textString = this.sanitizer.bypassSecurityTrustResourceUrl(resume.image);
         }
@@ -198,22 +206,22 @@ export class OurComponent implements OnInit, OnDestroy {
 
         }
         if (!Utils.IsExist('workExperience')) {
-            if(Utils.getItem('workExperience').length > 1){
-                this.workExprienceElements.push(this.newWorkExperience())
+            if (Utils.getItem('workExperience').length > 1) {
+                this.workExprienceElements.push(this.newWorkExperience());
             }
             this.workExprienceElements.patchValue(Utils.getItem('workExperience'));
 
         }
         if (!Utils.IsExist('educationInfo')) {
-            if(Utils.getItem('educationInfo').length > 1){
-                this.educationInfoElements.push(this.newEducationInfo())
+            if (Utils.getItem('educationInfo').length > 1) {
+                this.educationInfoElements.push(this.newEducationInfo());
             }
             this.educationInfoElements.patchValue(Utils.getItem('educationInfo'));
 
         }
         if (!Utils.IsExist('relativeInfo')) {
-            if(Utils.getItem('relativeInfo').length > 1){
-                this.relativeInfoElements.push(this.newRelativeInfo())
+            if (Utils.getItem('relativeInfo').length > 1) {
+                this.relativeInfoElements.push(this.newRelativeInfo());
             }
             this.relativeInfoElements.patchValue(Utils.getItem('relativeInfo'));
 
@@ -222,7 +230,6 @@ export class OurComponent implements OnInit, OnDestroy {
             this.languagesForm.patchValue(Utils.getItem('languagesForm'));
 
         }
-
 
 
     }
@@ -235,17 +242,30 @@ export class OurComponent implements OnInit, OnDestroy {
 
     }
 
-    warnSwalFunc() {
-
+    saveSwalFunc2() {
+        this.router.navigate(['welcome'])
     }
 
+    warnSwalFunc() { }
+
     ngOnDestroy() {
-        sessionStorage.setItem('basicInfor', JSON.stringify(this.basicInfor.value));
-        sessionStorage.setItem('personalInfor', JSON.stringify(this.personalInfor.value));
-        sessionStorage.setItem('workExperience', JSON.stringify(this.workInfo));
-        sessionStorage.setItem('educationInfo', JSON.stringify(this.eduInfo));
-        sessionStorage.setItem('relativeInfo', JSON.stringify(this.relatives));
-        sessionStorage.setItem('languagesForm', JSON.stringify(this.languagesForm.value));
+        const resume = Utils.getItem('resume');
+        if (resume) {
+            sessionStorage.setItem('basicInfor', JSON.stringify(this.basicInfor.value));
+            sessionStorage.setItem('personalInfor', JSON.stringify(this.personalInfor.value));
+            sessionStorage.setItem('workExperience', JSON.stringify(resume.work_info));
+            sessionStorage.setItem('educationInfo', JSON.stringify(resume.education_info));
+            sessionStorage.setItem('relativeInfo', JSON.stringify(resume.relatives));
+            sessionStorage.setItem('languagesForm', JSON.stringify(this.languagesForm.value));
+        }
+
+        // sessionStorage.setItem('basicInfor', JSON.stringify(this.basicInfor.value));
+        // sessionStorage.setItem('personalInfor', JSON.stringify(this.personalInfor.value));
+        // sessionStorage.setItem('workExperience', JSON.stringify(this.workInfo));
+        // sessionStorage.setItem('educationInfo', JSON.stringify(this.eduInfo));
+        // sessionStorage.setItem('relativeInfo', JSON.stringify(this.relatives));
+        // sessionStorage.setItem('languagesForm', JSON.stringify(this.languagesForm.value));
+
     }
 
     //addWork
@@ -348,23 +368,26 @@ export class OurComponent implements OnInit, OnDestroy {
 
 
             this.vacanciesService.postWork(body).subscribe((res) => {
-                if (res) {
+
                     this.workInfo.push(res);
-                    console.log(this.workInfo,'work');
-                    console.log(res, 'res');
+                    // console.log(this.workInfo,'work');
+                    // console.log(res, 'res');
                     this.messageService.add({
                         key: 'tst',
                         severity: 'success',
                         summary: 'Информация успешно сохранена'
                     });
-                } else {
-                    this.messageService.add({
-                        key: 'tst',
-                        severity: 'error',
-                        summary: 'Произошла ошибка при сохранении информации'
-                    });
-                }
-            });
+
+            },
+                (error)=>{
+                    if (error.status) {
+                        this.messageService.add({
+                            key: 'tst',
+                            severity: 'error',
+                            summary: 'Произошла ошибка при сохранении информации'
+                        });
+                    }
+                });
         });
 
     }
@@ -384,7 +407,7 @@ export class OurComponent implements OnInit, OnDestroy {
             };
             console.log(edu, 'edu');
             this.vacanciesService.postEdu(edu).subscribe((res) => {
-                if (res) {
+
 
                     this.eduInfo.push(res);
                     console.log(res);
@@ -393,14 +416,17 @@ export class OurComponent implements OnInit, OnDestroy {
                         severity: 'success',
                         summary: 'Информация успешно сохранена'
                     });
-                } else {
-                    this.messageService.add({
-                        key: 'tst',
-                        severity: 'error',
-                        summary: 'Произошла ошибка при сохранении информации'
-                    });
-                }
-            });
+
+            },
+                (error)=>{
+                    if (error.status) {
+                        this.messageService.add({
+                            key: 'tst',
+                            severity: 'error',
+                            summary: 'Произошла ошибка при сохранении информации'
+                        });
+                    }
+                });
         });
 
     }
@@ -424,9 +450,6 @@ export class OurComponent implements OnInit, OnDestroy {
             };
             console.log(rel, 'rel');
             this.vacanciesService.postRelative(rel).subscribe((res) => {
-
-                if (res) {
-
                     this.relatives.push(res);
                     console.log(res);
                     this.messageService.add({
@@ -434,14 +457,17 @@ export class OurComponent implements OnInit, OnDestroy {
                         severity: 'success',
                         summary: 'Информация успешно сохранена'
                     });
-                } else {
-                    this.messageService.add({
-                        key: 'tst',
-                        severity: 'error',
-                        summary: 'Произошла ошибка при сохранении информации'
-                    });
-                }
-            });
+
+            },
+                (error)=>{
+                    if (error.status) {
+                        this.messageService.add({
+                            key: 'tst',
+                            severity: 'error',
+                            summary: 'Произошла ошибка при сохранении информации'
+                        });
+                    }
+                });
         });
 
     }
@@ -463,14 +489,14 @@ export class OurComponent implements OnInit, OnDestroy {
 
         console.log(this.fileSize);
         console.log(this.workInfo, 'workinfo');
-        if (!this.basicInfor.valid ) {
+        if (!this.basicInfor.valid) {
             this.basicInfor.markAllAsTouched();
             this.personalInfor.markAllAsTouched();
 
             this.educationInfoElements.markAllAsTouched();
             return;
         }
-        if(!this.personalInfor){
+        if (!this.personalInfor) {
             this.basicInfor.markAllAsTouched();
             this.personalInfor.markAllAsTouched();
 
@@ -484,105 +510,209 @@ export class OurComponent implements OnInit, OnDestroy {
             return;
         }
 
-            console.log(this.workInfo, 'workinfo2');
+        console.log(this.workInfo, 'workinfo2');
 
-        const vacancies =   Utils.getItem('vacancy');
-            console.log(vacancies);
-            if (vacancies) {
-                const form = this.basicInfor.value;
-                const body = {
-                    first_name: this.basicInfor.get('name').value,
-                    last_name: this.basicInfor.get('fName').value,
-                    middle_name: this.basicInfor.get('lName').value,
-                    education_level: this.basicInfor.get('education_level').value.code,
-                    image: this.base64textString,
-                    birth_date: this.basicInfor.get('birth_date').value,
-                    birth_place: this.basicInfor.get('birth_place').value,
-                    nationality: this.basicInfor.get('nationality').value,
-                    phone: this.basicInfor.get('phone').value,
-                    partisanship: this.personalInfor.get('partisanship').value,
-                    education_degree: this.personalInfor.get('education_degree').value,
-                    specialty: this.personalInfor.get('specialty').value,
-                    academic_degree: this.personalInfor.get('academic_degree').value,
-                    awards: this.personalInfor.get('awards').value,
-                    government_agencies: this.personalInfor.get('government_agencies').value,
-                    email: this.personalInfor.get('email').value,
-                    work_info: this.workInfo,
-                    education_info: this.eduInfo,
-                    languages: this.languagesForm.get('languages').value,
-                    relatives: this.relatives,
-                    vacancy: vacancies
-                };
-                console.log(body);
-                this.vacanciesService.postResume(body).subscribe((res) => {
+        const vacancies = Utils.getItem('vacancy');
+        console.log(vacancies);
+        if (vacancies) {
+            const form = this.basicInfor.value;
+            const body = {
+                first_name: this.basicInfor.get('name').value,
+                last_name: this.basicInfor.get('fName').value,
+                middle_name: this.basicInfor.get('lName').value,
+                education_level: this.basicInfor.get('education_level').value.code,
+                image: this.base64textString,
+                birth_date: this.basicInfor.get('birth_date').value,
+                birth_place: this.basicInfor.get('birth_place').value,
+                nationality: this.basicInfor.get('nationality').value,
+                phone: this.basicInfor.get('phone').value,
+                partisanship: this.personalInfor.get('partisanship').value,
+                education_degree: this.personalInfor.get('education_degree').value,
+                specialty: this.personalInfor.get('specialty').value,
+                academic_degree: this.personalInfor.get('academic_degree').value,
+                awards: this.personalInfor.get('awards').value,
+                government_agencies: this.personalInfor.get('government_agencies').value,
+                email: this.personalInfor.get('email').value,
+                work_info: this.workInfo,
+                education_info: this.eduInfo,
+                languages: this.languagesForm.get('languages').value,
+                relatives: this.relatives,
+                vacancy: vacancies
+            };
+            console.log(body);
+            this.vacanciesService.postResume(body).subscribe((res) => {
+                console.log(res);
+                this.vacancy = res;
+                Utils.setItem('resume', res);
+                this.saveSwal.fire();
+            }, (error) => {
+                if (error.status === 404 || error.status === 500) {
+                    this.warnSwal.fire();
+                }
+            });
+        } else {
+            const noVacancy = {
+                first_name: this.basicInfor.get('name').value,
+                last_name: this.basicInfor.get('fName').value,
+                middle_name: this.basicInfor.get('lName').value,
+                image: this.base64textString,
+                birth_date: this.basicInfor.get('birth_date').value,
+                birth_place: this.basicInfor.get('birth_place').value,
+                nationality: this.basicInfor.get('nationality').value,
+                phone: this.basicInfor.get('phone').value,
+                partisanship: this.personalInfor.get('partisanship').value,
+                education_degree: this.personalInfor.get('education_degree').value,
+                specialty: this.personalInfor.get('specialty').value,
+                academic_degree: this.personalInfor.get('academic_degree').value,
+                awards: this.personalInfor.get('awards').value,
+                government_agencies: this.personalInfor.get('government_agencies').value,
+                email: this.personalInfor.get('email').value,
+                work_info: this.workInfo,
+                education_info: this.eduInfo,
+                languages: this.languagesForm.get('languages').value,
+                relatives: this.relatives,
+            };
+            console.log(noVacancy);
+            this.vacanciesService.postResume(noVacancy).subscribe((res) => {
                     console.log(res);
-                    console.log(res);
-                    sessionStorage.setItem('resume', JSON.stringify(res));
+                    this.vacancy = res;
+                    Utils.setItem('resume', res);
+                    this.activeDisabled = true;
                     this.saveSwal.fire();
-                }, (error) => {
+                },
+                (error) => {
                     if (error.status === 404 || error.status === 500) {
                         this.warnSwal.fire();
                     }
                 });
-            } else {
-                const noVacancy = {
-                    first_name: this.basicInfor.get('name').value,
-                    last_name: this.basicInfor.get('fName').value,
-                    middle_name: this.basicInfor.get('lName').value,
-                    image: this.base64textString,
-                    birth_date: this.basicInfor.get('birth_date').value,
-                    birth_place: this.basicInfor.get('birth_place').value,
-                    nationality: this.basicInfor.get('nationality').value,
-                    phone: this.basicInfor.get('phone').value,
-                    partisanship: this.personalInfor.get('partisanship').value,
-                    education_degree: this.personalInfor.get('education_degree').value,
-                    specialty: this.personalInfor.get('specialty').value,
-                    academic_degree: this.personalInfor.get('academic_degree').value,
-                    awards: this.personalInfor.get('awards').value,
-                    government_agencies: this.personalInfor.get('government_agencies').value,
-                    email: this.personalInfor.get('email').value,
-                    work_info: this.workInfo,
-                    education_info: this.eduInfo,
-                    languages: this.languagesForm.get('languages').value,
-                    relatives: this.relatives,
-                };
-                console.log(noVacancy);
-                this.vacanciesService.postResume(noVacancy).subscribe((res) => {
-                        console.log(res);
-                        console.log(res);
-                        sessionStorage.setItem('resume', JSON.stringify(res));
-                        this.activeDisabled = true;
-                        this.saveSwal.fire();
-                    },
-                    (error) => {
-                        if (error.status === 404 || error.status === 500) {
-                            this.warnSwal.fire();
-                        }
-                    });
-            }
-            setTimeout(() => {
+        }
+        setTimeout(() => {
 
-            }, 3000);
-
-
-
+        }, 3000);
 
 
     }
 
-    editResume(){
 
+    editWorks() {
+
+        this.workExprienceElements.controls.forEach(el => {
+            console.log(el.value, 'el');
+            const body = {
+                id: el.value.id,
+                start_date: el.value.start_date,
+                end_date: el.value.end_date,
+                company: el.value.company,
+                position: el.value.position
+            };
+
+
+            this.vacanciesService.editWorks(body).subscribe((res) => {
+
+                    this.editWork.push(res);
+                    console.log(res, 'res');
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'success',
+                        summary: 'Информация успешно сохранена'
+                    });
+                },
+                (error) => {
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'error',
+                        summary: 'Произошла ошибка при сохранении информации'
+                    });
+                }
+            );
+        });
+
+    }
+
+    editEducation() {
+
+        this.educationInfoElements.controls.forEach(el => {
+            console.log(el.value, 'el');
+            const edu = {
+                id: el.value.id,
+                start_date: el.value.start_date,
+                end_date: el.value.end_date,
+                name: el.value.name,
+                faculty: el.value.faculty
+            };
+            console.log(edu, 'edu');
+            this.vacanciesService.editEducations(edu).subscribe((res) => {
+
+
+                    this.editEdu.push(res);
+                    console.log(res);
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'success',
+                        summary: 'Информация успешно сохранена'
+                    });
+
+                },
+                (error) => {
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'error',
+                        summary: 'Произошла ошибка при сохранении информации'
+                    });
+                });
+        });
+
+    }
+
+    editRel() {
+        this.relativeInfoElements.controls.forEach(el => {
+            console.log(el.value, 'el');
+            const rel = {
+                id: el.value.id,
+                kinship: el.value.kinship,
+                first_name: el.value.first_name,
+                last_name: el.value.last_name,
+                middle_name: el.value.middle_name,
+                birth_date: el.value.birth_date,
+                birth_place: el.value.birth_place,
+                position: el.value.position,
+                living_place: el.value.living_place,
+            };
+            console.log(rel, 'rel');
+            this.vacanciesService.editRelative(rel).subscribe((res) => {
+                    console.log(res);
+                    this.editRelative.push(res);
+                    console.log(res, 'ed');
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'success',
+                        summary: 'Информация успешно изменить'
+                    });
+
+                },
+                (error) => {
+                    this.messageService.add({
+                        key: 'tst',
+                        severity: 'error',
+                        summary: 'Произошла ошибка при изменить информации'
+                    });
+                });
+        });
+    }
+
+    editResume() {
         const vacancies = Utils.getItem('vacancy');
         const resume = Utils.getItem('resume');
-        this.editWork = this.workExprienceElements.value;
-       this.editEdu = this.educationInfoElements.value;
-      this.editRelative = this.relativeInfoElements.value
-        this.languagesForm.value
-        console.log( this.editEdu);
-        if(resume){
+
+        this.languagesForm.value;
+        console.log(this.editRelative);
+        if (resume) {
+            this.base64textString = resume.image;
+            console.log(this.languagesForm.get('languages').value);
             if (vacancies) {
                 const body = {
                     id: resume.id,
+                    created_at: resume.created_at,
                     first_name: this.basicInfor.get('name').value,
                     last_name: this.basicInfor.get('fName').value,
                     middle_name: this.basicInfor.get('lName').value,
@@ -610,7 +740,7 @@ export class OurComponent implements OnInit, OnDestroy {
                     console.log(res);
                     console.log(res);
                     sessionStorage.setItem('resume', JSON.stringify(res));
-                    this.saveSwal.fire();
+                    this.saveSwal2.fire();
                 }, (error) => {
                     if (error.status === 404 || error.status === 500) {
                         this.warnSwal.fire();
@@ -618,6 +748,8 @@ export class OurComponent implements OnInit, OnDestroy {
                 });
             } else {
                 const noVacancy = {
+                    id: resume.id,
+                    created_at: resume.created_at,
                     first_name: this.basicInfor.get('name').value,
                     last_name: this.basicInfor.get('fName').value,
                     middle_name: this.basicInfor.get('lName').value,
@@ -642,9 +774,9 @@ export class OurComponent implements OnInit, OnDestroy {
                 this.vacanciesService.editResume(noVacancy).subscribe((res) => {
                         console.log(res);
                         console.log(res);
-                        sessionStorage.setItem('resume', JSON.stringify(res));
+                        Utils.setItem('resume', res);
                         this.activeDisabled = true;
-                        this.saveSwal.fire();
+                        this.saveSwal2.fire();
                     },
                     (error) => {
                         if (error.status === 404 || error.status === 500) {

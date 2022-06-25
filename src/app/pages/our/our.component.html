@@ -9,6 +9,14 @@
     icon="success"
     title="Успешно сохранено!">
 </swal>
+
+<swal
+    #saveSwal2
+    (confirm)="saveSwalFunc2()"
+    [focusCancel]="true"
+    icon="success"
+    title="Информация была успешно изменена!">
+</swal>
 <swal
     #warnSwal
     (confirm)="warnSwalFunc()"
@@ -105,8 +113,8 @@
                                 <!--                          </div>-->
 
                                 <div class="inputWrapper">
-                                    <input class="fileInput" (change)="onBasicUploadAuto($event)" type="file"
-                                           name="file1"
+                                    <input class="fileInput" (change)="onBasicUploadAuto($event)" type="file" #file
+
                                            formControlName="images"/>
                                     <i class="pi pi-camera " *ngIf="!base64textString"></i>
                                     <i class="pi pi-pencil " *ngIf="base64textString"></i>
@@ -114,6 +122,7 @@
                                     <img [src]="base64textString" *ngIf="base64textString"/>
 
                                 </div>
+
                                 <!--                            <div class="image-wrap"    >-->
 
                                 <!--                            </div>-->
@@ -422,7 +431,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="start_date">Устроился</label>
-                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                <p-calendar [monthNavigator]="true"  [yearNavigator]="true" yearRange="1800:2100" formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="start_date"></p-calendar>
 
@@ -435,7 +444,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="end_date">Уволился</label>
-                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                <p-calendar [monthNavigator]="true"  [yearNavigator]="true" yearRange="1800:2100" formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="end_date"></p-calendar>
 
@@ -495,10 +504,23 @@
                         <i class="pi pi-exclamation-triangle"></i>
                         <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
                     </p>
+                    <p class="p-col-12 warning-block" *ngIf="!activeDisabled">
+                        <i class="pi pi-exclamation-triangle"></i>
+                        <span>  Пожалуйста, нажмите кнопку «Изменить», чтобы сохранить ваши данные</span>
+                    </p>
                     <div class="add-block p-col-12" *ngIf="activeDisabled">
                         <button class="send" pButton pRipple type="button"
                                 *ngIf="workExprienceElements.length > 0" (click)="saveWork()">
                             <span>Сохранить</span>
+                        </button>
+                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                (click)="add(workExprienceElements)"></button>
+                    </div>
+
+                    <div class="add-block p-col-12" *ngIf="!activeDisabled">
+                        <button class="send" pButton pRipple type="button"
+                                 (click)="editWorks()">
+                            <span>Изменить</span>
                         </button>
                         <button pButton pRipple type="button" icon="pi pi-plus"
                                 (click)="add(workExprienceElements)"></button>
@@ -528,7 +550,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="start_date2">Устроился</label>
-                                <p-calendar formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                <p-calendar [monthNavigator]="true"  [yearNavigator]="true" yearRange="1800:2100" formControlName="start_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="start_date2"></p-calendar>
 
@@ -541,7 +563,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="end_date2">Уволился</label>
-                                <p-calendar formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                <p-calendar [monthNavigator]="true"  [yearNavigator]="true" yearRange="1800:2100" formControlName="end_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="end_date2"></p-calendar>
 
@@ -602,10 +624,23 @@
                         <i class="pi pi-exclamation-triangle"></i>
                         <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
                     </p>
+                    <p class="p-col-12 warning-block" *ngIf="!activeDisabled">
+                        <i class="pi pi-exclamation-triangle"></i>
+                        <span>  Пожалуйста, нажмите кнопку «Изменить», чтобы сохранить ваши данные</span>
+                    </p>
                     <div class="add-block p-col-12" *ngIf="activeDisabled">
                         <button class="send" pButton pRipple type="button"
                                 *ngIf="educationInfoElements.length > 0" (click)="saveEdu()">
                             <span>Сохранить</span>
+                        </button>
+                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                (click)="add(educationInfoElements)"></button>
+                    </div>
+
+                    <div class="add-block p-col-12" *ngIf="!activeDisabled">
+                        <button class="send" pButton pRipple type="button"
+                                (click)="editEducation()">
+                            <span>Изменить</span>
                         </button>
                         <button pButton pRipple type="button" icon="pi pi-plus"
                                 (click)="add(educationInfoElements)"></button>
@@ -740,7 +775,7 @@
 
                             <div class="group-item p-field p-col-12 p-md-12 p-lg-6">
                                 <label for="birth_date2">Дата рождения</label>
-                                <p-calendar formControlName="birth_date" [showIcon]="true" dateFormat="dd.mm.yy"
+                                <p-calendar [monthNavigator]="true"  [yearNavigator]="true" yearRange="1800:2100" formControlName="birth_date" [showIcon]="true" dateFormat="dd.mm.yy"
                                             inputId="icon"
                                             id="birth_date2"></p-calendar>
 
@@ -821,10 +856,23 @@
                         <i class="pi pi-exclamation-triangle"></i>
                         <span>  Пожалуйста, нажмите кнопку «Сохранить», чтобы сохранить ваши данные</span>
                     </p>
+                    <p class="p-col-12 warning-block" *ngIf="!activeDisabled">
+                        <i class="pi pi-exclamation-triangle"></i>
+                        <span>  Пожалуйста, нажмите кнопку «Изменить», чтобы сохранить ваши данные</span>
+                    </p>
                     <div class="add-block p-col-12" *ngIf="activeDisabled">
                         <button class="send" pButton pRipple type="button"
                                 *ngIf="relativeInfoElements.length > 0" (click)="saveRelative()">
                             <span>Сохранить</span>
+                        </button>
+                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                (click)="add(relativeInfoElements)"></button>
+                    </div>
+
+                    <div class="add-block p-col-12" *ngIf="!activeDisabled">
+                        <button class="send" pButton pRipple type="button"
+                                (click)="editRel()">
+                            <span>Изменить</span>
                         </button>
                         <button pButton pRipple type="button" icon="pi pi-plus"
                                 (click)="add(relativeInfoElements)"></button>

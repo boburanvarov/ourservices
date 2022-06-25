@@ -20,7 +20,6 @@ import {VacanciesStepsComponent} from '../vacancies-steps/vacancies-steps.compon
 import {MenuItem} from 'primeng/api';
 import {PassportInfoComponent} from '../passport-info/passport-info.component';
 import {OurWordComponent} from '../our-word/our-word.component';
-
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
